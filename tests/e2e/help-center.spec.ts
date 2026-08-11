@@ -144,9 +144,27 @@ test('homepage uses the DAT direct color direction', async ({page}) => {
     await hero.evaluate((element) => getComputedStyle(element).backgroundImage),
   ).toContain('rgb(0, 129, 199)');
 
+  const searchButton = hero.locator('.aa-DetachedSearchButton');
+  await expect(searchButton).toBeVisible();
+  await expect(searchButton).toHaveCSS('height', '56px');
+  await expect(searchButton).toHaveCSS('border-radius', '16px');
+  await expect(searchButton).toHaveCSS('background-color', 'rgb(255, 255, 255)');
+  await expect(
+    searchButton.locator('.aa-DetachedSearchButtonPlaceholder'),
+  ).toHaveCSS('color', 'rgb(91, 109, 120)');
+
   await expect(
     page.getByRole('heading', {name: 'Bạn cần hỗ trợ nội dung gì?'}),
   ).toHaveCSS('color', 'rgb(255, 255, 255)');
+  await expect(hero.getByText('TRUNG TÂM HỖ TRỢ ĐẠI SỨ XANH')).toHaveCSS(
+    'color',
+    'rgb(234, 248, 255)',
+  );
+  await expect(
+    hero.getByText(
+      'Tìm câu trả lời nhanh, làm đúng từng bước và chỉ liên hệ đội hỗ trợ khi thật sự cần.',
+    ),
+  ).toHaveCSS('color', 'rgb(234, 248, 255)');
   await expect(page.getByText('01', {exact: true})).toHaveCSS(
     'color',
     'rgb(255, 132, 0)',
