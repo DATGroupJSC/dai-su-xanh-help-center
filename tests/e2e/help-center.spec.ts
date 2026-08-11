@@ -60,6 +60,7 @@ test('mobile has no horizontal overflow and exposes the menu toggle', async ({
 });
 
 test('site is locked to light mode', async ({page}) => {
+  await page.emulateMedia({colorScheme: 'dark'});
   await page.goto('/');
 
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'light');
