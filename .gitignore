@@ -4,6 +4,7 @@
 /.playwright-browsers
 /test-results
 /playwright-report
+/.superpowers
 
 # Production
 /build
