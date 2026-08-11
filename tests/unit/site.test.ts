@@ -1,5 +1,5 @@
 import {describe, expect, it} from 'vitest';
-import {quickActions} from '../../src/data/site';
+import {quickActions, readSiteLinks} from '../../src/data/site';
 
 describe('quickActions', () => {
   it('keeps the four approved self-service paths in order', () => {
@@ -15,5 +15,14 @@ describe('quickActions', () => {
     expect(
       quickActions.every((item) => item.to.startsWith('/huong-dan/')),
     ).toBe(true);
+  });
+});
+
+describe('readSiteLinks', () => {
+  it('fails closed when custom fields are absent', () => {
+    expect(readSiteLinks(undefined)).toEqual({
+      registrationUrl: '',
+      supportUrl: '',
+    });
   });
 });

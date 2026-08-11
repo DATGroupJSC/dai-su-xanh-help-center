@@ -31,15 +31,15 @@ export type SiteLinks = {
 };
 
 export function readSiteLinks(
-  customFields: Record<string, unknown>,
+  customFields: Record<string, unknown> | undefined,
 ): SiteLinks {
   return {
     registrationUrl:
-      typeof customFields.registrationUrl === 'string'
+      typeof customFields?.registrationUrl === 'string'
         ? customFields.registrationUrl.trim()
         : '',
     supportUrl:
-      typeof customFields.supportUrl === 'string'
+      typeof customFields?.supportUrl === 'string'
         ? customFields.supportUrl.trim()
         : '',
   };
