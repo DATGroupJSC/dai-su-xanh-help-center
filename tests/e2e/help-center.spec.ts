@@ -135,3 +135,20 @@ test('mobile navbar sidebar keeps its controls readable', async ({page}) => {
     'rgb(0, 79, 122)',
   );
 });
+
+test('homepage uses the DAT direct color direction', async ({page}) => {
+  await page.goto('/');
+
+  const hero = page.locator('main > section').first();
+  expect(
+    await hero.evaluate((element) => getComputedStyle(element).backgroundImage),
+  ).toContain('rgb(0, 129, 199)');
+
+  await expect(
+    page.getByRole('heading', {name: 'Bạn cần hỗ trợ nội dung gì?'}),
+  ).toHaveCSS('color', 'rgb(255, 255, 255)');
+  await expect(page.getByText('01', {exact: true})).toHaveCSS(
+    'color',
+    'rgb(255, 132, 0)',
+  );
+});
