@@ -88,6 +88,18 @@ test('global shell and docs use the DAT palette', async ({page}) => {
     'background-color',
     'rgb(234, 248, 255)',
   );
+  await expect(
+    page
+      .locator(
+        '.theme-doc-sidebar-menu .menu__link--active.menu__link--sublist',
+      )
+      .first(),
+  ).toHaveCSS('color', 'rgb(0, 109, 168)');
+
+  await page.goto('/');
+  const footerLink = page.locator('.footer a').first();
+  await footerLink.focus();
+  await expect(footerLink).toHaveCSS('outline-color', 'rgb(234, 248, 255)');
 
   await page.goto('/khong-ton-tai');
   await expect(page.locator('.not-found-page__code')).toHaveCSS(
