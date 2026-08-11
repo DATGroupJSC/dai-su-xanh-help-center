@@ -58,3 +58,12 @@ test('mobile has no horizontal overflow and exposes the menu toggle', async ({
   ).toBe(true);
   await expect(page.locator('.navbar__toggle')).toBeVisible();
 });
+
+test('site is locked to light mode', async ({page}) => {
+  await page.goto('/');
+
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'light');
+  await expect(
+    page.getByRole('button', {name: /Chuyển đổi chế độ sáng và tối/}),
+  ).toHaveCount(0);
+});
