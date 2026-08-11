@@ -68,3 +68,28 @@ test('site is locked to light mode', async ({page}) => {
     page.getByRole('button', {name: /Chuyển đổi chế độ sáng và tối/}),
   ).toHaveCount(0);
 });
+
+test('global shell and docs use the DAT palette', async ({page}) => {
+  await page.goto('/');
+
+  await expect(page.locator('.navbar')).toHaveCSS(
+    'background-color',
+    'rgb(0, 109, 168)',
+  );
+
+  await page.goto('/huong-dan/bat-dau/dai-su-xanh-la-gi');
+  const activeDoc = page
+    .locator('.menu__link--active:not(.menu__link--sublist)')
+    .first();
+  await expect(activeDoc).toHaveCSS('color', 'rgb(0, 79, 122)');
+  await expect(activeDoc).toHaveCSS(
+    'background-color',
+    'rgb(234, 248, 255)',
+  );
+
+  await page.goto('/khong-ton-tai');
+  await expect(page.locator('.not-found-page__code')).toHaveCSS(
+    'color',
+    'rgb(255, 132, 0)',
+  );
+});
