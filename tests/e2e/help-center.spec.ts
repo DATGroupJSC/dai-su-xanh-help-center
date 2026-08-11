@@ -152,6 +152,8 @@ test('homepage uses the DAT direct color direction', async ({page}) => {
   await expect(
     searchButton.locator('.aa-DetachedSearchButtonPlaceholder'),
   ).toHaveCSS('color', 'rgb(91, 109, 120)');
+  await searchButton.focus();
+  await expect(searchButton).toHaveCSS('outline-color', 'rgb(234, 248, 255)');
 
   await expect(
     page.getByRole('heading', {name: 'Bạn cần hỗ trợ nội dung gì?'}),
