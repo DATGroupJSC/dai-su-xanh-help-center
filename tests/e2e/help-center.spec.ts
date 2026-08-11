@@ -136,6 +136,29 @@ test('mobile navbar sidebar keeps its controls readable', async ({page}) => {
   );
 });
 
+test('desktop navbar search has readable DAT colors and focus', async ({
+  page,
+  isMobile,
+}) => {
+  test.skip(Boolean(isMobile), 'Navbar search is hidden on mobile');
+  await page.goto('/');
+
+  const searchButton = page.locator('.navbar .aa-DetachedSearchButton');
+  await expect(searchButton).toBeVisible();
+  await expect(searchButton).toHaveCSS(
+    'background-color',
+    'rgb(255, 255, 255)',
+  );
+  await expect(
+    searchButton.locator('.aa-DetachedSearchButtonPlaceholder'),
+  ).toHaveCSS('color', 'rgb(91, 109, 120)');
+
+  await searchButton.focus();
+  await expect(searchButton).toHaveCSS('outline-color', 'rgb(234, 248, 255)');
+  await expect(searchButton).toHaveCSS('outline-style', 'solid');
+  await expect(searchButton).toHaveCSS('outline-width', '3px');
+});
+
 test('homepage uses the DAT direct color direction', async ({page}) => {
   await page.goto('/');
 

@@ -93,6 +93,27 @@ body {
   border-color: transparent;
 }
 
+.navbar .aa-DetachedSearchButton {
+  height: 2.5rem;
+  color: var(--dat-muted);
+  background: #fff;
+  border: 1px solid var(--dat-border);
+  border-radius: 0.75rem;
+}
+
+.navbar .aa-DetachedSearchButtonPlaceholder {
+  color: var(--dat-muted);
+}
+
+.navbar .aa-DetachedSearchButtonIcon {
+  color: var(--dat-blue-deep);
+}
+
+.navbar .aa-DetachedSearchButton:focus-visible {
+  outline: 3px solid var(--dat-sky-50);
+  outline-offset: 3px;
+}
+
 .navbar-sidebar__brand,
 .navbar-sidebar__brand .navbar__brand,
 .navbar-sidebar__brand .navbar__title {
