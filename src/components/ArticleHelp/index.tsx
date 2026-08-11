@@ -1,4 +1,6 @@
 import Link from '@docusaurus/Link';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import {readSiteLinks} from '@site/src/data/site';
 
 type ArticleHelpProps = {
   supportUrl: string;
@@ -29,4 +31,11 @@ export function ArticleHelp({supportUrl}: ArticleHelpProps) {
       </Link>
     </section>
   );
+}
+
+export function ConfiguredArticleHelp() {
+  const {siteConfig} = useDocusaurusContext();
+  const {supportUrl} = readSiteLinks(siteConfig.customFields);
+
+  return <ArticleHelp supportUrl={supportUrl} />;
 }

@@ -8,11 +8,17 @@ const config: Config = {
   future: {
     v4: true,
   },
+  markdown: {
+    hooks: {
+      onBrokenMarkdownLinks: 'throw',
+    },
+  },
   url: 'https://dai-su-xanh-help-center.pages.dev',
   baseUrl: '/',
   organizationName: 'dat',
   projectName: 'dai-su-xanh-help-center',
   onBrokenLinks: 'throw',
+  onDuplicateRoutes: 'throw',
   i18n: {
     defaultLocale: 'vi',
     locales: ['vi'],
@@ -85,4 +91,3 @@ const config: Config = {
 };
 
 export default config;
-
