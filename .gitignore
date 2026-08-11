@@ -5,6 +5,7 @@
 /test-results
 /playwright-report
 /.superpowers
+/.worktrees
 
 # Production
 /build
