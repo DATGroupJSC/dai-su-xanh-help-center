@@ -79,7 +79,9 @@ test('global shell and docs use the DAT palette', async ({page}) => {
 
   await page.goto('/huong-dan/bat-dau/dai-su-xanh-la-gi');
   const activeDoc = page
-    .locator('.menu__link--active:not(.menu__link--sublist)')
+    .locator(
+      '.theme-doc-sidebar-menu .menu__link--active:not(.menu__link--sublist)',
+    )
     .first();
   await expect(activeDoc).toHaveCSS('color', 'rgb(0, 79, 122)');
   await expect(activeDoc).toHaveCSS(
@@ -91,5 +93,33 @@ test('global shell and docs use the DAT palette', async ({page}) => {
   await expect(page.locator('.not-found-page__code')).toHaveCSS(
     'color',
     'rgb(255, 132, 0)',
+  );
+  await expect(page.locator('.not-found-page__code')).toHaveCSS(
+    'background-color',
+    'rgb(23, 33, 43)',
+  );
+  await expect(
+    page.locator('.not-found-page__actions .button--primary'),
+  ).toHaveCSS('color', 'rgb(23, 33, 43)');
+});
+
+test('mobile navbar sidebar keeps its controls readable', async ({page}) => {
+  await page.setViewportSize({width: 390, height: 844});
+  await page.goto('/huong-dan/bat-dau/dai-su-xanh-la-gi');
+  await page.locator('.navbar__toggle').click();
+
+  const sidebar = page.locator('.navbar-sidebar');
+  await expect(sidebar).toBeVisible();
+  await expect(sidebar.locator('.navbar__title')).toHaveCSS(
+    'color',
+    'rgb(0, 79, 122)',
+  );
+  await expect(sidebar.locator('.navbar-sidebar__close')).toHaveCSS(
+    'color',
+    'rgb(0, 79, 122)',
+  );
+  await expect(sidebar.locator('.navbar-sidebar__close svg g')).toHaveCSS(
+    'stroke',
+    'rgb(0, 79, 122)',
   );
 });
