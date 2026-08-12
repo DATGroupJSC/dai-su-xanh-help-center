@@ -5,7 +5,9 @@ import config from '../../docusaurus.config';
 
 describe('DAT Group navbar logo', () => {
   it('uses the approved DAT Group SVG with accessible text', () => {
-    const navbar = config.themeConfig?.navbar;
+    const navbar = config.themeConfig?.navbar as
+      | {logo?: {alt?: string; src?: string}}
+      | undefined;
 
     expect(navbar?.logo).toMatchObject({
       alt: 'DAT Group',
