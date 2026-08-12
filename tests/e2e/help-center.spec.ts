@@ -1,7 +1,9 @@
 import {expect, test} from '@playwright/test';
 
+const sitePath = '/dai-su-xanh-help-center';
+
 test('homepage exposes four self-service entry points', async ({page}) => {
-  await page.goto('/');
+  await page.goto(`${sitePath}/`);
 
   await expect(
     page.getByRole('heading', {name: 'Bạn cần hỗ trợ nội dung gì?'}),
@@ -26,7 +28,7 @@ test('guide shows left sidebar and right table of contents', async ({
   isMobile,
 }) => {
   test.skip(Boolean(isMobile), 'Desktop-only three-column assertion');
-  await page.goto('/huong-dan/bat-dau/dai-su-xanh-la-gi');
+  await page.goto(`${sitePath}/huong-dan/bat-dau/dai-su-xanh-la-gi`);
 
   await expect(
     page.getByRole('heading', {name: 'Đại sứ xanh là gì?'}),
@@ -36,7 +38,7 @@ test('guide shows left sidebar and right table of contents', async ({
 });
 
 test('404 returns users to the Help Center', async ({page}) => {
-  await page.goto('/khong-ton-tai');
+  await page.goto(`${sitePath}/khong-ton-tai`);
 
   await expect(
     page.getByRole('heading', {name: 'Không tìm thấy trang này'}),
@@ -49,7 +51,7 @@ test('mobile has no horizontal overflow and exposes the menu toggle', async ({
   page,
 }) => {
   await page.setViewportSize({width: 390, height: 844});
-  await page.goto('/huong-dan/bat-dau/dai-su-xanh-la-gi');
+  await page.goto(`${sitePath}/huong-dan/bat-dau/dai-su-xanh-la-gi`);
 
   expect(
     await page.locator('body').evaluate(
@@ -61,7 +63,7 @@ test('mobile has no horizontal overflow and exposes the menu toggle', async ({
 
 test('site is locked to light mode', async ({page}) => {
   await page.emulateMedia({colorScheme: 'dark'});
-  await page.goto('/');
+  await page.goto(`${sitePath}/`);
 
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'light');
   await expect(
@@ -70,14 +72,14 @@ test('site is locked to light mode', async ({page}) => {
 });
 
 test('global shell and docs use the DAT palette', async ({page}) => {
-  await page.goto('/');
+  await page.goto(`${sitePath}/`);
 
   await expect(page.locator('.navbar')).toHaveCSS(
     'background-color',
     'rgb(0, 109, 168)',
   );
 
-  await page.goto('/huong-dan/bat-dau/dai-su-xanh-la-gi');
+  await page.goto(`${sitePath}/huong-dan/bat-dau/dai-su-xanh-la-gi`);
   const activeDoc = page
     .locator(
       '.theme-doc-sidebar-menu .menu__link--active:not(.menu__link--sublist)',
@@ -96,12 +98,12 @@ test('global shell and docs use the DAT palette', async ({page}) => {
       .first(),
   ).toHaveCSS('color', 'rgb(0, 109, 168)');
 
-  await page.goto('/');
+  await page.goto(`${sitePath}/`);
   const footerLink = page.locator('.footer a').first();
   await footerLink.focus();
   await expect(footerLink).toHaveCSS('outline-color', 'rgb(234, 248, 255)');
 
-  await page.goto('/khong-ton-tai');
+  await page.goto(`${sitePath}/khong-ton-tai`);
   await expect(page.locator('.not-found-page__code')).toHaveCSS(
     'color',
     'rgb(255, 132, 0)',
@@ -117,7 +119,7 @@ test('global shell and docs use the DAT palette', async ({page}) => {
 
 test('mobile navbar sidebar keeps its controls readable', async ({page}) => {
   await page.setViewportSize({width: 390, height: 844});
-  await page.goto('/huong-dan/bat-dau/dai-su-xanh-la-gi');
+  await page.goto(`${sitePath}/huong-dan/bat-dau/dai-su-xanh-la-gi`);
   await page.locator('.navbar__toggle').click();
 
   const sidebar = page.locator('.navbar-sidebar');
@@ -141,7 +143,7 @@ test('desktop navbar search has readable DAT colors and focus', async ({
   isMobile,
 }) => {
   test.skip(Boolean(isMobile), 'Navbar search is hidden on mobile');
-  await page.goto('/');
+  await page.goto(`${sitePath}/`);
 
   const searchButton = page.locator('.navbar .aa-DetachedSearchButton');
   await expect(searchButton).toBeVisible();
@@ -160,7 +162,7 @@ test('desktop navbar search has readable DAT colors and focus', async ({
 });
 
 test('homepage uses the DAT direct color direction', async ({page}) => {
-  await page.goto('/');
+  await page.goto(`${sitePath}/`);
 
   const hero = page.locator('main > section').first();
   expect(

@@ -68,17 +68,13 @@ customFields: {
 
 `registrationUrl` rỗng thì CTA đăng ký không render. `supportUrl` rỗng thì cuối bài dẫn về hướng dẫn hỗ trợ trong website.
 
-## Cloudflare Pages
+## GitHub Pages
 
-Khi repository GitHub đã sẵn sàng, import repository vào Cloudflare Pages với:
+Website công khai tại:
 
-- Production branch: `main`
-- Framework preset: `Docusaurus`
-- Build command: `npm run build`
-- Build output directory: `build`
-- Node.js version: `22`
+`https://datgroupjsc.github.io/dai-su-xanh-help-center/`
 
-Cloudflare tạo preview cho Pull Request và deploy production khi `main` thay đổi. Sau deploy phải smoke test homepage, bốn quick actions, search, sidebar trái, mục lục phải, menu mobile, 404, CTA đăng ký và link hỗ trợ.
+Workflow `deploy-to-github-pages` tự build và deploy website mỗi khi branch `main` thay đổi. Sau deploy phải smoke test homepage, bốn quick actions, search, sidebar trái, mục lục phải, menu mobile, 404, CTA đăng ký và link hỗ trợ.
 
 ## An toàn nội dung
 
