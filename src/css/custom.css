@@ -78,6 +78,22 @@ body {
   letter-spacing: -0.02em;
 }
 
+.navbar__logo {
+  align-items: center;
+  display: inline-flex;
+  height: 2.375rem;
+  padding: 0.3rem 0.55rem;
+  margin-right: 0.625rem;
+  background: #fff;
+  border-radius: 0.5rem;
+}
+
+.navbar__logo img {
+  width: auto;
+  height: 100%;
+  object-fit: contain;
+}
+
 .navbar__link:hover,
 .navbar__link--active {
   color: #d8f2ff;
@@ -250,6 +266,14 @@ body {
 @media (max-width: 996px) {
   .theme-doc-sidebar-container {
     background: #fff;
+  }
+}
+
+@media (max-width: 780px) {
+  .navbar__logo {
+    height: 2rem;
+    padding: 0.25rem 0.45rem;
+    margin-right: 0.45rem;
   }
 }
 

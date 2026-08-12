@@ -197,3 +197,36 @@ test('homepage uses the DAT direct color direction', async ({page}) => {
     'rgb(255, 132, 0)',
   );
 });
+
+test('navbar presents the DAT Group logo clearly on desktop and mobile', async ({
+  page,
+}) => {
+  await page.goto(`${sitePath}/`);
+
+  const logo = page.locator('.navbar__inner > .navbar__items .navbar__logo');
+  await expect(logo).toBeVisible();
+  await expect(logo).toHaveCSS('background-color', 'rgb(255, 255, 255)');
+  await expect(logo.locator('img')).toHaveAttribute('alt', 'DAT Group');
+  expect(
+    await logo.locator('img').evaluate((image) => {
+      const element = image as HTMLImageElement;
+      return (
+        Math.abs(element.naturalWidth / element.naturalHeight - 439.54 / 170.76) <
+        0.02
+      );
+    }),
+  ).toBe(true);
+
+  await page.setViewportSize({width: 390, height: 844});
+  await page.reload();
+  await expect(logo).toBeVisible();
+  await expect(
+    page.locator('.navbar__inner > .navbar__items .navbar__title'),
+  ).toBeVisible();
+  await expect(page.locator('.navbar__toggle')).toBeVisible();
+  expect(
+    await page
+      .locator('body')
+      .evaluate((body) => body.scrollWidth <= window.innerWidth),
+  ).toBe(true);
+});
