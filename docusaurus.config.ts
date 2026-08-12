@@ -63,6 +63,10 @@ const config: Config = {
     },
     navbar: {
       title: 'Đại sứ xanh',
+      logo: {
+        alt: 'DAT Group',
+        src: 'img/logo_DAT_Group.svg',
+      },
       items: [
         {
           to: '/huong-dan/bat-dau/dai-su-xanh-la-gi',
