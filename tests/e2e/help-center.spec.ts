@@ -107,18 +107,28 @@ test('desktop docs use a centered Antsomi shell without navbar identity', async 
     `${sitePath}/huong-dan/dai-su-xanh/bat-dau/dai-su-xanh-la-gi`,
   );
 
-  const [sidebarBox, articleBox, tocBox] = await Promise.all([
+  const shell = page.locator('.dat-doc-shell');
+  await expect(shell).toBeVisible();
+  await expect(page.locator('.doc-site-identity')).toHaveText(
+    'TRUNG TÂM HỖ TRỢ DAT UNIVERSAL',
+  );
+  await expect(
+    page.locator('.navbar__inner > .navbar__items .navbar__title'),
+  ).toHaveCount(0);
+
+  const [shellBox, sidebarBox, articleBox, tocBox] = await Promise.all([
+    shell.boundingBox(),
     page.locator('.theme-doc-sidebar-container').boundingBox(),
     page.locator('.theme-doc-markdown').boundingBox(),
     page.locator('.table-of-contents').boundingBox(),
   ]);
 
-  expect(sidebarBox?.x).toBeGreaterThanOrEqual(90);
-  expect(sidebarBox?.x).toBeLessThanOrEqual(110);
+  expect(shellBox?.x).toBeGreaterThanOrEqual(80);
+  expect(shellBox?.x).toBeLessThanOrEqual(110);
+  expect(sidebarBox?.x).toBe(shellBox?.x);
   expect(articleBox?.x).toBeGreaterThanOrEqual(490);
   expect(articleBox?.x).toBeLessThanOrEqual(550);
   expect(tocBox?.x).toBeGreaterThanOrEqual(1500);
-  await expect(page.locator('.navbar .navbar__title')).toHaveCount(0);
 });
 
 test('404 returns users to the Help Center', async ({page}) => {
