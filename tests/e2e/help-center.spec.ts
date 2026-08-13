@@ -97,6 +97,30 @@ test('guide shows left sidebar and right table of contents', async ({
   await expect(page.locator('.table-of-contents')).toBeVisible();
 });
 
+test('desktop docs use a centered Antsomi shell without navbar identity', async ({
+  page,
+  isMobile,
+}) => {
+  test.skip(Boolean(isMobile), 'Desktop-only Antsomi shell assertion');
+  await page.setViewportSize({width: 1920, height: 1080});
+  await page.goto(
+    `${sitePath}/huong-dan/dai-su-xanh/bat-dau/dai-su-xanh-la-gi`,
+  );
+
+  const [sidebarBox, articleBox, tocBox] = await Promise.all([
+    page.locator('.theme-doc-sidebar-container').boundingBox(),
+    page.locator('.theme-doc-markdown').boundingBox(),
+    page.locator('.table-of-contents').boundingBox(),
+  ]);
+
+  expect(sidebarBox?.x).toBeGreaterThanOrEqual(90);
+  expect(sidebarBox?.x).toBeLessThanOrEqual(110);
+  expect(articleBox?.x).toBeGreaterThanOrEqual(490);
+  expect(articleBox?.x).toBeLessThanOrEqual(550);
+  expect(tocBox?.x).toBeGreaterThanOrEqual(1500);
+  await expect(page.locator('.navbar .navbar__title')).toHaveCount(0);
+});
+
 test('404 returns users to the Help Center', async ({page}) => {
   await page.goto(`${sitePath}/khong-ton-tai`);
 
