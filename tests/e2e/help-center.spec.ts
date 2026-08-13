@@ -146,6 +146,31 @@ test('desktop docs use a centered Antsomi shell without navbar identity', async 
   expect(tocBox.x + tocBox.width).toBeLessThanOrEqual(1840);
 });
 
+test('compact desktop keeps guide readable before wide layout', async ({
+  page,
+  isMobile,
+}) => {
+  test.skip(Boolean(isMobile), 'Desktop-only compact layout assertion');
+  await page.setViewportSize({width: 1024, height: 900});
+  await page.goto(
+    `${sitePath}/huong-dan/dai-su-xanh/bat-dau/dai-su-xanh-la-gi`,
+  );
+
+  const article = page.locator('.theme-doc-markdown');
+  await expect(article).toBeVisible();
+  const articleBox = await article.boundingBox();
+  if (!articleBox) {
+    throw new Error('Expected the guide article to have a layout box');
+  }
+
+  expect(articleBox.width).toBeGreaterThanOrEqual(360);
+  expect(
+    await page.locator('body').evaluate(
+      (body) => body.scrollWidth <= window.innerWidth,
+    ),
+  ).toBe(true);
+});
+
 test('404 returns users to the Help Center', async ({page}) => {
   await page.goto(`${sitePath}/khong-ton-tai`);
 
