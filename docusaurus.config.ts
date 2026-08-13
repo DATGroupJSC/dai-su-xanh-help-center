@@ -128,7 +128,6 @@ const config: Config = {
       respectPrefersColorScheme: false,
     },
     navbar: {
-      title: 'Trung tâm hỗ trợ DAT Universal',
       logo: {
         alt: 'DAT Group',
         src: 'img/logo_DAT_Group.svg',

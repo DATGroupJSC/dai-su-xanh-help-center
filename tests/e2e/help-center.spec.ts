@@ -241,7 +241,9 @@ test('documentation uses the approved spacious three-column DAT layout', async (
   ).toHaveCSS('color', 'rgb(23, 33, 43)');
 });
 
-test('mobile navbar sidebar keeps its controls readable', async ({page}) => {
+test('mobile navbar sidebar keeps its controls readable without duplicating site identity', async ({
+  page,
+}) => {
   await page.setViewportSize({width: 390, height: 844});
   await page.goto(
     `${sitePath}/huong-dan/dai-su-xanh/bat-dau/dai-su-xanh-la-gi`,
@@ -250,10 +252,7 @@ test('mobile navbar sidebar keeps its controls readable', async ({page}) => {
 
   const sidebar = page.locator('.navbar-sidebar');
   await expect(sidebar).toBeVisible();
-  await expect(sidebar.locator('.navbar__title')).toHaveCSS(
-    'color',
-    'rgb(0, 79, 122)',
-  );
+  await expect(sidebar.locator('.navbar__title')).toHaveCount(0);
   await expect(sidebar.locator('.navbar-sidebar__close')).toHaveCSS(
     'color',
     'rgb(0, 79, 122)',
