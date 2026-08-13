@@ -60,6 +60,6 @@ npm run test:e2e
 
 ## GitHub Pages và custom domain
 
-Website hiện tại: `https://datgroupjsc.github.io/dai-su-xanh-help-center/`
+Website hiện tại: `https://datgroupjsc.github.io/dat-universal-help-center/`
 
 GitHub Pages tự deploy khi branch `main` thay đổi. Custom domain được đề xuất là `huongdan.datuniversal.com`, nhưng chỉ cấu hình sau khi người quản trị có quyền chỉnh DNS của `datuniversal.com`. Khi đó cập nhật `url`, `baseUrl` trong `docusaurus.config.ts`, thiết lập custom domain trong GitHub Pages và thêm DNS record theo hướng dẫn của GitHub.

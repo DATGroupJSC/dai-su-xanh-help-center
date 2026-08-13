@@ -9,6 +9,11 @@ describe('DAT Universal help-center configuration', () => {
     );
   });
 
+  it('uses the DAT Universal GitHub Pages address', () => {
+    expect(config.projectName).toBe('dat-universal-help-center');
+    expect(config.baseUrl).toBe('/dat-universal-help-center/');
+  });
+
   it('exposes the five approved navigation destinations', () => {
     const navbar = config.themeConfig?.navbar as {
       items?: Array<{label?: string}>;

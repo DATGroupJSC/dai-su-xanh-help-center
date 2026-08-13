@@ -6,9 +6,9 @@ import config from '../../docusaurus.config';
 describe('GitHub Pages deployment', () => {
   it('targets the public DATGroupJSC project site', () => {
     expect(config.url).toBe('https://datgroupjsc.github.io');
-    expect(config.baseUrl).toBe('/dai-su-xanh-help-center/');
+    expect(config.baseUrl).toBe('/dat-universal-help-center/');
     expect(config.organizationName).toBe('DATGroupJSC');
-    expect(config.projectName).toBe('dai-su-xanh-help-center');
+    expect(config.projectName).toBe('dat-universal-help-center');
     expect(config.trailingSlash).toBe(false);
   });
 
