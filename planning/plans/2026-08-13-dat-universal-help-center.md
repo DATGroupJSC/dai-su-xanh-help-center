@@ -20,7 +20,7 @@
 | `src/pages/index.tsx` | Trang chủ có ba điểm vào theo nhóm người dùng. |
 | `src/pages/index.module.css` | Spacing và giao diện riêng cho trang chủ. |
 | `src/css/custom.css` | Header trắng, typography, layout tài liệu ba cột, sidebar/TOC và responsive. |
-| `docusaurus.config.ts` | Tên DAT Universal, navbar/footer mới và redirect plugin. |
+| `docusaurus.config.ts` | Tên DAT Universal, navbar/footer mới, redirect plugin và quy tắc mở menu trái hai cấp. |
 | `docs/dai-su-xanh/**` | Nội dung Đại sứ xanh được chuyển sang khu vực riêng. |
 | `docs/nha-lap-dat/**` | Trang mở đầu an toàn cho Nhà lắp đặt. |
 | `docs/khach-hang/**` | Trang mở đầu an toàn cho Khách hàng cuối. |
@@ -323,7 +323,7 @@
   });
   ```
 
-  Đồng thời thêm test redirect production này vào `tests/e2e/help-center.spec.ts`:
+  Đồng thời thêm hai test production này vào `tests/e2e/help-center.spec.ts`:
 
   ```ts
   test('former Đại sứ xanh URL redirects to its new audience route', async ({page}) => {
@@ -332,6 +332,17 @@
       new RegExp(`${sitePath}/huong-dan/dai-su-xanh/bat-dau/dai-su-xanh-la-gi`),
     );
     await expect(page.getByRole('heading', {name: 'Đại sứ xanh là gì?'})).toBeVisible();
+  });
+
+  test('sidebar initially shows two navigation levels', async ({page, isMobile}) => {
+    test.skip(Boolean(isMobile), 'Desktop-only sidebar hierarchy assertion');
+    await page.goto(`${sitePath}/huong-dan/dai-su-xanh`);
+
+    const sidebar = page.locator('.theme-doc-sidebar-container');
+    await expect(sidebar.getByText('Bắt đầu', {exact: true})).toBeVisible();
+    await expect(
+      sidebar.getByText('Đại sứ xanh là gì?', {exact: true}),
+    ).not.toBeVisible();
   });
   ```
 
@@ -342,9 +353,10 @@
   ```bash
   npm run test -- tests/unit/help-center-config.test.ts
   npm run test:e2e -- --grep "former Đại sứ xanh URL"
+  npm run test:e2e -- --grep "sidebar initially shows two navigation levels"
   ```
 
-  Expected: FAIL vì title, menu và redirect plugin hiện chưa đúng; link cũ chưa chuyển sang URL mới.
+  Expected: FAIL vì title, menu và redirect plugin hiện chưa đúng; link cũ chưa chuyển sang URL mới, và menu trái chưa có quy tắc mở đúng hai cấp.
 
 - [ ] **Step 3: Cài redirect plugin và cấu hình redirect tường minh**
 
@@ -412,6 +424,35 @@
   ],
   ```
 
+  Trong cấu hình `preset` → `docs`, thêm `sidebarItemsGenerator` để cấu trúc thư mục tự động tuân thủ quy tắc hai cấp, kể cả khi người quản trị thêm category mới sau này:
+
+  ```ts
+  sidebarItemsGenerator: async ({
+    defaultSidebarItemsGenerator,
+    ...generatorArgs
+  }) => {
+    const items = await defaultSidebarItemsGenerator(generatorArgs);
+
+    const applyDefaultExpansion = (sidebarItems: typeof items, level = 1) =>
+      sidebarItems.map((item) => {
+        if (item.type !== 'category') {
+          return item;
+        }
+
+        return {
+          ...item,
+          collapsible: item.items.length > 0,
+          collapsed: level >= 2,
+          items: applyDefaultExpansion(item.items, level + 1),
+        };
+      });
+
+    return applyDefaultExpansion(items);
+  },
+  ```
+
+  Nghĩa là: cấp 1 luôn mở để thấy các nhóm chủ đề cấp 2; bài viết ở cấp 3 mặc định thu gọn. Khi người đọc đang ở một bài, Docusaurus vẫn tự mở đúng nhánh chứa bài đó để họ biết mình đang ở đâu.
+
   Cập nhật footer để link `Trung tâm hỗ trợ` trỏ `/`, đồng thời thêm ba link audience mới. Trong `ArticleHelp`, đổi fallback copy thành “Hãy xem mục Hỗ trợ chung trước khi liên hệ đội hỗ trợ.” và nhãn link thành `Xem mục Hỗ trợ`. Kiểm tra trang 404 vẫn dùng nhãn `Xem mục Hỗ trợ`; không sửa file 404 nếu nhãn này đã đúng.
 
 - [ ] **Step 5: Chạy test GREEN và typecheck**
@@ -421,10 +462,11 @@
   ```bash
   npm run test -- tests/unit/help-center-config.test.ts
   npm run test:e2e -- --grep "former Đại sứ xanh URL"
+  npm run test:e2e -- --grep "sidebar initially shows two navigation levels"
   npm run typecheck
   ```
 
-  Expected: PASS, không có TypeScript error từ config hoặc navbar items.
+  Expected: PASS, không có TypeScript error từ config hoặc navbar items; menu trái tại trang category hiển thị cấp 1 và 2 nhưng chưa bung tên bài cấp 3.
 
 - [ ] **Step 6: Commit độc lập**
 
