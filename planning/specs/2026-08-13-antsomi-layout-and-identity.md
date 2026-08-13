@@ -1,6 +1,6 @@
 # Thiết kế: lề trang và vị trí tên website
 
-Ngày: 2026-08-13  
+Ngày: 2026-08-13
 Trạng thái: Đã được người dùng chốt, sẵn sàng triển khai
 
 ## Mục tiêu
