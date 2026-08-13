@@ -165,8 +165,8 @@ test('compact desktop keeps guide readable before wide layout', async ({
 
   expect(articleBox.width).toBeGreaterThanOrEqual(360);
   expect(
-    await page.locator('body').evaluate(
-      (body) => body.scrollWidth <= window.innerWidth,
+    await page.locator('.dat-doc-shell').evaluate(
+      (shell) => shell.scrollWidth <= shell.clientWidth,
     ),
   ).toBe(true);
 });
