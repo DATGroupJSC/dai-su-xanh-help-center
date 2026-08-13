@@ -2,25 +2,83 @@ import {expect, test} from '@playwright/test';
 
 const sitePath = '/dai-su-xanh-help-center';
 
-test('homepage exposes four self-service entry points', async ({page}) => {
+test('homepage routes users to the three DAT Universal audiences', async ({
+  page,
+}) => {
   await page.goto(`${sitePath}/`);
 
   await expect(
-    page.getByRole('heading', {name: 'Bạn cần hỗ trợ nội dung gì?'}),
+    page.getByRole('heading', {name: 'Trung tâm hỗ trợ DAT Universal'}),
   ).toBeVisible();
 
-  for (const label of [
-    'Bắt đầu tham gia',
-    'Giới thiệu khách hàng',
-    'Theo dõi referral và hoa hồng',
-    'Cần hỗ trợ',
-  ]) {
-    await expect(page.getByRole('link', {name: label})).toHaveCount(1);
+  const main = page.locator('main');
+  for (const label of ['Đại sứ xanh', 'Nhà lắp đặt', 'Khách hàng cuối']) {
+    await expect(
+      main.getByRole('link', {name: new RegExp(label)}),
+    ).toHaveCount(1);
   }
 
+  await expect(main.getByText('Đang bổ sung')).toHaveCount(2);
   await expect(
-    page.getByRole('link', {name: 'Đăng ký Đại sứ xanh'}),
+    main.getByRole('link', {name: 'Đăng ký Đại sứ xanh'}),
   ).toHaveCount(0);
+});
+
+test('each audience has a safe public starting page', async ({page}) => {
+  for (const [path, heading] of [
+    [
+      '/huong-dan/dai-su-xanh/bat-dau/dai-su-xanh-la-gi',
+      'Đại sứ xanh là gì?',
+    ],
+    [
+      '/huong-dan/nha-lap-dat/bat-dau-hop-tac',
+      'Hướng dẫn dành cho Nhà lắp đặt',
+    ],
+    [
+      '/huong-dan/khach-hang/tim-hieu-giai-phap',
+      'Hướng dẫn dành cho Khách hàng cuối',
+    ],
+  ]) {
+    await page.goto(`${sitePath}${path}`);
+    await expect(page.getByRole('heading', {name: heading})).toBeVisible();
+  }
+});
+
+test('former Đại sứ xanh URL redirects to its new audience route', async ({
+  page,
+}) => {
+  await page.goto(
+    `${sitePath}/huong-dan/dai-su-xanh/bat-dau/dai-su-xanh-la-gi`,
+  );
+
+  await expect(page).toHaveURL(
+    new RegExp(
+      `${sitePath}/huong-dan/dai-su-xanh/bat-dau/dai-su-xanh-la-gi`,
+    ),
+  );
+  await expect(
+    page.getByRole('heading', {name: 'Đại sứ xanh là gì?'}),
+  ).toBeVisible();
+});
+
+test('sidebar is scoped to the selected audience and shows two levels', async ({
+  page,
+  isMobile,
+}) => {
+  test.skip(Boolean(isMobile), 'Desktop-only sidebar hierarchy assertion');
+  await page.goto(
+    `${sitePath}/huong-dan/dai-su-xanh/bat-dau/dai-su-xanh-la-gi`,
+  );
+
+  const sidebar = page.locator('.theme-doc-sidebar-container');
+  await expect(sidebar.getByText('Bắt đầu', {exact: true})).toBeVisible();
+  await expect(
+    sidebar.getByText('Đại sứ xanh là gì?', {exact: true}),
+  ).toBeVisible();
+  await expect(sidebar.getByText('Nhà lắp đặt', {exact: true})).toHaveCount(0);
+  await expect(sidebar.getByText('Khách hàng cuối', {exact: true})).toHaveCount(
+    0,
+  );
 });
 
 test('guide shows left sidebar and right table of contents', async ({
@@ -28,7 +86,9 @@ test('guide shows left sidebar and right table of contents', async ({
   isMobile,
 }) => {
   test.skip(Boolean(isMobile), 'Desktop-only three-column assertion');
-  await page.goto(`${sitePath}/huong-dan/bat-dau/dai-su-xanh-la-gi`);
+  await page.goto(
+    `${sitePath}/huong-dan/dai-su-xanh/bat-dau/dai-su-xanh-la-gi`,
+  );
 
   await expect(
     page.getByRole('heading', {name: 'Đại sứ xanh là gì?'}),
@@ -71,15 +131,30 @@ test('site is locked to light mode', async ({page}) => {
   ).toHaveCount(0);
 });
 
-test('global shell and docs use the DAT palette', async ({page}) => {
-  await page.goto(`${sitePath}/`);
+test('documentation uses the approved spacious three-column DAT layout', async ({
+  page,
+  isMobile,
+}) => {
+  test.skip(Boolean(isMobile), 'Desktop-only documentation layout assertion');
+  await page.goto(
+    `${sitePath}/huong-dan/dai-su-xanh/bat-dau/dai-su-xanh-la-gi`,
+  );
 
   await expect(page.locator('.navbar')).toHaveCSS(
     'background-color',
-    'rgb(0, 109, 168)',
+    'rgb(255, 255, 255)',
   );
-
-  await page.goto(`${sitePath}/huong-dan/bat-dau/dai-su-xanh-la-gi`);
+  await expect(page.locator('.navbar')).toHaveCSS('min-height', '120px');
+  await expect(page.locator('.theme-doc-sidebar-container')).toBeVisible();
+  await expect(page.locator('.table-of-contents')).toBeVisible();
+  await expect(page.locator('.theme-doc-markdown')).toHaveCSS(
+    'font-size',
+    '18px',
+  );
+  await expect(page.locator('.theme-doc-markdown')).toHaveCSS(
+    'line-height',
+    '31.5px',
+  );
   const activeDoc = page
     .locator(
       '.theme-doc-sidebar-menu .menu__link--active:not(.menu__link--sublist)',
@@ -119,7 +194,9 @@ test('global shell and docs use the DAT palette', async ({page}) => {
 
 test('mobile navbar sidebar keeps its controls readable', async ({page}) => {
   await page.setViewportSize({width: 390, height: 844});
-  await page.goto(`${sitePath}/huong-dan/bat-dau/dai-su-xanh-la-gi`);
+  await page.goto(
+    `${sitePath}/huong-dan/dai-su-xanh/bat-dau/dai-su-xanh-la-gi`,
+  );
   await page.locator('.navbar__toggle').click();
 
   const sidebar = page.locator('.navbar-sidebar');
@@ -156,46 +233,21 @@ test('desktop navbar search has readable DAT colors and focus', async ({
   ).toHaveCSS('color', 'rgb(91, 109, 120)');
 
   await searchButton.focus();
-  await expect(searchButton).toHaveCSS('outline-color', 'rgb(234, 248, 255)');
+  await expect(searchButton).toHaveCSS('outline-color', 'rgb(0, 79, 122)');
   await expect(searchButton).toHaveCSS('outline-style', 'solid');
   await expect(searchButton).toHaveCSS('outline-width', '3px');
 });
 
-test('homepage uses the DAT direct color direction', async ({page}) => {
+test('homepage uses the approved white DAT Universal introduction', async ({
+  page,
+}) => {
   await page.goto(`${sitePath}/`);
 
-  const hero = page.locator('main > section').first();
-  expect(
-    await hero.evaluate((element) => getComputedStyle(element).backgroundImage),
-  ).toContain('rgb(0, 129, 199)');
-
-  const searchButton = hero.locator('.aa-DetachedSearchButton');
-  await expect(searchButton).toBeVisible();
-  await expect(searchButton).toHaveCSS('height', '56px');
-  await expect(searchButton).toHaveCSS('border-radius', '16px');
-  await expect(searchButton).toHaveCSS('background-color', 'rgb(255, 255, 255)');
+  const introduction = page.locator('main > section').first();
+  await expect(introduction).toHaveCSS('background-color', 'rgb(255, 255, 255)');
   await expect(
-    searchButton.locator('.aa-DetachedSearchButtonPlaceholder'),
-  ).toHaveCSS('color', 'rgb(91, 109, 120)');
-  await searchButton.focus();
-  await expect(searchButton).toHaveCSS('outline-color', 'rgb(234, 248, 255)');
-
-  await expect(
-    page.getByRole('heading', {name: 'Bạn cần hỗ trợ nội dung gì?'}),
-  ).toHaveCSS('color', 'rgb(255, 255, 255)');
-  await expect(hero.getByText('TRUNG TÂM HỖ TRỢ ĐẠI SỨ XANH')).toHaveCSS(
-    'color',
-    'rgb(234, 248, 255)',
-  );
-  await expect(
-    hero.getByText(
-      'Tìm câu trả lời nhanh, làm đúng từng bước và chỉ liên hệ đội hỗ trợ khi thật sự cần.',
-    ),
-  ).toHaveCSS('color', 'rgb(234, 248, 255)');
-  await expect(page.getByText('01', {exact: true})).toHaveCSS(
-    'color',
-    'rgb(255, 132, 0)',
-  );
+    page.getByRole('heading', {name: 'Trung tâm hỗ trợ DAT Universal'}),
+  ).toHaveCSS('color', 'rgb(23, 33, 43)');
 });
 
 test('navbar presents the DAT Group logo clearly on desktop and mobile', async ({
@@ -205,7 +257,7 @@ test('navbar presents the DAT Group logo clearly on desktop and mobile', async (
 
   const logo = page.locator('.navbar__inner > .navbar__items .navbar__logo');
   await expect(logo).toBeVisible();
-  await expect(logo).toHaveCSS('background-color', 'rgb(255, 255, 255)');
+  await expect(logo).toHaveCSS('background-color', 'rgba(0, 0, 0, 0)');
   await expect(logo.locator('img')).toHaveAttribute('alt', 'DAT Group');
   expect(
     await logo.locator('img').evaluate((image) => {
@@ -222,7 +274,7 @@ test('navbar presents the DAT Group logo clearly on desktop and mobile', async (
   await expect(logo).toBeVisible();
   await expect(
     page.locator('.navbar__inner > .navbar__items .navbar__title'),
-  ).toBeVisible();
+  ).not.toBeVisible();
   await expect(page.locator('.navbar__toggle')).toBeVisible();
   expect(
     await page

@@ -1,27 +1,24 @@
-export const quickActions = [
+export const audienceHubs = [
   {
-    title: 'Bắt đầu tham gia',
+    title: 'Đại sứ xanh',
     description:
-      'Hiểu chương trình và các bước đầu tiên dành cho Đại sứ xanh.',
-    to: '/huong-dan/bat-dau/dai-su-xanh-la-gi',
+      'Tìm hiểu chương trình, giới thiệu khách hàng và tra cứu referral.',
+    to: '/huong-dan/dai-su-xanh/bat-dau/dai-su-xanh-la-gi',
+    status: 'Sẵn sàng',
   },
   {
-    title: 'Giới thiệu khách hàng',
+    title: 'Nhà lắp đặt',
     description:
-      'Tìm hướng dẫn tạo và chia sẻ nội dung giới thiệu phù hợp.',
-    to: '/huong-dan/gioi-thieu-khach-hang/',
+      'Xem điểm bắt đầu dành cho đối tác lắp đặt; nội dung chuyên môn đang được bổ sung.',
+    to: '/huong-dan/nha-lap-dat/bat-dau-hop-tac',
+    status: 'Đang bổ sung',
   },
   {
-    title: 'Theo dõi referral và hoa hồng',
+    title: 'Khách hàng cuối',
     description:
-      'Tra cứu referral, quyền lợi và các quy tắc liên quan.',
-    to: '/huong-dan/referral-hoa-hong/',
-  },
-  {
-    title: 'Cần hỗ trợ',
-    description:
-      'Bắt đầu từ vấn đề thường gặp hoặc tìm kênh hỗ trợ chính thức.',
-    to: '/huong-dan/ho-tro/su-dung-trung-tam-ho-tro',
+      'Tìm hướng dẫn về giải pháp, tư vấn và các bước hỗ trợ cần thiết.',
+    to: '/huong-dan/khach-hang/tim-hieu-giai-phap',
+    status: 'Đang bổ sung',
   },
 ] as const;
 
