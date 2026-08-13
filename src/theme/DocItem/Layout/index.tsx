@@ -45,7 +45,7 @@ export default function DocItemLayout({children}: Props): ReactNode {
         className={clsx(
           'col',
           docTOC.desktop && 'dat-doc-article-column',
-          !docTOC.hidden && styles.docItemCol,
+          docTOC.desktop && styles.docItemCol,
         )}>
         <ContentVisibility metadata={metadata} />
         <DocVersionBanner />

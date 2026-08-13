@@ -207,7 +207,7 @@ test('wide desktop lets a guide without a table of contents use its available re
     throw new Error('Expected the Installer guide to have a layout box');
   }
 
-  expect(articleBox.width).toBeGreaterThanOrEqual(650);
+  expect(articleBox.width).toBeGreaterThanOrEqual(850);
 });
 
 test('404 returns users to the Help Center', async ({page}) => {
