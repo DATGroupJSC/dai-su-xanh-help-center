@@ -81,7 +81,8 @@ Nội dung Đại sứ xanh hiện có sẽ được chuyển vào `docs/dai-su-
 - Đổi tiêu đề, tagline, tiêu đề trang chủ, navbar, footer, metadata và nhãn tìm kiếm sang thương hiệu Trung tâm hỗ trợ DAT Universal.
 - Giữ logo DAT Group đang dùng.
 - Trang chủ thay phần giới thiệu đơn đối tượng bằng ba thẻ điều hướng: Đại sứ xanh, Nhà lắp đặt và Khách hàng cuối.
-- Sidebar giữ tự động theo cấu trúc thư mục, với số thứ tự rõ ràng trong từng bài và category. Khi vừa mở trang, menu trái hiển thị tới hai cấp: cấp 1 là nhóm người dùng (Đại sứ xanh, Nhà lắp đặt, Khách hàng cuối, Hỗ trợ chung) và cấp 2 là nhóm chủ đề bên trong. Tên bài ở cấp 3 chỉ mở khi người đọc chọn nhóm chủ đề đó hoặc đang đọc bài bên trong nhóm; quy tắc này áp dụng cả trong menu mobile.
+- Mỗi nhóm người dùng có sidebar riêng. Người đọc chọn Đại sứ xanh, Nhà lắp đặt, Khách hàng cuối hoặc Hỗ trợ chung từ trang chủ/navbar; sau đó menu trái chỉ hiển thị nội dung thuộc đúng nhóm đã chọn, không lẫn nội dung của nhóm khác.
+- Sidebar trong từng nhóm giữ tự động theo cấu trúc thư mục, với số thứ tự rõ ràng trong từng bài và category. Khi vừa mở trang, menu trái hiển thị tới hai cấp: cấp 1 là nhóm chủ đề trong khu vực đã chọn (ví dụ: Bắt đầu, Referral & hoa hồng) và cấp 2 là các bài thuộc nhóm chủ đề đó. Cấp sâu hơn chỉ mở khi người đọc chọn nhóm tương ứng hoặc đang đọc bài bên trong nhóm; quy tắc này áp dụng cả trong menu mobile.
 - Cập nhật cấu hình Docusaurus cùng các link nội bộ để không còn chỉ dẫn riêng Đại sứ xanh ở thành phần dùng chung.
 - Đề xuất custom domain sau khi được quyền quản lý DNS: `huongdan.datuniversal.com`. Chưa cấu hình tên miền hoặc DNS trong đợt chuyển đổi nội dung này.
 
