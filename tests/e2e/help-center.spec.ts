@@ -171,6 +171,45 @@ test('compact desktop keeps guide readable before wide layout', async ({
   ).toBe(true);
 });
 
+test('wide desktop keeps an Ambassador guide readable with its table of contents', async ({
+  page,
+  isMobile,
+}) => {
+  test.skip(Boolean(isMobile), 'Desktop-only wide reading-width assertion');
+  await page.setViewportSize({width: 1280, height: 900});
+  await page.goto(
+    `${sitePath}/huong-dan/dai-su-xanh/bat-dau/dai-su-xanh-la-gi`,
+  );
+
+  const article = page.locator('.theme-doc-markdown');
+  await expect(article).toBeVisible();
+  const articleBox = await article.boundingBox();
+  if (!articleBox) {
+    throw new Error('Expected the Ambassador guide to have a layout box');
+  }
+
+  expect(articleBox.width).toBeGreaterThanOrEqual(520);
+});
+
+test('wide desktop lets a guide without a table of contents use its available reading width', async ({
+  page,
+  isMobile,
+}) => {
+  test.skip(Boolean(isMobile), 'Desktop-only no-table-of-contents assertion');
+  await page.setViewportSize({width: 1280, height: 900});
+  await page.goto(`${sitePath}/huong-dan/nha-lap-dat/bat-dau-hop-tac`);
+
+  await expect(page.locator('.table-of-contents')).toHaveCount(0);
+  const article = page.locator('.theme-doc-markdown');
+  await expect(article).toBeVisible();
+  const articleBox = await article.boundingBox();
+  if (!articleBox) {
+    throw new Error('Expected the Installer guide to have a layout box');
+  }
+
+  expect(articleBox.width).toBeGreaterThanOrEqual(650);
+});
+
 test('404 returns users to the Help Center', async ({page}) => {
   await page.goto(`${sitePath}/khong-ton-tai`);
 
