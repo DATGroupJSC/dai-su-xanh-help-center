@@ -3,6 +3,7 @@
 **Ngày:** 2026-08-13
 
 **Trạng thái:** Đã duyệt định hướng, chờ duyệt bản thiết kế trước khi triển khai
+
 **Phạm vi:** Website GitHub Pages `DATGroupJSC/dai-su-xanh-help-center`
 
 ## 1. Quyết định đã chốt
@@ -84,7 +85,34 @@ Nội dung Đại sứ xanh hiện có sẽ được chuyển vào `docs/dai-su-
 - Cập nhật cấu hình Docusaurus cùng các link nội bộ để không còn chỉ dẫn riêng Đại sứ xanh ở thành phần dùng chung.
 - Đề xuất custom domain sau khi được quyền quản lý DNS: `huongdan.datuniversal.com`. Chưa cấu hình tên miền hoặc DNS trong đợt chuyển đổi nội dung này.
 
-## 6. Nội dung khởi tạo theo từng nhóm
+## 6. Chuẩn hình thức tham chiếu Antsomi
+
+Trang tham chiếu là trang tài liệu Antsomi do người dùng cung cấp. Website DAT sử dụng cùng **nguyên tắc bố cục và nhịp đọc**, không sao chép logo, nội dung, hình ảnh, font asset hoặc nhận diện thương hiệu Antsomi.
+
+### Desktop
+
+- Header nền trắng, cao và thoáng, có đường viền đáy mảnh; không dùng bóng đổ nặng. Mục tiêu desktop là cao khoảng 7.5–8rem, logo DAT đặt ở mép trái và ô tìm kiếm rộng khoảng 280px ở mép phải.
+- Khu vực bài viết dùng ba cột rõ ràng: menu trái, nội dung chính ở giữa và mục lục “Trên trang này” ở phải.
+- Khung trang rộng, tối đa khoảng 1720px, lề ngang responsive từ 24px đến 96px. Ở chiều rộng 1920px, nội dung không dàn kín màn hình; mục tiêu là cảm giác thoáng tương tự ảnh tham chiếu.
+- Cột trái khoảng 250–300px, cột phải 220–260px; cột nội dung giữa giới hạn khoảng 820–900px. Khoảng cách giữa mỗi cột là 48–80px, tránh để chữ sát menu hoặc mục lục.
+- Menu trái và mục lục phải sticky khi cuộn. Menu trái có tiêu đề nhóm in hoa, item cách nhau rõ; item đang mở dùng DAT blue. Mục lục phải tối giản, chữ nhỏ hơn nội dung và đánh dấu heading đang đọc bằng DAT blue.
+- Nội dung mở đầu bằng breadcrumb xanh nhỏ, H1 màu gần đen khoảng 48–52px, sau đó cách heading cấp 2 khoảng 64–80px. Body text khoảng 18px, line-height 1.65–1.75 và đoạn văn cách nhau tối thiểu 1.25rem.
+- Heading cấp 2 dùng DAT blue/dark blue, cỡ khoảng 30–34px và có khoảng cách trên rõ ràng. Ảnh trong bài có margin trên/dưới 2rem, giữ nguyên tỉ lệ, không vượt quá bề rộng cột nội dung, có caption/alt text khi cần.
+- Không dùng nền màu hoặc card bao quanh toàn bài viết. Nền trắng, chữ đậm dễ đọc và đường viền xám-blue mảnh là mặc định.
+
+### Trang chủ và điều hướng
+
+- Trang chủ dùng cùng header trắng, khoảng lề rộng và typography trên, nhưng thay phần hero đơn đối tượng bằng ba thẻ điều hướng cho ba nhóm người dùng.
+- Ba thẻ này là điểm vào chính, có tiêu đề, mô tả một câu và link rõ ràng. Thẻ dùng DAT blue/cyan/orange làm điểm nhấn tiết chế, không tạo cảm giác dashboard hoặc quảng cáo nặng.
+- Navbar trên desktop hiển thị năm mục đã chốt; trên mobile dùng menu thu gọn.
+
+### Mobile và accessibility
+
+- Dưới breakpoint tablet, chỉ hiển thị nội dung chính; menu trái chuyển vào nút mở menu và mục lục phải được ẩn/thu gọn.
+- Giữ lề đọc dễ chịu, chữ không nhỏ hơn 16px, không có cuộn ngang ở chiều rộng 390px.
+- Giữ focus state có độ tương phản đủ, vùng bấm tối thiểu 44px và alt text cho ảnh. Màu DAT được kiểm tra contrast thay vì lấy màu Antsomi nguyên xi.
+
+## 7. Nội dung khởi tạo theo từng nhóm
 
 ### Đại sứ xanh
 
@@ -98,29 +126,31 @@ Tạo khung category và trang mở đầu có thông báo ngắn rằng nội d
 
 Giữ bài “Cách sử dụng Trung tâm hỗ trợ”, đổi ngôn ngữ từ chỉ Đại sứ xanh thành ngôn ngữ dùng chung. Bổ sung FAQ chỉ khi đã được content owner xác nhận.
 
-## 7. Quy trình xuất bản và phân quyền
+## 8. Quy trình xuất bản và phân quyền
 
 - Người viết dùng branch riêng và tạo Pull Request.
 - Người duyệt kiểm tra nội dung, asset, link, desktop/mobile và trạng thái `build-and-test`.
 - Chỉ merge vào `main` khi nội dung và kiểm tra đều đạt. GitHub Pages sẽ tự xuất bản sau khi merge.
 - Người viết được cấp quyền `Write`; quyền `Admin` chỉ dành cho 1–2 quản trị viên.
 
-## 8. Các giai đoạn triển khai
+## 9. Các giai đoạn triển khai
 
-1. Đổi thương hiệu và tạo cấu trúc điều hướng ba nhóm; chưa xóa nội dung cũ.
-2. Chuyển nội dung Đại sứ xanh và thiết lập redirect cho đường dẫn cũ.
-3. Tạo khung an toàn cho Nhà lắp đặt, Khách hàng cuối và Hỗ trợ chung.
-4. Kiểm tra tìm kiếm, desktop, mobile, link cũ và các CTA không có URL.
-5. Sau khi có quyền DNS và tên miền được duyệt, cấu hình custom domain cùng HTTPS.
+1. Đổi thương hiệu, header, spacing và tạo cấu trúc điều hướng ba nhóm; chưa xóa nội dung cũ.
+2. Áp dụng lưới ba cột, sidebar và mục lục theo chuẩn hình thức đã chốt.
+3. Chuyển nội dung Đại sứ xanh và thiết lập redirect cho đường dẫn cũ.
+4. Tạo khung an toàn cho Nhà lắp đặt, Khách hàng cuối và Hỗ trợ chung.
+5. Kiểm tra tìm kiếm, desktop, mobile, link cũ và các CTA không có URL.
+6. Sau khi có quyền DNS và tên miền được duyệt, cấu hình custom domain cùng HTTPS.
 
-## 9. Kiểm tra trước khi phát hành
+## 10. Kiểm tra trước khi phát hành
 
 - `npm run typecheck`, `npm run test`, `npm run build` và `npm run test:e2e` đều pass.
 - Kiểm tra thủ công trang chủ, ba thẻ điều hướng, sidebar, mục lục, tìm kiếm, menu mobile và trang 404.
+- So sánh trực quan desktop với các đặc điểm đã chốt: header trắng thoáng, ba cột, lề rộng, body text dễ đọc, menu trái và mục lục phải tối giản.
 - Xác nhận URL cũ của Đại sứ xanh chuyển đúng đến URL mới.
 - Kiểm tra ở chiều rộng desktop và mobile 390px để không có cuộn ngang hoặc CTA bị tràn.
 - Kiểm tra asset public không chứa dữ liệu cá nhân, tài khoản, password, OTP, token hoặc API key.
 
-## 10. Tiêu chí hoàn thành
+## 11. Tiêu chí hoàn thành
 
-Người dùng có thể từ trang chủ vào đúng một trong ba khu vực; nội dung Đại sứ xanh hiện có vẫn mở được bằng link mới và link cũ; các khu vực chưa hoàn thiện không đưa thông tin giả; toàn bộ kiểm tra tự động và kiểm tra giao diện đều đạt.
+Người dùng có thể từ trang chủ vào đúng một trong ba khu vực; nội dung Đại sứ xanh hiện có vẫn mở được bằng link mới và link cũ; các khu vực chưa hoàn thiện không đưa thông tin giả; toàn bộ kiểm tra tự động và kiểm tra giao diện đều đạt. Layout tài liệu có lề, khoảng trắng và bố cục ba cột tương tự trang tham chiếu, đồng thời giữ nhận diện DAT và accessibility đạt yêu cầu.
