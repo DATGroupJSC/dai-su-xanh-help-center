@@ -109,26 +109,41 @@ test('desktop docs use a centered Antsomi shell without navbar identity', async 
 
   const shell = page.locator('.dat-doc-shell');
   await expect(shell).toBeVisible();
-  await expect(page.locator('.doc-site-identity')).toHaveText(
+  const identity = page.locator('.doc-site-identity');
+  await expect(identity).toBeVisible();
+  await expect(identity).toHaveText(
     'TRUNG TÂM HỖ TRỢ DAT UNIVERSAL',
   );
   await expect(
     page.locator('.navbar__inner > .navbar__items .navbar__title'),
   ).toHaveCount(0);
 
-  const [shellBox, sidebarBox, articleBox, tocBox] = await Promise.all([
-    shell.boundingBox(),
-    page.locator('.theme-doc-sidebar-container').boundingBox(),
-    page.locator('.theme-doc-markdown').boundingBox(),
-    page.locator('.table-of-contents').boundingBox(),
+  const sidebar = page.locator('.theme-doc-sidebar-container');
+  const article = page.locator('.theme-doc-markdown');
+  const toc = page.locator('.table-of-contents');
+  await Promise.all([
+    expect(sidebar).toBeVisible(),
+    expect(article).toBeVisible(),
+    expect(toc).toBeVisible(),
   ]);
 
-  expect(shellBox?.x).toBeGreaterThanOrEqual(80);
-  expect(shellBox?.x).toBeLessThanOrEqual(110);
-  expect(sidebarBox?.x).toBe(shellBox?.x);
-  expect(articleBox?.x).toBeGreaterThanOrEqual(490);
-  expect(articleBox?.x).toBeLessThanOrEqual(550);
-  expect(tocBox?.x).toBeGreaterThanOrEqual(1500);
+  const [shellBox, sidebarBox, articleBox, tocBox] = await Promise.all([
+    shell.boundingBox(),
+    sidebar.boundingBox(),
+    article.boundingBox(),
+    toc.boundingBox(),
+  ]);
+  if (!shellBox || !sidebarBox || !articleBox || !tocBox) {
+    throw new Error('Expected visible documentation columns to have layout boxes');
+  }
+
+  expect(shellBox.x).toBeGreaterThanOrEqual(80);
+  expect(shellBox.x).toBeLessThanOrEqual(110);
+  expect(Math.abs(sidebarBox.x - shellBox.x)).toBeLessThanOrEqual(1);
+  expect(articleBox.x).toBeGreaterThanOrEqual(490);
+  expect(articleBox.x).toBeLessThanOrEqual(550);
+  expect(tocBox.x).toBeGreaterThanOrEqual(1500);
+  expect(tocBox.x + tocBox.width).toBeLessThanOrEqual(1840);
 });
 
 test('404 returns users to the Help Center', async ({page}) => {
