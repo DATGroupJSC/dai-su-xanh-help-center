@@ -1,3 +1,7 @@
+/**
+ * Docusaurus theme swizzle: retains the upstream 3.10.2 DocRoot layout and
+ * adds a stable shell class for the DAT documentation width rules.
+ */
 import React, {type ReactNode, useState} from 'react';
 import clsx from 'clsx';
 import {useDocsSidebar} from '@docusaurus/plugin-content-docs/client';

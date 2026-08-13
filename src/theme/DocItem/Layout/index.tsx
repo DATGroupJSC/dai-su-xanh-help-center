@@ -1,3 +1,7 @@
+/**
+ * Docusaurus theme swizzle: retains the upstream 3.10.2 DocItem layout and
+ * adds DAT's article identity plus classes for responsive column spacing.
+ */
 import React, {type ReactNode} from 'react';
 import clsx from 'clsx';
 import {useWindowSize} from '@docusaurus/theme-common';
@@ -40,7 +44,7 @@ export default function DocItemLayout({children}: Props): ReactNode {
       <div
         className={clsx(
           'col',
-          'dat-doc-article-column',
+          docTOC.desktop && 'dat-doc-article-column',
           !docTOC.hidden && styles.docItemCol,
         )}>
         <ContentVisibility metadata={metadata} />

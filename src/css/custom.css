@@ -350,8 +350,8 @@ body {
   .dat-doc-article-column {
     flex: 0 0 calc(100% - 20rem);
     max-width: calc(100% - 20rem) !important;
-    padding-right: 6.25rem;
-    padding-left: 6.25rem;
+    padding-right: clamp(1.5rem, calc(8.3vw - 4.32rem), 6.25rem);
+    padding-left: clamp(1.5rem, calc(8.3vw - 4.32rem), 6.25rem);
   }
 
   .dat-doc-toc-column {
