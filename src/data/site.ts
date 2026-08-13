@@ -1,3 +1,28 @@
+export const audienceHubs = [
+  {
+    title: 'Đại sứ xanh',
+    description:
+      'Tìm hiểu chương trình, giới thiệu khách hàng và tra cứu referral.',
+    to: '/huong-dan/dai-su-xanh/bat-dau/dai-su-xanh-la-gi',
+    status: 'Sẵn sàng',
+  },
+  {
+    title: 'Nhà lắp đặt',
+    description:
+      'Xem điểm bắt đầu dành cho đối tác lắp đặt; nội dung chuyên môn đang được bổ sung.',
+    to: '/huong-dan/nha-lap-dat/bat-dau-hop-tac',
+    status: 'Đang bổ sung',
+  },
+  {
+    title: 'Khách hàng cuối',
+    description:
+      'Tìm hướng dẫn về giải pháp, tư vấn và các bước hỗ trợ cần thiết.',
+    to: '/huong-dan/khach-hang/tim-hieu-giai-phap',
+    status: 'Đang bổ sung',
+  },
+] as const;
+
+// Giữ tạm trong lúc trang chủ cũ được chuyển sang audienceHubs.
 export const quickActions = [
   {
     title: 'Bắt đầu tham gia',
