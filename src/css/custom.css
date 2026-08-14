@@ -208,6 +208,14 @@ body {
   margin: 2rem 0;
 }
 
+.doc-site-identity {
+  margin: 0 0 0.85rem;
+  color: var(--dat-blue-dark);
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
 .breadcrumbs__link,
 .hash-link,
 .pagination-nav__link {
@@ -310,9 +318,46 @@ body {
     width: 18.75rem;
   }
 
+}
+
+@media (min-width: 1280px) {
   .theme-doc-toc-desktop {
     flex: 0 0 15.5rem;
     width: 15.5rem;
+  }
+
+  .dat-doc-shell {
+    flex: 0 1 var(--doc-shell-max-width);
+    width: min(
+      calc(100% - clamp(3rem, 5vw, 7.5rem)),
+      var(--doc-shell-max-width)
+    );
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+  .dat-doc-shell .container {
+    max-width: none;
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  .dat-doc-layout-row {
+    margin-right: 0;
+    margin-left: 0;
+  }
+
+  .dat-doc-article-column {
+    flex: 0 0 calc(100% - 20rem);
+    max-width: calc(100% - 20rem) !important;
+    padding-right: clamp(1.5rem, calc(8.3vw - 4.32rem), 6.25rem);
+    padding-left: clamp(1.5rem, calc(8.3vw - 4.32rem), 6.25rem);
+  }
+
+  .dat-doc-toc-column {
+    flex: 0 0 20rem;
+    max-width: 20rem;
+    padding-left: calc(var(--ifm-spacing-horizontal) + 1.25rem);
   }
 }
 

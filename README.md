@@ -58,6 +58,11 @@ npm run test:e2e
 
 `npm run build` kiểm tra đặc biệt quan trọng: nó báo link hỏng, trang trùng URL và lỗi MDX trước khi website public bị ảnh hưởng.
 
+## Quyết định giao diện
+
+- [2026-08-13 — Lề trang và vị trí tên website](planning/specs/2026-08-13-antsomi-layout-and-identity.md): khung desktop căn giữa, ba cột thoáng hơn; tên đầy đủ nằm ở đầu nội dung thay vì cạnh menu.
+- [2026-08-13 — Kế hoạch triển khai lề Antsomi](planning/plans/2026-08-13-antsomi-gutters-and-header-identity.md): kiểm tra và thay đổi theme cho shell tài liệu.
+
 ## GitHub Pages và custom domain
 
 Website hiện tại: `https://datgroupjsc.github.io/dat-universal-help-center/`

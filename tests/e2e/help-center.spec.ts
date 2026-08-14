@@ -97,6 +97,119 @@ test('guide shows left sidebar and right table of contents', async ({
   await expect(page.locator('.table-of-contents')).toBeVisible();
 });
 
+test('desktop docs use a centered Antsomi shell without navbar identity', async ({
+  page,
+  isMobile,
+}) => {
+  test.skip(Boolean(isMobile), 'Desktop-only Antsomi shell assertion');
+  await page.setViewportSize({width: 1920, height: 1080});
+  await page.goto(
+    `${sitePath}/huong-dan/dai-su-xanh/bat-dau/dai-su-xanh-la-gi`,
+  );
+
+  const shell = page.locator('.dat-doc-shell');
+  await expect(shell).toBeVisible();
+  const identity = page.locator('.doc-site-identity');
+  await expect(identity).toBeVisible();
+  await expect(identity).toHaveText(
+    'TRUNG TÂM HỖ TRỢ DAT UNIVERSAL',
+  );
+  await expect(
+    page.locator('.navbar__inner > .navbar__items .navbar__title'),
+  ).toHaveCount(0);
+
+  const sidebar = page.locator('.theme-doc-sidebar-container');
+  const article = page.locator('.theme-doc-markdown');
+  const toc = page.locator('.table-of-contents');
+  await Promise.all([
+    expect(sidebar).toBeVisible(),
+    expect(article).toBeVisible(),
+    expect(toc).toBeVisible(),
+  ]);
+
+  const [shellBox, sidebarBox, articleBox, tocBox] = await Promise.all([
+    shell.boundingBox(),
+    sidebar.boundingBox(),
+    article.boundingBox(),
+    toc.boundingBox(),
+  ]);
+  if (!shellBox || !sidebarBox || !articleBox || !tocBox) {
+    throw new Error('Expected visible documentation columns to have layout boxes');
+  }
+
+  expect(shellBox.x).toBeGreaterThanOrEqual(80);
+  expect(shellBox.x).toBeLessThanOrEqual(110);
+  expect(Math.abs(sidebarBox.x - shellBox.x)).toBeLessThanOrEqual(1);
+  expect(articleBox.x).toBeGreaterThanOrEqual(490);
+  expect(articleBox.x).toBeLessThanOrEqual(550);
+  expect(tocBox.x).toBeGreaterThanOrEqual(1500);
+  expect(tocBox.x + tocBox.width).toBeLessThanOrEqual(1840);
+});
+
+test('compact desktop keeps guide readable before wide layout', async ({
+  page,
+  isMobile,
+}) => {
+  test.skip(Boolean(isMobile), 'Desktop-only compact layout assertion');
+  await page.setViewportSize({width: 1024, height: 900});
+  await page.goto(
+    `${sitePath}/huong-dan/dai-su-xanh/bat-dau/dai-su-xanh-la-gi`,
+  );
+
+  const article = page.locator('.theme-doc-markdown');
+  await expect(article).toBeVisible();
+  const articleBox = await article.boundingBox();
+  if (!articleBox) {
+    throw new Error('Expected the guide article to have a layout box');
+  }
+
+  expect(articleBox.width).toBeGreaterThanOrEqual(360);
+  expect(
+    await page.locator('.dat-doc-shell').evaluate(
+      (shell) => shell.scrollWidth <= shell.clientWidth,
+    ),
+  ).toBe(true);
+});
+
+test('wide desktop keeps an Ambassador guide readable with its table of contents', async ({
+  page,
+  isMobile,
+}) => {
+  test.skip(Boolean(isMobile), 'Desktop-only wide reading-width assertion');
+  await page.setViewportSize({width: 1280, height: 900});
+  await page.goto(
+    `${sitePath}/huong-dan/dai-su-xanh/bat-dau/dai-su-xanh-la-gi`,
+  );
+
+  const article = page.locator('.theme-doc-markdown');
+  await expect(article).toBeVisible();
+  const articleBox = await article.boundingBox();
+  if (!articleBox) {
+    throw new Error('Expected the Ambassador guide to have a layout box');
+  }
+
+  expect(articleBox.width).toBeGreaterThanOrEqual(520);
+});
+
+test('wide desktop lets a guide without a table of contents use its available reading width', async ({
+  page,
+  isMobile,
+}) => {
+  test.skip(Boolean(isMobile), 'Desktop-only no-table-of-contents assertion');
+  await page.setViewportSize({width: 1280, height: 900});
+  await page.goto(`${sitePath}/huong-dan/nha-lap-dat/bat-dau-hop-tac`);
+
+  await expect(page.locator('.table-of-contents')).toHaveCount(0);
+  const article = page.locator('.theme-doc-markdown');
+  await expect(article).toBeVisible();
+  const articleBox = await article.boundingBox();
+  if (!articleBox) {
+    throw new Error('Expected the Installer guide to have a layout box');
+  }
+
+  expect(articleBox.width).toBeGreaterThanOrEqual(850);
+});
+
 test('404 returns users to the Help Center', async ({page}) => {
   await page.goto(`${sitePath}/khong-ton-tai`);
 
@@ -192,7 +305,9 @@ test('documentation uses the approved spacious three-column DAT layout', async (
   ).toHaveCSS('color', 'rgb(23, 33, 43)');
 });
 
-test('mobile navbar sidebar keeps its controls readable', async ({page}) => {
+test('mobile navbar sidebar keeps its controls readable without duplicating site identity', async ({
+  page,
+}) => {
   await page.setViewportSize({width: 390, height: 844});
   await page.goto(
     `${sitePath}/huong-dan/dai-su-xanh/bat-dau/dai-su-xanh-la-gi`,
@@ -201,10 +316,7 @@ test('mobile navbar sidebar keeps its controls readable', async ({page}) => {
 
   const sidebar = page.locator('.navbar-sidebar');
   await expect(sidebar).toBeVisible();
-  await expect(sidebar.locator('.navbar__title')).toHaveCSS(
-    'color',
-    'rgb(0, 79, 122)',
-  );
+  await expect(sidebar.locator('.navbar__title')).toHaveCount(0);
   await expect(sidebar.locator('.navbar-sidebar__close')).toHaveCSS(
     'color',
     'rgb(0, 79, 122)',
