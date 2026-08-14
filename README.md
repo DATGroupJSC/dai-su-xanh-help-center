@@ -14,7 +14,7 @@ docs/
 └── ho-tro/            # Hỗ trợ chung cho mọi nhóm
 ```
 
-Khi người đọc chọn một nhóm, cột trái chỉ hiển thị bài của nhóm đó. Trong mỗi khu vực, menu mặc định hiển thị hai cấp: nhóm chủ đề và tên bài. Không để bài của nhóm này trong thư mục của nhóm khác.
+Khi người đọc chọn một nhóm, cột trái chỉ hiển thị bài của nhóm đó. Riêng Đại sứ xanh, menu mặc định hiển thị hai cấp: bốn nhóm lớn và các chủ đề nhỏ. Bài chi tiết được mở bằng thẻ trên trang chủ đề, không nằm trong menu trái. Không để bài của nhóm này trong thư mục của nhóm khác.
 
 Chỉ thêm quy trình, chính sách, SLA, giá, bảo hành hoặc thông số khi có nguồn chính thức đã được content owner phê duyệt. Không tự điền URL đăng ký, hoa hồng, quyền lợi hay kênh hỗ trợ tạm.
 

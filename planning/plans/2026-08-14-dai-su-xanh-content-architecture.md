@@ -760,12 +760,9 @@ git commit -m "docs: add ambassador cooperation rules structure"
 - Modify: `README.md`
 - Modify: `tests/e2e/help-center.spec.ts`
 
-- [ ] **Step 1: Confirm all old destinations exist before removing the four old content folders.**
+- [ ] **Step 1: Confirm all new destinations exist before removing the four old content folders.**
 
-Run: `npm run build`
-Expected: PASS while the new topic and article pages are present.
-
-Then remove only the four old MDX/category folders listed above. Do not delete images in `static/img/`; assets are outside this content migration and may still be needed elsewhere.
+List the new topic and article files first, then remove only the four old MDX/category folders listed above. Their current URLs are intentionally handled by the new redirects, so a build cannot complete until the old route files are gone. Do not delete images in `static/img/`; assets are outside this content migration and may still be needed elsewhere.
 
 - [ ] **Step 2: Update the authoring template with the new path and placeholder rule.**
 

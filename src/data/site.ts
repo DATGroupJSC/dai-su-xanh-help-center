@@ -3,7 +3,7 @@ export const audienceHubs = [
     title: 'Đại sứ xanh',
     description:
       'Tìm hiểu chương trình, giới thiệu khách hàng và tra cứu referral.',
-    to: '/huong-dan/dai-su-xanh/bat-dau/dai-su-xanh-la-gi',
+    to: '/huong-dan/dai-su-xanh/gia-nhap-he-sinh-thai/chao-mung-dai-su-xanh',
     status: 'Sẵn sàng',
   },
   {

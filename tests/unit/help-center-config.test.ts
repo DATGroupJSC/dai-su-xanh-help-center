@@ -32,10 +32,12 @@ describe('DAT Universal help-center configuration', () => {
   it('declares redirects from the former Đại sứ xanh URLs', () => {
     const ambassadorStart =
       '/huong-dan/dai-su-xanh/gia-nhap-he-sinh-thai/chao-mung-dai-su-xanh';
+    const ambassadorWelcomeArticle =
+      `${ambassadorStart}/khai-niem-va-gia-tri-nen-tang`;
 
     expect(JSON.stringify(config.plugins)).toContain(
       '/huong-dan/dai-su-xanh/bat-dau/dai-su-xanh-la-gi',
     );
-    expect(JSON.stringify(config.plugins)).toContain(ambassadorStart);
+    expect(JSON.stringify(config.plugins)).toContain(ambassadorWelcomeArticle);
   });
 });

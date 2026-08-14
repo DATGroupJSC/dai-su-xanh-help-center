@@ -1,6 +1,11 @@
 import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 
+const ambassadorStart =
+  '/huong-dan/dai-su-xanh/gia-nhap-he-sinh-thai/chao-mung-dai-su-xanh';
+const ambassadorWelcomeArticle =
+  `${ambassadorStart}/khai-niem-va-gia-tri-nen-tang`;
+
 const config: Config = {
   title: 'Trung tâm hỗ trợ DAT Universal',
   tagline: 'Hướng dẫn dành cho Đại sứ xanh, Nhà lắp đặt và Khách hàng.',
@@ -74,36 +79,68 @@ const config: Config = {
       {
         redirects: [
           {
-            to: '/huong-dan/dai-su-xanh/bat-dau/dai-su-xanh-la-gi',
+            to: ambassadorWelcomeArticle,
             from: '/huong-dan/bat-dau/dai-su-xanh-la-gi',
           },
           {
-            to: '/huong-dan/dai-su-xanh/bat-dau',
+            to: ambassadorWelcomeArticle,
+            from: '/huong-dan/dai-su-xanh/bat-dau/dai-su-xanh-la-gi',
+          },
+          {
+            to: '/huong-dan/dai-su-xanh/gia-nhap-he-sinh-thai',
             from: '/huong-dan/bat-dau',
           },
           {
-            to: '/huong-dan/dai-su-xanh/gioi-thieu-khach-hang',
+            to: '/huong-dan/dai-su-xanh/gia-nhap-he-sinh-thai',
+            from: '/huong-dan/dai-su-xanh/bat-dau',
+          },
+          {
+            to: '/huong-dan/dai-su-xanh/quy-uoc-hop-tac/quy-trinh-gioi-thieu-khach-hang',
             from: '/huong-dan/gioi-thieu-khach-hang',
           },
           {
-            to: '/huong-dan/dai-su-xanh/gioi-thieu-khach-hang/tong-quan',
+            to: '/huong-dan/dai-su-xanh/quy-uoc-hop-tac/quy-trinh-gioi-thieu-khach-hang',
             from: '/huong-dan/gioi-thieu-khach-hang/tong-quan',
           },
           {
-            to: '/huong-dan/dai-su-xanh/referral-hoa-hong',
+            to: '/huong-dan/dai-su-xanh/quy-uoc-hop-tac/quy-trinh-gioi-thieu-khach-hang',
+            from: '/huong-dan/dai-su-xanh/gioi-thieu-khach-hang',
+          },
+          {
+            to: '/huong-dan/dai-su-xanh/quy-uoc-hop-tac/quy-trinh-gioi-thieu-khach-hang',
+            from: '/huong-dan/dai-su-xanh/gioi-thieu-khach-hang/tong-quan',
+          },
+          {
+            to: '/huong-dan/dai-su-xanh/quy-uoc-hop-tac/chinh-sach-hoa-hong',
             from: '/huong-dan/referral-hoa-hong',
           },
           {
-            to: '/huong-dan/dai-su-xanh/referral-hoa-hong/tong-quan',
+            to: '/huong-dan/dai-su-xanh/quy-uoc-hop-tac/chinh-sach-hoa-hong',
             from: '/huong-dan/referral-hoa-hong/tong-quan',
           },
           {
-            to: '/huong-dan/dai-su-xanh/chinh-sach-tai-nguyen',
+            to: '/huong-dan/dai-su-xanh/quy-uoc-hop-tac/chinh-sach-hoa-hong',
+            from: '/huong-dan/dai-su-xanh/referral-hoa-hong',
+          },
+          {
+            to: '/huong-dan/dai-su-xanh/quy-uoc-hop-tac/chinh-sach-hoa-hong',
+            from: '/huong-dan/dai-su-xanh/referral-hoa-hong/tong-quan',
+          },
+          {
+            to: '/huong-dan/dai-su-xanh/quy-uoc-hop-tac',
             from: '/huong-dan/chinh-sach-tai-nguyen',
           },
           {
-            to: '/huong-dan/dai-su-xanh/chinh-sach-tai-nguyen/tong-quan',
+            to: '/huong-dan/dai-su-xanh/quy-uoc-hop-tac',
             from: '/huong-dan/chinh-sach-tai-nguyen/tong-quan',
+          },
+          {
+            to: '/huong-dan/dai-su-xanh/quy-uoc-hop-tac',
+            from: '/huong-dan/dai-su-xanh/chinh-sach-tai-nguyen',
+          },
+          {
+            to: '/huong-dan/dai-su-xanh/quy-uoc-hop-tac',
+            from: '/huong-dan/dai-su-xanh/chinh-sach-tai-nguyen/tong-quan',
           },
         ],
       },
@@ -139,7 +176,7 @@ const config: Config = {
           position: 'left',
         },
         {
-          to: '/huong-dan/dai-su-xanh/bat-dau/dai-su-xanh-la-gi',
+          to: ambassadorStart,
           label: 'Đại sứ xanh',
           position: 'left',
         },
@@ -172,7 +209,7 @@ const config: Config = {
             },
             {
               label: 'Đại sứ xanh',
-              to: '/huong-dan/dai-su-xanh/bat-dau/dai-su-xanh-la-gi',
+              to: ambassadorStart,
             },
             {
               label: 'Nhà lắp đặt',
