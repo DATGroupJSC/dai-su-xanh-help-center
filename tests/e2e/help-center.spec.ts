@@ -1,6 +1,10 @@
 import {expect, test} from '@playwright/test';
 
 const sitePath = '';
+const ambassadorStart =
+  '/huong-dan/dai-su-xanh/gia-nhap-he-sinh-thai/chao-mung-dai-su-xanh';
+const ambassadorWelcomeArticle =
+  '/huong-dan/dai-su-xanh/gia-nhap-he-sinh-thai/chao-mung-dai-su-xanh/khai-niem-va-gia-tri-nen-tang';
 
 test('homepage routes users to the three DAT Universal audiences', async ({
   page,
@@ -27,8 +31,8 @@ test('homepage routes users to the three DAT Universal audiences', async ({
 test('each audience has a safe public starting page', async ({page}) => {
   for (const [path, heading] of [
     [
-      '/huong-dan/dai-su-xanh/bat-dau/dai-su-xanh-la-gi',
-      'Đại sứ xanh là gì?',
+      ambassadorStart,
+      'Chào mừng Đại sứ xanh',
     ],
     [
       '/huong-dan/nha-lap-dat/bat-dau-hop-tac',
@@ -44,7 +48,7 @@ test('each audience has a safe public starting page', async ({page}) => {
   }
 });
 
-test('former Đại sứ xanh URL redirects to its new audience route', async ({
+test('former Đại sứ xanh article URL redirects to its replacement article', async ({
   page,
 }) => {
   await page.goto(
@@ -52,13 +56,60 @@ test('former Đại sứ xanh URL redirects to its new audience route', async ({
   );
 
   await expect(page).toHaveURL(
-    new RegExp(
-      `${sitePath}/huong-dan/dai-su-xanh/bat-dau/dai-su-xanh-la-gi`,
-    ),
+    new RegExp(`${sitePath}${ambassadorWelcomeArticle}`),
   );
   await expect(
-    page.getByRole('heading', {name: 'Đại sứ xanh là gì?'}),
+    page.getByRole('heading', {name: 'Khái niệm & giá trị nền tảng'}),
   ).toBeVisible();
+});
+
+test('video placeholder states that its video is being updated without an embed', async ({
+  page,
+}) => {
+  await page.goto(
+    `${sitePath}${ambassadorStart}/gioi-thieu-nen-tang`,
+  );
+
+  const placeholder = page.locator(
+    '.ambassador-updating[data-content-kind="video"]',
+  );
+  await expect(placeholder).toContainText('Video đang cập nhật');
+  await expect(placeholder.locator('iframe, video')).toHaveCount(0);
+});
+
+test('Ambassador article cards keep a visible keyboard focus outline', async ({
+  page,
+}) => {
+  await page.goto(`${sitePath}${ambassadorStart}`);
+
+  const card = page.getByRole('link', {
+    name: /Khái niệm & giá trị nền tảng/,
+  });
+  await card.focus();
+  await expect(card).toHaveCSS('outline-color', 'rgb(0, 79, 122)');
+});
+
+test('Đại sứ xanh uses a two-level sidebar and topic cards', async ({
+  page,
+  isMobile,
+}) => {
+  test.skip(Boolean(isMobile), 'Desktop-only sidebar hierarchy assertion');
+  await page.goto(`${sitePath}${ambassadorStart}`);
+
+  const sidebar = page.locator('.theme-doc-sidebar-container');
+  await expect(
+    sidebar.getByText('Gia nhập hệ sinh thái', {exact: true}),
+  ).toBeVisible();
+  await expect(
+    sidebar.getByText('Chào mừng Đại sứ xanh', {exact: true}),
+  ).toBeVisible();
+  await expect(
+    sidebar.getByText('Khái niệm & giá trị nền tảng', {exact: true}),
+  ).toHaveCount(0);
+  await expect(
+    page.getByRole('link', {name: /Khái niệm & giá trị nền tảng/}),
+  ).toBeVisible();
+  await expect(page.getByText('Đang cập nhật', {exact: true})).toHaveCount(5);
 });
 
 test('sidebar is scoped to the selected audience and shows two levels', async ({
@@ -66,14 +117,14 @@ test('sidebar is scoped to the selected audience and shows two levels', async ({
   isMobile,
 }) => {
   test.skip(Boolean(isMobile), 'Desktop-only sidebar hierarchy assertion');
-  await page.goto(
-    `${sitePath}/huong-dan/dai-su-xanh/bat-dau/dai-su-xanh-la-gi`,
-  );
+  await page.goto(`${sitePath}${ambassadorStart}`);
 
   const sidebar = page.locator('.theme-doc-sidebar-container');
-  await expect(sidebar.getByText('Bắt đầu', {exact: true})).toBeVisible();
   await expect(
-    sidebar.getByText('Đại sứ xanh là gì?', {exact: true}),
+    sidebar.getByText('Gia nhập hệ sinh thái', {exact: true}),
+  ).toBeVisible();
+  await expect(
+    sidebar.getByText('Chào mừng Đại sứ xanh', {exact: true}),
   ).toBeVisible();
   await expect(sidebar.getByText('Nhà lắp đặt', {exact: true})).toHaveCount(0);
   await expect(sidebar.getByText('Khách hàng cuối', {exact: true})).toHaveCount(
@@ -86,12 +137,10 @@ test('guide shows left sidebar and right table of contents', async ({
   isMobile,
 }) => {
   test.skip(Boolean(isMobile), 'Desktop-only three-column assertion');
-  await page.goto(
-    `${sitePath}/huong-dan/dai-su-xanh/bat-dau/dai-su-xanh-la-gi`,
-  );
+  await page.goto(`${sitePath}${ambassadorStart}`);
 
   await expect(
-    page.getByRole('heading', {name: 'Đại sứ xanh là gì?'}),
+    page.getByRole('heading', {name: 'Chào mừng Đại sứ xanh'}),
   ).toBeVisible();
   await expect(page.locator('.theme-doc-sidebar-container')).toBeVisible();
   await expect(page.locator('.table-of-contents')).toBeVisible();
@@ -103,9 +152,7 @@ test('desktop docs use a centered Antsomi shell without navbar identity', async 
 }) => {
   test.skip(Boolean(isMobile), 'Desktop-only Antsomi shell assertion');
   await page.setViewportSize({width: 1920, height: 1080});
-  await page.goto(
-    `${sitePath}/huong-dan/dai-su-xanh/bat-dau/dai-su-xanh-la-gi`,
-  );
+  await page.goto(`${sitePath}${ambassadorStart}`);
 
   const shell = page.locator('.dat-doc-shell');
   await expect(shell).toBeVisible();
@@ -152,9 +199,7 @@ test('compact desktop keeps guide readable before wide layout', async ({
 }) => {
   test.skip(Boolean(isMobile), 'Desktop-only compact layout assertion');
   await page.setViewportSize({width: 1024, height: 900});
-  await page.goto(
-    `${sitePath}/huong-dan/dai-su-xanh/bat-dau/dai-su-xanh-la-gi`,
-  );
+  await page.goto(`${sitePath}${ambassadorStart}`);
 
   const article = page.locator('.theme-doc-markdown');
   await expect(article).toBeVisible();
@@ -177,9 +222,7 @@ test('wide desktop keeps an Ambassador guide readable with its table of contents
 }) => {
   test.skip(Boolean(isMobile), 'Desktop-only wide reading-width assertion');
   await page.setViewportSize({width: 1280, height: 900});
-  await page.goto(
-    `${sitePath}/huong-dan/dai-su-xanh/bat-dau/dai-su-xanh-la-gi`,
-  );
+  await page.goto(`${sitePath}${ambassadorStart}`);
 
   const article = page.locator('.theme-doc-markdown');
   await expect(article).toBeVisible();
@@ -249,9 +292,7 @@ test('documentation uses the approved spacious three-column DAT layout', async (
   isMobile,
 }) => {
   test.skip(Boolean(isMobile), 'Desktop-only documentation layout assertion');
-  await page.goto(
-    `${sitePath}/huong-dan/dai-su-xanh/bat-dau/dai-su-xanh-la-gi`,
-  );
+  await page.goto(`${sitePath}${ambassadorStart}`);
 
   await expect(page.locator('.navbar')).toHaveCSS(
     'background-color',
@@ -309,9 +350,7 @@ test('mobile navbar sidebar keeps its controls readable without duplicating site
   page,
 }) => {
   await page.setViewportSize({width: 390, height: 844});
-  await page.goto(
-    `${sitePath}/huong-dan/dai-su-xanh/bat-dau/dai-su-xanh-la-gi`,
-  );
+  await page.goto(`${sitePath}${ambassadorStart}`);
   await page.locator('.navbar__toggle').click();
 
   const sidebar = page.locator('.navbar-sidebar');

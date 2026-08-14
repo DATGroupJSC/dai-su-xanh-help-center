@@ -15,6 +15,12 @@ describe('audienceHubs', () => {
       true,
     );
   });
+
+  it('opens Đại sứ xanh at the approved welcome topic', () => {
+    expect(audienceHubs.find((hub) => hub.title === 'Đại sứ xanh')?.to).toBe(
+      '/huong-dan/dai-su-xanh/gia-nhap-he-sinh-thai/chao-mung-dai-su-xanh',
+    );
+  });
 });
 
 describe('readSiteLinks', () => {

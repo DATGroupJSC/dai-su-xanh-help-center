@@ -14,7 +14,7 @@ docs/
 └── ho-tro/            # Hỗ trợ chung cho mọi nhóm
 ```
 
-Khi người đọc chọn một nhóm, cột trái chỉ hiển thị bài của nhóm đó. Trong mỗi khu vực, menu mặc định hiển thị hai cấp: nhóm chủ đề và tên bài. Không để bài của nhóm này trong thư mục của nhóm khác.
+Khi người đọc chọn một nhóm, cột trái chỉ hiển thị bài của nhóm đó. Riêng Đại sứ xanh, menu mặc định hiển thị hai cấp: bốn nhóm lớn và các chủ đề nhỏ. Bài chi tiết được mở bằng thẻ trên trang chủ đề, không nằm trong menu trái. Không để bài của nhóm này trong thư mục của nhóm khác.
 
 Chỉ thêm quy trình, chính sách, SLA, giá, bảo hành hoặc thông số khi có nguồn chính thức đã được content owner phê duyệt. Không tự điền URL đăng ký, hoa hồng, quyền lợi hay kênh hỗ trợ tạm.
 
@@ -62,9 +62,11 @@ npm run test:e2e
 
 - [2026-08-13 — Lề trang và vị trí tên website](planning/specs/2026-08-13-antsomi-layout-and-identity.md): khung desktop căn giữa, ba cột thoáng hơn; tên đầy đủ nằm ở đầu nội dung thay vì cạnh menu.
 - [2026-08-13 — Kế hoạch triển khai lề Antsomi](planning/plans/2026-08-13-antsomi-gutters-and-header-identity.md): kiểm tra và thay đổi theme cho shell tài liệu.
+- [2026-08-14 — Kế hoạch triển khai nội dung Đại sứ xanh](planning/plans/2026-08-14-dai-su-xanh-content-architecture.md): tạo menu hai cấp, trang chủ đề, bài viết “Đang cập nhật” và chuyển hướng link cũ.
+- [2026-08-14 — Cấu trúc nội dung Đại sứ xanh](planning/specs/2026-08-14-dai-su-xanh-content-architecture-design.md): menu hai cấp, danh mục bài viết và quy ước sử dụng trạng thái “Đang cập nhật”.
 
 ## GitHub Pages và custom domain
 
-Website hiện tại: `https://datgroupjsc.github.io/dat-universal-help-center/`
+Website hiện tại: `https://hotro.datuniversal.com`
 
-GitHub Pages tự deploy khi branch `main` thay đổi. Custom domain được đề xuất là `huongdan.datuniversal.com`, nhưng chỉ cấu hình sau khi người quản trị có quyền chỉnh DNS của `datuniversal.com`. Khi đó cập nhật `url`, `baseUrl` trong `docusaurus.config.ts`, thiết lập custom domain trong GitHub Pages và thêm DNS record theo hướng dẫn của GitHub.
+GitHub Pages tự deploy khi branch `main` thay đổi. Custom domain hiện tại là `hotro.datuniversal.com`.
