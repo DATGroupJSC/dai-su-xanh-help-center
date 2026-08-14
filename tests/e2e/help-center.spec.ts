@@ -1,6 +1,6 @@
 import {expect, test} from '@playwright/test';
 
-const sitePath = '/dat-universal-help-center';
+const sitePath = '';
 
 test('homepage routes users to the three DAT Universal audiences', async ({
   page,
