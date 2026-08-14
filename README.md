@@ -62,9 +62,10 @@ npm run test:e2e
 
 - [2026-08-13 — Lề trang và vị trí tên website](planning/specs/2026-08-13-antsomi-layout-and-identity.md): khung desktop căn giữa, ba cột thoáng hơn; tên đầy đủ nằm ở đầu nội dung thay vì cạnh menu.
 - [2026-08-13 — Kế hoạch triển khai lề Antsomi](planning/plans/2026-08-13-antsomi-gutters-and-header-identity.md): kiểm tra và thay đổi theme cho shell tài liệu.
+- [2026-08-14 — Cấu trúc nội dung Đại sứ xanh](planning/specs/2026-08-14-dai-su-xanh-content-architecture-design.md): menu hai cấp, danh mục bài viết và quy ước sử dụng trạng thái “Đang cập nhật”.
 
 ## GitHub Pages và custom domain
 
-Website hiện tại: `https://datgroupjsc.github.io/dat-universal-help-center/`
+Website hiện tại: `https://hotro.datuniversal.com`
 
-GitHub Pages tự deploy khi branch `main` thay đổi. Custom domain được đề xuất là `huongdan.datuniversal.com`, nhưng chỉ cấu hình sau khi người quản trị có quyền chỉnh DNS của `datuniversal.com`. Khi đó cập nhật `url`, `baseUrl` trong `docusaurus.config.ts`, thiết lập custom domain trong GitHub Pages và thêm DNS record theo hướng dẫn của GitHub.
+GitHub Pages tự deploy khi branch `main` thay đổi. Custom domain hiện tại là `hotro.datuniversal.com`.
