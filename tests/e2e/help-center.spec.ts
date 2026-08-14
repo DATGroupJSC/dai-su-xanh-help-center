@@ -1,6 +1,8 @@
 import {expect, test} from '@playwright/test';
 
 const sitePath = '';
+const ambassadorStart =
+  '/huong-dan/dai-su-xanh/gia-nhap-he-sinh-thai/chao-mung-dai-su-xanh';
 
 test('homepage routes users to the three DAT Universal audiences', async ({
   page,
@@ -28,7 +30,7 @@ test('each audience has a safe public starting page', async ({page}) => {
   for (const [path, heading] of [
     [
       '/huong-dan/dai-su-xanh/bat-dau/dai-su-xanh-la-gi',
-      'Đại sứ xanh là gì?',
+      'Chào mừng Đại sứ xanh',
     ],
     [
       '/huong-dan/nha-lap-dat/bat-dau-hop-tac',
@@ -52,13 +54,34 @@ test('former Đại sứ xanh URL redirects to its new audience route', async ({
   );
 
   await expect(page).toHaveURL(
-    new RegExp(
-      `${sitePath}/huong-dan/dai-su-xanh/bat-dau/dai-su-xanh-la-gi`,
-    ),
+    new RegExp(`${sitePath}${ambassadorStart}`),
   );
   await expect(
-    page.getByRole('heading', {name: 'Đại sứ xanh là gì?'}),
+    page.getByRole('heading', {name: 'Chào mừng Đại sứ xanh'}),
   ).toBeVisible();
+});
+
+test('Đại sứ xanh uses a two-level sidebar and topic cards', async ({
+  page,
+  isMobile,
+}) => {
+  test.skip(Boolean(isMobile), 'Desktop-only sidebar hierarchy assertion');
+  await page.goto(`${sitePath}${ambassadorStart}`);
+
+  const sidebar = page.locator('.theme-doc-sidebar-container');
+  await expect(
+    sidebar.getByText('Gia nhập hệ sinh thái', {exact: true}),
+  ).toBeVisible();
+  await expect(
+    sidebar.getByText('Chào mừng Đại sứ xanh', {exact: true}),
+  ).toBeVisible();
+  await expect(
+    sidebar.getByText('Khái niệm & giá trị nền tảng', {exact: true}),
+  ).toHaveCount(0);
+  await expect(
+    page.getByRole('link', {name: /Khái niệm & giá trị nền tảng/}),
+  ).toBeVisible();
+  await expect(page.getAllByText('Đang cập nhật')).toHaveCount(5);
 });
 
 test('sidebar is scoped to the selected audience and shows two levels', async ({
