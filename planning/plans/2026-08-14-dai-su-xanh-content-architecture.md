@@ -387,9 +387,9 @@ export function UpdatingArticle({kind = 'guide'}: {kind?: AmbassadorArticleKind}
   flex-direction: column;
   gap: 0.75rem;
   padding: 1.25rem;
-  border: 1px solid var(--dat-sky-200);
+  border: 1px solid #bfe9ff;
   border-radius: 1rem;
-  color: var(--dat-ink);
+  color: var(--ifm-font-color-base);
   background: #fff;
   text-decoration: none;
 }
