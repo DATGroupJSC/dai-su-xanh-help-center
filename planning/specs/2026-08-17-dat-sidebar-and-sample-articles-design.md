@@ -1,7 +1,8 @@
 # Thiết kế menu Đại sứ xanh ba cấp và bài viết mẫu
 
-**Ngày:** 2026-08-17  
-**Phạm vi:** khu vực hướng dẫn `Đại sứ xanh` của Trung tâm hỗ trợ DAT Universal.  
+**Ngày:** 2026-08-17
+
+**Phạm vi:** khu vực hướng dẫn `Đại sứ xanh` của Trung tâm hỗ trợ DAT Universal.
 **Nguồn yêu cầu:** trao đổi trực tiếp với người quản trị website và ảnh tham khảo giao diện Antsomi.
 
 ## Mục tiêu
