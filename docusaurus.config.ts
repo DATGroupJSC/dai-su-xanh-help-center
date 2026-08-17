@@ -9,7 +9,7 @@ const ambassadorWelcomeArticle =
 const config: Config = {
   title: 'Trung tâm hỗ trợ DAT Universal',
   tagline: 'Hướng dẫn dành cho Đại sứ xanh, Nhà lắp đặt và Khách hàng.',
-  favicon: 'img/favicon-dat.svg',
+  favicon: 'img/favicon.DujayeFC.png',
   future: {
     v4: true,
   },
@@ -199,34 +199,6 @@ const config: Config = {
     },
     footer: {
       style: 'dark',
-      links: [
-        {
-          title: 'Trung tâm hỗ trợ',
-          items: [
-            {
-              label: 'Trang chủ',
-              to: '/',
-            },
-            {
-              label: 'Đại sứ xanh',
-              to: ambassadorStart,
-            },
-            {
-              label: 'Nhà lắp đặt',
-              to: '/huong-dan/nha-lap-dat/bat-dau-hop-tac',
-            },
-            {
-              label: 'Khách hàng cuối',
-              to: '/huong-dan/khach-hang/tim-hieu-giai-phap',
-            },
-            {
-              label: 'Hỗ trợ chung',
-              to: '/huong-dan/ho-tro/su-dung-trung-tam-ho-tro',
-            },
-          ],
-        },
-      ],
-      copyright: 'Copyright © DAT.',
     },
   } satisfies Preset.ThemeConfig,
   customFields: {
