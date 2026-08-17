@@ -15,8 +15,8 @@ describe('DAT Universal help-center configuration', () => {
     expect(config.baseUrl).toBe('/');
   });
 
-  it('uses the square DAT favicon', () => {
-    expect(config.favicon).toBe('img/favicon-dat.svg');
+  it('uses the supplied DAT favicon', () => {
+    expect(config.favicon).toBe('img/favicon.DujayeFC.png');
   });
 
   it('exposes the five approved navigation destinations', () => {

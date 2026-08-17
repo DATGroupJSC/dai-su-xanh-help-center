@@ -458,6 +458,136 @@ body {
   outline-color: var(--dat-sky-50);
 }
 
+.dat-corporate-footer {
+  --ifm-footer-background-color: var(--dat-blue-deep);
+  padding: 4.25rem 0 1.35rem;
+  color: #fff;
+}
+
+.dat-corporate-footer__container {
+  max-width: 1240px;
+}
+
+.dat-corporate-footer__top {
+  display: grid;
+  grid-template-columns: minmax(15rem, 1.55fr) repeat(3, minmax(10.5rem, 1fr));
+  gap: 2.75rem;
+}
+
+.dat-corporate-footer__brand img {
+  display: block;
+  width: 5.2rem;
+  height: auto;
+  margin-bottom: 0.75rem;
+  filter: brightness(0) invert(1);
+}
+
+.dat-corporate-footer :is(h2, p) {
+  margin: 0;
+}
+
+.dat-corporate-footer__company-name,
+.dat-corporate-footer h2 {
+  color: #fff;
+  font-size: 0.94rem;
+  font-weight: 800;
+}
+
+.dat-corporate-footer__brand > p:last-child {
+  max-width: 19rem;
+  margin-top: 0.45rem;
+  color: #eaf8ff;
+  line-height: 1.55;
+}
+
+.dat-corporate-footer__column ul {
+  display: grid;
+  gap: 0.46rem;
+  margin: 0.85rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.dat-corporate-footer__column li {
+  color: #d8eefa;
+  font-size: 0.93rem;
+  line-height: 1.42;
+}
+
+.dat-corporate-footer__column .dat-corporate-footer__subheading {
+  margin-top: 0.55rem;
+  color: #fff;
+  font-weight: 800;
+}
+
+.dat-corporate-footer__contacts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2.5rem;
+  margin-top: 4rem;
+}
+
+.dat-corporate-footer__contact {
+  display: grid;
+  gap: 0.55rem;
+  font-style: normal;
+}
+
+.dat-corporate-footer__contact h2 {
+  margin-bottom: 0.2rem;
+}
+
+.dat-corporate-footer__contact p {
+  color: #eaf8ff;
+  font-size: 0.91rem;
+  line-height: 1.5;
+}
+
+.dat-corporate-footer__contact a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.dat-corporate-footer__contact a:hover {
+  color: var(--dat-sky-50);
+  text-decoration: underline;
+}
+
+.dat-corporate-footer__copyright {
+  margin-top: 3rem !important;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgb(234 248 255 / 0.28);
+  color: #fff;
+  text-align: center;
+}
+
+@media (max-width: 996px) {
+  .dat-corporate-footer__top {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 780px) {
+  .dat-corporate-footer {
+    padding-top: 3rem;
+  }
+
+  .dat-corporate-footer__top,
+  .dat-corporate-footer__contacts {
+    grid-template-columns: 1fr;
+    gap: 2.25rem;
+  }
+
+  .dat-corporate-footer__contacts {
+    margin-top: 2.75rem;
+  }
+
+  .dat-corporate-footer__copyright {
+    margin-top: 2.5rem !important;
+    font-size: 0.88rem;
+  }
+}
+
 .not-found-page {
   min-height: calc(100vh - var(--ifm-navbar-height) - 180px);
   padding-top: 8rem;
