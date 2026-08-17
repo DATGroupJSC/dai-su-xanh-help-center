@@ -7,6 +7,7 @@ const topicDocId = (groupId: string, topicId: string) =>
 const daiSuXanhSidebar = ambassadorGuideGroups.map((group) => ({
   type: 'category' as const,
   label: group.title,
+  className: 'ambassador-sidebar-group',
   collapsible: true,
   collapsed: false,
   link: {

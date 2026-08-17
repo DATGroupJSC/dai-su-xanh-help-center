@@ -8,6 +8,7 @@ type AmbassadorSidebarItem = {
   label?: string;
   type?: string;
   id?: string;
+  className?: string;
   items?: AmbassadorSidebarItem[];
 };
 
@@ -35,6 +36,9 @@ describe('Đại sứ xanh content navigation', () => {
       'Trung tâm hỗ trợ',
       'Quy ước hợp tác',
     ]);
+    expect(groups.every((group) => group.className === 'ambassador-sidebar-group')).toBe(
+      true,
+    );
     expect(topics).toHaveLength(16);
     expect(articles).toHaveLength(47);
     expect(articles.every((article) => article.type === 'doc')).toBe(true);

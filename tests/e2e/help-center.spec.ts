@@ -106,8 +106,8 @@ test('Ambassador article cards keep a visible keyboard focus outline', async ({
 }) => {
   await page.goto(`${sitePath}${ambassadorStart}`);
 
-  const card = page.getByRole('link', {
-    name: /Khái niệm & giá trị nền tảng/,
+  const card = page.locator('.ambassador-topic-card').filter({
+    hasText: 'Khái niệm & giá trị nền tảng',
   });
   await card.focus();
   await expect(card).toHaveCSS('outline-color', 'rgb(0, 79, 122)');
@@ -165,6 +165,39 @@ test('Ambassador sidebar uses compact Antsomi-style hierarchy controls', async (
   await expect(groupCaret).toHaveCSS('opacity', '0');
   await group.hover();
   await expect(groupCaret).toHaveCSS('opacity', '1');
+});
+
+test('Ambassador sidebar keeps level-three articles open for one topic at a time', async ({
+  page,
+  isMobile,
+}) => {
+  test.skip(Boolean(isMobile), 'Desktop-only topic expansion assertion');
+  await page.goto(`${sitePath}${ambassadorWelcomeArticle}`);
+
+  const sidebar = page.locator('.theme-doc-sidebar-container');
+  const welcomeCaret = sidebar.getByRole('button', {
+    name: /Chào mừng Đại sứ xanh/,
+  });
+  const sharingCaret = sidebar.getByRole('button', {
+    name: /Chia sẻ bài viết & nội dung/,
+  });
+  const welcomeArticle = sidebar.getByText('Khái niệm & giá trị nền tảng', {
+    exact: true,
+  });
+  const sharingArticle = sidebar.getByText('Cách lấy hình ảnh/video', {
+    exact: true,
+  });
+
+  await expect(welcomeCaret).toHaveAttribute('aria-expanded', 'true');
+  await expect(welcomeArticle).toBeVisible();
+  await expect(sharingArticle).toBeHidden();
+
+  await sharingCaret.click();
+
+  await expect(sharingCaret).toHaveAttribute('aria-expanded', 'true');
+  await expect(welcomeCaret).toHaveAttribute('aria-expanded', 'false');
+  await expect(welcomeArticle).toBeHidden();
+  await expect(sharingArticle).toBeVisible();
 });
 
 test('sidebar is scoped to the selected audience and shows two levels', async ({
@@ -364,6 +397,15 @@ test('documentation uses the approved spacious three-column DAT layout', async (
     'line-height',
     '31.5px',
   );
+  await expect(
+    page
+      .locator(
+        '.theme-doc-sidebar-menu .menu__link--active.menu__link--sublist',
+      )
+      .first(),
+  ).toHaveCSS('color', 'rgb(0, 109, 168)');
+
+  await page.goto(`${sitePath}${ambassadorWelcomeArticle}`);
   const activeDoc = page
     .locator(
       '.theme-doc-sidebar-menu .menu__link--active:not(.menu__link--sublist)',
@@ -374,13 +416,6 @@ test('documentation uses the approved spacious three-column DAT layout', async (
     'background-color',
     'rgb(234, 248, 255)',
   );
-  await expect(
-    page
-      .locator(
-        '.theme-doc-sidebar-menu .menu__link--active.menu__link--sublist',
-      )
-      .first(),
-  ).toHaveCSS('color', 'rgb(0, 109, 168)');
 
   await page.goto(`${sitePath}/`);
   const footerLink = page.locator('.footer a').first();
