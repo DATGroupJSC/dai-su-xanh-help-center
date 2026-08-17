@@ -88,7 +88,9 @@ test('former Đại sứ xanh article URL redirects to its replacement article',
     new RegExp(`${sitePath}${ambassadorWelcomeArticle}`),
   );
   await expect(
-    page.getByRole('heading', {name: 'Khái niệm & giá trị nền tảng'}),
+    page.getByRole('heading', {
+      name: 'DAT Universal là gì? Khái niệm và giá trị nền tảng',
+    }),
   ).toBeVisible();
 });
 
@@ -106,26 +108,27 @@ test('video sample uses a safe panel without an external embed', async ({
   await expect(sample.locator('iframe, video')).toHaveCount(0);
 });
 
-test('Writer-authored Ambassador detail articles render common Markdown content', async ({
+test('Writer-authored Ambassador detail articles render their published Markdown content', async ({
   page,
 }) => {
   await page.goto(`${sitePath}${ambassadorWelcomeArticle}`);
 
   const article = page.locator('.theme-doc-markdown');
   await expect(
-    article.getByRole('heading', {name: 'Các loại trình bày thường dùng'}),
+    article.getByRole('heading', {name: 'Giá trị cốt lõi của DAT Universal'}),
   ).toBeVisible();
   await expect(
-    article.getByText('Nội dung rất quan trọng', {exact: false}),
+    article.getByText(
+      'DAT Universal là Hệ sinh thái Giá trị kết nối con người',
+      {exact: false},
+    ),
   ).toBeVisible();
-  await expect(article.locator('blockquote').first()).toContainText('Lưu ý');
   await expect(
-    article.locator('img[alt="Mô tả ngắn về hình"]'),
+    article.locator('blockquote').first(),
+  ).toContainText('DAT Universal là nền tảng kết nối nhu cầu thực tế');
+  await expect(
+    article.getByRole('list').first(),
   ).toBeVisible();
-  await expect(article.locator('iframe[title="Video hướng dẫn"]')).toHaveCount(
-    1,
-  );
-  await expect(article.locator('table')).toBeVisible();
 });
 
 test('Ambassador article cards keep a visible keyboard focus outline', async ({
