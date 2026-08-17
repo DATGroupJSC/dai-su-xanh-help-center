@@ -1,4 +1,4 @@
-import {readFile} from 'node:fs/promises';
+import {access, readFile} from 'node:fs/promises';
 import {resolve} from 'node:path';
 import {describe, expect, it} from 'vitest';
 import sidebars from '../../sidebars';
@@ -54,7 +54,7 @@ describe('Đại sứ xanh content navigation', () => {
     );
   });
 
-  it('uses the shared presentation sample in every detailed article', async () => {
+  it('allows writer-authored articles and requires referenced images to exist', async () => {
     const files = ambassadorGuideGroups.flatMap((group) =>
       group.topics.flatMap((topic) =>
         topic.articles.map((article) =>
@@ -74,9 +74,26 @@ describe('Đại sứ xanh content navigation', () => {
 
     expect(files).toHaveLength(47);
     expect(
-      sourceFiles.every((source) =>
-        source.includes('<SampleArticle kind='),
+      sourceFiles.every(
+        (source) =>
+          source.includes('<SampleArticle kind=') ||
+          (source.includes('<ConfiguredArticleHelp />') && /##\s+\S/.test(source)),
       ),
     ).toBe(true);
+
+    const imagePaths = sourceFiles.flatMap((source) =>
+      [...source.matchAll(/!\[[^\]]*\]\((\/img\/[^)]+)\)/g)].map(
+        ([, imagePath]) => imagePath,
+      ),
+    );
+
+    expect(imagePaths).not.toHaveLength(0);
+    await expect(
+      Promise.all(
+        imagePaths.map((imagePath) =>
+          access(resolve('static', imagePath.slice(1))),
+        ),
+      ),
+    ).resolves.toHaveLength(imagePaths.length);
   });
 });
