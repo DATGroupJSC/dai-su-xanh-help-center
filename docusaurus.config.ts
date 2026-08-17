@@ -9,7 +9,7 @@ const ambassadorWelcomeArticle =
 const config: Config = {
   title: 'Trung tâm hỗ trợ DAT Universal',
   tagline: 'Hướng dẫn dành cho Đại sứ xanh, Nhà lắp đặt và Khách hàng.',
-  favicon: 'img/favicon.ico',
+  favicon: 'img/favicon-dat.svg',
   future: {
     v4: true,
   },
