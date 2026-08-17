@@ -138,6 +138,35 @@ test('Đại sứ xanh opens only the active topic articles at level three', asy
   ).toHaveCount(0);
 });
 
+test('Ambassador sidebar uses compact Antsomi-style hierarchy controls', async ({
+  page,
+  isMobile,
+}) => {
+  test.skip(Boolean(isMobile), 'Desktop-only sidebar appearance assertion');
+  await page.goto(`${sitePath}${ambassadorWelcomeArticle}`);
+
+  const sidebar = page.locator('.theme-doc-sidebar-container');
+  const group = sidebar.getByText('Gia nhập hệ sinh thái', {exact: true});
+  const topic = sidebar.getByText('Chào mừng Đại sứ xanh', {exact: true});
+  const topicCaret = topic.locator('../..').locator('.menu__caret');
+  const groupCaret = group.locator('../..').locator('.menu__caret');
+  const article = sidebar.getByText('Khái niệm & giá trị nền tảng', {
+    exact: true,
+  });
+
+  await expect(group).toHaveCSS('font-weight', '700');
+  await expect(topicCaret).toHaveAttribute('aria-expanded', 'true');
+  expect(
+    await topicCaret.evaluate(
+      (caret) => getComputedStyle(caret, '::before').backgroundSize,
+    ),
+  ).toBe('12px 12px');
+  await expect(article).toHaveCSS('font-size', '14px');
+  await expect(groupCaret).toHaveCSS('opacity', '0');
+  await group.hover();
+  await expect(groupCaret).toHaveCSS('opacity', '1');
+});
+
 test('sidebar is scoped to the selected audience and shows two levels', async ({
   page,
   isMobile,
