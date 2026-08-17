@@ -304,7 +304,8 @@ body {
   text-transform: uppercase;
 }
 
-.theme-doc-sidebar-menu .ambassador-sidebar-group .theme-doc-sidebar-item-category-level-2 > .menu__list-item-collapsible > .menu__link {
+.theme-doc-sidebar-menu .ambassador-sidebar-group .theme-doc-sidebar-item-category-level-2 > .menu__list-item-collapsible > .menu__link,
+.theme-doc-sidebar-menu .ambassador-sidebar-group .theme-doc-sidebar-item-link-level-2 > .menu__link {
   padding: 0.55rem 0;
   color: #6b7280;
   font-size: 1rem;
