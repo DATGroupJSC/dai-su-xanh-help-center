@@ -1,3 +1,5 @@
+import {readFile} from 'node:fs/promises';
+import {resolve} from 'node:path';
 import {describe, expect, it} from 'vitest';
 import sidebars from '../../sidebars';
 import {ambassadorGuideGroups} from '../../src/data/ambassadorContent';
@@ -46,5 +48,31 @@ describe('Đại sứ xanh content navigation', () => {
         }),
       ]),
     );
+  });
+
+  it('uses the shared presentation sample in every detailed article', async () => {
+    const files = ambassadorGuideGroups.flatMap((group) =>
+      group.topics.flatMap((topic) =>
+        topic.articles.map((article) =>
+          resolve(
+            'docs',
+            'dai-su-xanh',
+            group.id,
+            topic.id,
+            `${article.id}.mdx`,
+          ),
+        ),
+      ),
+    );
+    const sourceFiles = await Promise.all(
+      files.map((file) => readFile(file, 'utf8')),
+    );
+
+    expect(files).toHaveLength(47);
+    expect(
+      sourceFiles.every((source) =>
+        source.includes('<SampleArticle kind='),
+      ),
+    ).toBe(true);
   });
 });

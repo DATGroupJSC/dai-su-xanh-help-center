@@ -14,7 +14,7 @@ docs/
 └── ho-tro/            # Hỗ trợ chung cho mọi nhóm
 ```
 
-Khi người đọc chọn một nhóm, cột trái chỉ hiển thị bài của nhóm đó. Riêng Đại sứ xanh, menu mặc định hiển thị hai cấp: bốn nhóm lớn và các chủ đề nhỏ. Bài chi tiết được mở bằng thẻ trên trang chủ đề, không nằm trong menu trái. Không để bài của nhóm này trong thư mục của nhóm khác.
+Khi người đọc chọn một nhóm, cột trái chỉ hiển thị bài của nhóm đó. Riêng Đại sứ xanh, menu mặc định hiển thị hai cấp: bốn nhóm lớn và các chủ đề nhỏ; khi mở một chủ đề, các bài chi tiết của riêng chủ đề đó xuất hiện ở cấp ba. Không để bài của nhóm này trong thư mục của nhóm khác.
 
 Chỉ thêm quy trình, chính sách, SLA, giá, bảo hành hoặc thông số khi có nguồn chính thức đã được content owner phê duyệt. Không tự điền URL đăng ký, hoa hồng, quyền lợi hay kênh hỗ trợ tạm.
 
@@ -27,6 +27,8 @@ Chỉ thêm quy trình, chính sách, SLA, giá, bảo hành hoặc thông số 
 5. Nếu tạo nhóm chủ đề mới, tạo thư mục mới cùng file `_category_.json`; dùng `position` để xếp thứ tự nhóm đó trong cột trái.
 6. Thêm ảnh vào `static/img/`, đặt tên chữ thường không dấu/không khoảng trắng. Trong bài, chèn theo mẫu: `![Mô tả ảnh](/img/ten-anh.png)`.
 7. Commit thay đổi vào branch, sau đó mở Pull Request để kiểm tra trước khi đưa lên website.
+
+47 bài chi tiết của Đại sứ xanh hiện có cùng một **nội dung minh hoạ** để người viết thấy cách dùng tiêu đề, danh sách, hình, bảng, trích dẫn và khung video. Đây không phải nội dung nghiệp vụ đã phê duyệt. Khi có nội dung chính thức, thay phần `<SampleArticle ... />` trong đúng bài bằng nội dung đã được duyệt; không giữ nhãn “Nội dung minh hoạ” trong bài public cuối cùng.
 
 Không đưa password, OTP, token, API key, dữ liệu khách hàng hay ảnh chụp chưa che thông tin cá nhân lên GitHub public.
 
@@ -64,6 +66,7 @@ npm run test:e2e
 - [2026-08-13 — Kế hoạch triển khai lề Antsomi](planning/plans/2026-08-13-antsomi-gutters-and-header-identity.md): kiểm tra và thay đổi theme cho shell tài liệu.
 - [2026-08-14 — Kế hoạch triển khai nội dung Đại sứ xanh](planning/plans/2026-08-14-dai-su-xanh-content-architecture.md): tạo menu hai cấp, trang chủ đề, bài viết “Đang cập nhật” và chuyển hướng link cũ.
 - [2026-08-14 — Cấu trúc nội dung Đại sứ xanh](planning/specs/2026-08-14-dai-su-xanh-content-architecture-design.md): menu hai cấp, danh mục bài viết và quy ước sử dụng trạng thái “Đang cập nhật”.
+- [2026-08-17 — Sidebar DAT và bài minh hoạ](planning/specs/2026-08-17-dat-sidebar-and-sample-articles-design.md): menu ba cấp theo phong cách Antsomi, favicon DAT và mẫu trình bày an toàn cho bài chi tiết.
 
 ## GitHub Pages và custom domain
 
