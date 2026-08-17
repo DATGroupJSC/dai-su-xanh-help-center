@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 420" role="img" aria-labelledby="title description">
+  <title id="title">Hình minh hoạ nội dung mẫu DAT</title>
+  <desc id="description">Hai thẻ tài liệu màu xanh DAT với điểm nhấn cam.</desc>
+  <rect width="960" height="420" rx="32" fill="#eaf8ff"/>
+  <rect x="130" y="92" width="310" height="220" rx="20" fill="#fff" stroke="#9dcee8" stroke-width="4"/>
+  <rect x="510" y="92" width="310" height="220" rx="20" fill="#004f7a"/>
+  <circle cx="194" cy="156" r="22" fill="#ff8400"/>
+  <rect x="238" y="136" width="140" height="18" rx="9" fill="#006da8"/>
+  <rect x="170" y="204" width="210" height="14" rx="7" fill="#d5e6ef"/>
+  <rect x="170" y="238" width="166" height="14" rx="7" fill="#d5e6ef"/>
+  <path d="M592 144h146v18H592zM592 190h108v14H592zM592 222h166v14H592z" fill="#eaf8ff"/>
+  <circle cx="756" cy="150" r="20" fill="#ff8400"/>
+  <text x="480" y="370" text-anchor="middle" fill="#004f7a" font-family="Arial, sans-serif" font-size="28" font-weight="700">HÌNH MINH HOẠ NỘI DUNG MẪU</text>
+</svg>

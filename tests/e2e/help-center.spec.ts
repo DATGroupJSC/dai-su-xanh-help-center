@@ -63,18 +63,42 @@ test('former Đại sứ xanh article URL redirects to its replacement article',
   ).toBeVisible();
 });
 
-test('video placeholder states that its video is being updated without an embed', async ({
+test('video sample uses a safe panel without an external embed', async ({
   page,
 }) => {
   await page.goto(
     `${sitePath}${ambassadorStart}/gioi-thieu-nen-tang`,
   );
 
-  const placeholder = page.locator(
-    '.ambassador-updating[data-content-kind="video"]',
+  const sample = page.locator('.ambassador-sample-article');
+  await expect(sample.locator('.ambassador-sample-video')).toContainText(
+    'Video mẫu',
   );
-  await expect(placeholder).toContainText('Video đang cập nhật');
-  await expect(placeholder.locator('iframe, video')).toHaveCount(0);
+  await expect(sample.locator('iframe, video')).toHaveCount(0);
+});
+
+test('Ambassador detail articles show the approved safe content sample', async ({
+  page,
+}) => {
+  await page.goto(`${sitePath}${ambassadorWelcomeArticle}`);
+
+  const article = page.locator('.theme-doc-markdown');
+  await expect(
+    article.getByText('Nội dung minh hoạ', {exact: false}),
+  ).toBeVisible();
+  await expect(
+    article.getByRole('heading', {name: 'Các bước minh hoạ'}),
+  ).toBeVisible();
+  await expect(article.locator('blockquote')).toContainText(
+    'nội dung chính thức',
+  );
+  await expect(
+    article.locator('img[src$="sample-guide-illustration.svg"]'),
+  ).toBeVisible();
+  await expect(article.locator('.ambassador-sample-video')).toContainText(
+    'Video mẫu',
+  );
+  await expect(article.locator('table')).toBeVisible();
 });
 
 test('Ambassador article cards keep a visible keyboard focus outline', async ({
