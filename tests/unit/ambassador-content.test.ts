@@ -96,4 +96,24 @@ describe('Đại sứ xanh content navigation', () => {
       ),
     ).resolves.toHaveLength(imagePaths.length);
   });
+
+  it('publishes the solar-system article with its supplied local illustration', async () => {
+    const articlePath = resolve(
+      'docs',
+      'dai-su-xanh',
+      'kien-thuc-giai-phap',
+      'tong-quan-giai-phap',
+      'cau-tao-dien-mat-troi.mdx',
+    );
+    const source = await readFile(articlePath, 'utf8');
+
+    expect(source).toContain('## Hệ thống điện mặt trời là gì?');
+    expect(source).toContain('## Cấu hình 3 hệ thống điện mặt trời phổ biến');
+    expect(source).toContain(
+      '![Tấm pin năng lượng mặt trời được lắp trên mái nhà](/img/cau-tao-he-thong-dien-mat-troi.png)',
+    );
+    await expect(
+      access(resolve('static', 'img', 'cau-tao-he-thong-dien-mat-troi.png')),
+    ).resolves.toBeUndefined();
+  });
 });
