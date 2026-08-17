@@ -194,6 +194,32 @@ test('Ambassador sidebar uses compact Antsomi-style hierarchy controls', async (
   await expect(groupCaret).toHaveCSS('opacity', '1');
 });
 
+test('Ambassador leaf topics align with expandable topics at level two', async ({
+  page,
+  isMobile,
+}) => {
+  test.skip(Boolean(isMobile), 'Desktop-only sidebar alignment assertion');
+  await page.goto(`${sitePath}${ambassadorStart}`);
+
+  const sidebar = page.locator('.theme-doc-sidebar-container');
+  const expandableTopic = sidebar.getByText('Hướng dẫn quản lý tài khoản', {
+    exact: true,
+  });
+  const leafTopics = ['Câu hỏi thường gặp', 'Quy định xử lý vi phạm'];
+
+  const expandableBox = await expandableTopic.boundingBox();
+  expect(expandableBox).not.toBeNull();
+
+  for (const label of leafTopics) {
+    const leafBox = await sidebar
+      .getByText(label, {exact: true})
+      .boundingBox();
+
+    expect(leafBox).not.toBeNull();
+    expect(Math.abs((leafBox?.x ?? 0) - (expandableBox?.x ?? 0))).toBeLessThanOrEqual(1);
+  }
+});
+
 test('Ambassador sidebar keeps level-three articles open for one topic at a time', async ({
   page,
   isMobile,
