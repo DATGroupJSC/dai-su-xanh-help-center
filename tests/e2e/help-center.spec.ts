@@ -497,11 +497,12 @@ test('navbar presents the DAT Group logo clearly on desktop and mobile', async (
   await page.goto(`${sitePath}/`);
 
   const logo = page.locator('.navbar__inner > .navbar__items .navbar__logo');
+  const logoImage = logo.locator('img:visible');
   await expect(logo).toBeVisible();
   await expect(logo).toHaveCSS('background-color', 'rgba(0, 0, 0, 0)');
-  await expect(logo.locator('img')).toHaveAttribute('alt', 'DAT Group');
+  await expect(logoImage).toHaveAttribute('alt', 'DAT Group');
   expect(
-    await logo.locator('img').evaluate((image) => {
+    await logoImage.evaluate((image) => {
       const element = image as HTMLImageElement;
       return (
         Math.abs(element.naturalWidth / element.naturalHeight - 439.54 / 170.76) <
