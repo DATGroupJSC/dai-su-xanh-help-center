@@ -89,12 +89,12 @@ test('Ambassador article cards keep a visible keyboard focus outline', async ({
   await expect(card).toHaveCSS('outline-color', 'rgb(0, 79, 122)');
 });
 
-test('Đại sứ xanh uses a two-level sidebar and topic cards', async ({
+test('Đại sứ xanh opens only the active topic articles at level three', async ({
   page,
   isMobile,
 }) => {
   test.skip(Boolean(isMobile), 'Desktop-only sidebar hierarchy assertion');
-  await page.goto(`${sitePath}${ambassadorStart}`);
+  await page.goto(`${sitePath}${ambassadorWelcomeArticle}`);
 
   const sidebar = page.locator('.theme-doc-sidebar-container');
   await expect(
@@ -105,11 +105,13 @@ test('Đại sứ xanh uses a two-level sidebar and topic cards', async ({
   ).toBeVisible();
   await expect(
     sidebar.getByText('Khái niệm & giá trị nền tảng', {exact: true}),
-  ).toHaveCount(0);
-  await expect(
-    page.getByRole('link', {name: /Khái niệm & giá trị nền tảng/}),
   ).toBeVisible();
-  await expect(page.getByText('Đang cập nhật', {exact: true})).toHaveCount(5);
+  await expect(
+    sidebar.getByText('Giới thiệu nền tảng', {exact: true}),
+  ).toBeVisible();
+  await expect(
+    sidebar.getByText('Cách lấy hình ảnh/video', {exact: true}),
+  ).toHaveCount(0);
 });
 
 test('sidebar is scoped to the selected audience and shows two levels', async ({

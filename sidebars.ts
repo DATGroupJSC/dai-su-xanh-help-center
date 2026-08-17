@@ -1,6 +1,9 @@
 import type {SidebarsConfig} from '@docusaurus/plugin-content-docs';
 import {ambassadorGuideGroups} from './src/data/ambassadorContent';
 
+const topicDocId = (groupId: string, topicId: string) =>
+  `dai-su-xanh/${groupId}/${topicId}/index`;
+
 const daiSuXanhSidebar = ambassadorGuideGroups.map((group) => ({
   type: 'category' as const,
   label: group.title,
@@ -11,11 +14,26 @@ const daiSuXanhSidebar = ambassadorGuideGroups.map((group) => ({
     title: group.title,
     slug: `/dai-su-xanh/${group.id}`,
   },
-  items: group.topics.map((topic) => ({
-    type: 'doc' as const,
-    id: `dai-su-xanh/${topic.groupId}/${topic.id}/index`,
-    label: topic.title,
-  })),
+  items: group.topics.map((topic) => {
+    const id = topicDocId(topic.groupId, topic.id);
+
+    if (topic.articles.length === 0) {
+      return {type: 'doc' as const, id, label: topic.title};
+    }
+
+    return {
+      type: 'category' as const,
+      label: topic.title,
+      collapsible: true,
+      collapsed: true,
+      link: {type: 'doc' as const, id},
+      items: topic.articles.map((article) => ({
+        type: 'doc' as const,
+        id: `dai-su-xanh/${topic.groupId}/${topic.id}/${article.id}`,
+        label: article.title,
+      })),
+    };
+  }),
 }));
 
 const sidebars: SidebarsConfig = {

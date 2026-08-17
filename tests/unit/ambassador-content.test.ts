@@ -2,9 +2,11 @@ import {describe, expect, it} from 'vitest';
 import sidebars from '../../sidebars';
 import {ambassadorGuideGroups} from '../../src/data/ambassadorContent';
 
-type AmbassadorSidebarGroup = {
+type AmbassadorSidebarItem = {
   label?: string;
-  items?: Array<{label?: string}>;
+  type?: string;
+  id?: string;
+  items?: AmbassadorSidebarItem[];
 };
 
 describe('Đại sứ xanh content navigation', () => {
@@ -20,8 +22,10 @@ describe('Đại sứ xanh content navigation', () => {
     expect(JSON.stringify(articles)).not.toMatch(/https?:\/\//);
   });
 
-  it('shows exactly four groups and sixteen topic pages in the sidebar', () => {
-    const groups = sidebars.daiSuXanhSidebar as AmbassadorSidebarGroup[];
+  it('shows article links at level three under their topic only', () => {
+    const groups = sidebars.daiSuXanhSidebar as AmbassadorSidebarItem[];
+    const topics = groups.flatMap((group) => group.items ?? []);
+    const articles = topics.flatMap((topic) => topic.items ?? []);
 
     expect(groups.map((group) => group.label)).toEqual([
       'Gia nhập hệ sinh thái',
@@ -29,6 +33,18 @@ describe('Đại sứ xanh content navigation', () => {
       'Trung tâm hỗ trợ',
       'Quy ước hợp tác',
     ]);
-    expect(groups.flatMap((group) => group.items ?? [])).toHaveLength(16);
+    expect(topics).toHaveLength(16);
+    expect(articles).toHaveLength(47);
+    expect(articles.every((article) => article.type === 'doc')).toBe(true);
+    expect(
+      topics.find((topic) => topic.label === 'Chào mừng Đại sứ xanh')?.items,
+    ).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          label: 'Khái niệm & giá trị nền tảng',
+          id: 'dai-su-xanh/gia-nhap-he-sinh-thai/chao-mung-dai-su-xanh/khai-niem-va-gia-tri-nen-tang',
+        }),
+      ]),
+    );
   });
 });
