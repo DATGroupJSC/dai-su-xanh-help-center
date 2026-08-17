@@ -4,11 +4,11 @@ import {describe, expect, it} from 'vitest';
 import config from '../../docusaurus.config';
 
 describe('GitHub Pages deployment', () => {
-  it('targets the public DATGroupJSC project site', () => {
-    expect(config.url).toBe('https://datgroupjsc.github.io');
-    expect(config.baseUrl).toBe('/dai-su-xanh-help-center/');
+  it('targets the DAT Universal support subdomain at its root', () => {
+    expect(config.url).toBe('https://hotro.datuniversal.com');
+    expect(config.baseUrl).toBe('/');
     expect(config.organizationName).toBe('DATGroupJSC');
-    expect(config.projectName).toBe('dai-su-xanh-help-center');
+    expect(config.projectName).toBe('dat-universal-help-center');
     expect(config.trailingSlash).toBe(false);
   });
 

@@ -23,11 +23,10 @@ export function ArticleHelp({supportUrl}: ArticleHelpProps) {
     <section className="article-help" aria-label="Cần thêm hỗ trợ">
       <h2>Cần thêm hỗ trợ?</h2>
       <p>
-        Hãy đọc hướng dẫn xử lý vấn đề thường gặp trước khi liên hệ đội hỗ
-        trợ.
+        Hãy xem mục Hỗ trợ chung trước khi liên hệ đội hỗ trợ.
       </p>
       <Link to="/huong-dan/ho-tro/su-dung-trung-tam-ho-tro">
-        Xem cách nhận hỗ trợ
+        Xem mục Hỗ trợ
       </Link>
     </section>
   );

@@ -1,5 +1,5 @@
 {
-  "name": "dai-su-xanh-help-center",
+  "name": "dat-universal-help-center",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -21,6 +21,7 @@
     "@cmfcmf/docusaurus-search-local": "^2.0.1",
     "@docusaurus/core": "3.10.2",
     "@docusaurus/faster": "3.10.2",
+    "@docusaurus/plugin-client-redirects": "^3.10.2",
     "@docusaurus/preset-classic": "3.10.2",
     "@mdx-js/react": "^3.0.0",
     "clsx": "^2.0.0",

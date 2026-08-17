@@ -1,6 +1,6 @@
 {
-  "label": "Hỗ trợ",
-  "position": 5,
+  "label": "Hỗ trợ chung",
+  "position": 4,
   "link": {
     "type": "generated-index",
     "slug": "/ho-tro",

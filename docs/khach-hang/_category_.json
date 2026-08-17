@@ -1,0 +1,9 @@
+{
+  "label": "Khách hàng cuối",
+  "position": 3,
+  "link": {
+    "type": "generated-index",
+    "slug": "/khach-hang",
+    "description": "Điểm bắt đầu dành cho Khách hàng cuối."
+  }
+}

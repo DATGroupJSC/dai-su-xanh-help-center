@@ -1,10 +1,15 @@
 import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 
+const ambassadorStart =
+  '/huong-dan/dai-su-xanh/gia-nhap-he-sinh-thai/chao-mung-dai-su-xanh';
+const ambassadorWelcomeArticle =
+  `${ambassadorStart}/khai-niem-va-gia-tri-nen-tang`;
+
 const config: Config = {
-  title: 'Trung tâm hỗ trợ Đại sứ xanh',
-  tagline: 'Tự tìm hướng dẫn, làm đúng việc, nhận hỗ trợ khi cần.',
-  favicon: 'img/favicon.ico',
+  title: 'Trung tâm hỗ trợ DAT Universal',
+  tagline: 'Hướng dẫn dành cho Đại sứ xanh, Nhà lắp đặt và Khách hàng.',
+  favicon: 'img/favicon-dat.svg',
   future: {
     v4: true,
   },
@@ -13,10 +18,10 @@ const config: Config = {
       onBrokenMarkdownLinks: 'throw',
     },
   },
-  url: 'https://datgroupjsc.github.io',
-  baseUrl: '/dai-su-xanh-help-center/',
+  url: 'https://hotro.datuniversal.com',
+  baseUrl: '/',
   organizationName: 'DATGroupJSC',
-  projectName: 'dai-su-xanh-help-center',
+  projectName: 'dat-universal-help-center',
   trailingSlash: false,
   onBrokenLinks: 'throw',
   onDuplicateRoutes: 'throw',
@@ -33,6 +38,33 @@ const config: Config = {
           sidebarPath: './sidebars.ts',
           showLastUpdateAuthor: false,
           showLastUpdateTime: true,
+          sidebarItemsGenerator: async ({
+            defaultSidebarItemsGenerator,
+            ...generatorArgs
+          }) => {
+            const items = await defaultSidebarItemsGenerator(generatorArgs);
+
+            return items.map((item) => {
+              if (item.type !== 'category') {
+                return item;
+              }
+
+              return {
+                ...item,
+                collapsible: item.items.length > 0,
+                collapsed: false,
+                items: item.items.map((child) =>
+                  child.type !== 'category'
+                    ? child
+                    : {
+                        ...child,
+                        collapsible: child.items.length > 0,
+                        collapsed: true,
+                      },
+                ),
+              };
+            });
+          },
         },
         blog: false,
         theme: {
@@ -42,6 +74,77 @@ const config: Config = {
     ],
   ],
   plugins: [
+    [
+      '@docusaurus/plugin-client-redirects',
+      {
+        redirects: [
+          {
+            to: ambassadorWelcomeArticle,
+            from: '/huong-dan/bat-dau/dai-su-xanh-la-gi',
+          },
+          {
+            to: ambassadorWelcomeArticle,
+            from: '/huong-dan/dai-su-xanh/bat-dau/dai-su-xanh-la-gi',
+          },
+          {
+            to: '/huong-dan/dai-su-xanh/gia-nhap-he-sinh-thai',
+            from: '/huong-dan/bat-dau',
+          },
+          {
+            to: '/huong-dan/dai-su-xanh/gia-nhap-he-sinh-thai',
+            from: '/huong-dan/dai-su-xanh/bat-dau',
+          },
+          {
+            to: '/huong-dan/dai-su-xanh/quy-uoc-hop-tac/quy-trinh-gioi-thieu-khach-hang',
+            from: '/huong-dan/gioi-thieu-khach-hang',
+          },
+          {
+            to: '/huong-dan/dai-su-xanh/quy-uoc-hop-tac/quy-trinh-gioi-thieu-khach-hang',
+            from: '/huong-dan/gioi-thieu-khach-hang/tong-quan',
+          },
+          {
+            to: '/huong-dan/dai-su-xanh/quy-uoc-hop-tac/quy-trinh-gioi-thieu-khach-hang',
+            from: '/huong-dan/dai-su-xanh/gioi-thieu-khach-hang',
+          },
+          {
+            to: '/huong-dan/dai-su-xanh/quy-uoc-hop-tac/quy-trinh-gioi-thieu-khach-hang',
+            from: '/huong-dan/dai-su-xanh/gioi-thieu-khach-hang/tong-quan',
+          },
+          {
+            to: '/huong-dan/dai-su-xanh/quy-uoc-hop-tac/chinh-sach-hoa-hong',
+            from: '/huong-dan/referral-hoa-hong',
+          },
+          {
+            to: '/huong-dan/dai-su-xanh/quy-uoc-hop-tac/chinh-sach-hoa-hong',
+            from: '/huong-dan/referral-hoa-hong/tong-quan',
+          },
+          {
+            to: '/huong-dan/dai-su-xanh/quy-uoc-hop-tac/chinh-sach-hoa-hong',
+            from: '/huong-dan/dai-su-xanh/referral-hoa-hong',
+          },
+          {
+            to: '/huong-dan/dai-su-xanh/quy-uoc-hop-tac/chinh-sach-hoa-hong',
+            from: '/huong-dan/dai-su-xanh/referral-hoa-hong/tong-quan',
+          },
+          {
+            to: '/huong-dan/dai-su-xanh/quy-uoc-hop-tac',
+            from: '/huong-dan/chinh-sach-tai-nguyen',
+          },
+          {
+            to: '/huong-dan/dai-su-xanh/quy-uoc-hop-tac',
+            from: '/huong-dan/chinh-sach-tai-nguyen/tong-quan',
+          },
+          {
+            to: '/huong-dan/dai-su-xanh/quy-uoc-hop-tac',
+            from: '/huong-dan/dai-su-xanh/chinh-sach-tai-nguyen',
+          },
+          {
+            to: '/huong-dan/dai-su-xanh/quy-uoc-hop-tac',
+            from: '/huong-dan/dai-su-xanh/chinh-sach-tai-nguyen/tong-quan',
+          },
+        ],
+      },
+    ],
     [
       '@cmfcmf/docusaurus-search-local',
       {
@@ -62,15 +165,34 @@ const config: Config = {
       respectPrefersColorScheme: false,
     },
     navbar: {
-      title: 'Đại sứ xanh',
       logo: {
         alt: 'DAT Group',
         src: 'img/logo_DAT_Group.svg',
       },
       items: [
         {
-          to: '/huong-dan/bat-dau/dai-su-xanh-la-gi',
-          label: 'Hướng dẫn',
+          to: '/',
+          label: 'Trang chủ',
+          position: 'left',
+        },
+        {
+          to: ambassadorStart,
+          label: 'Đại sứ xanh',
+          position: 'left',
+        },
+        {
+          to: '/huong-dan/nha-lap-dat/bat-dau-hop-tac',
+          label: 'Nhà lắp đặt',
+          position: 'left',
+        },
+        {
+          to: '/huong-dan/khach-hang/tim-hieu-giai-phap',
+          label: 'Khách hàng cuối',
+          position: 'left',
+        },
+        {
+          to: '/huong-dan/ho-tro/su-dung-trung-tam-ho-tro',
+          label: 'Hỗ trợ',
           position: 'left',
         },
       ],
@@ -79,11 +201,27 @@ const config: Config = {
       style: 'dark',
       links: [
         {
-          title: 'Bắt đầu',
+          title: 'Trung tâm hỗ trợ',
           items: [
             {
-              label: 'Trung tâm hỗ trợ',
-              to: '/huong-dan/bat-dau/dai-su-xanh-la-gi',
+              label: 'Trang chủ',
+              to: '/',
+            },
+            {
+              label: 'Đại sứ xanh',
+              to: ambassadorStart,
+            },
+            {
+              label: 'Nhà lắp đặt',
+              to: '/huong-dan/nha-lap-dat/bat-dau-hop-tac',
+            },
+            {
+              label: 'Khách hàng cuối',
+              to: '/huong-dan/khach-hang/tim-hieu-giai-phap',
+            },
+            {
+              label: 'Hỗ trợ chung',
+              to: '/huong-dan/ho-tro/su-dung-trung-tam-ho-tro',
             },
           ],
         },

@@ -1,47 +1,55 @@
-# Trung tâm hỗ trợ Đại sứ xanh
+# Trung tâm hỗ trợ DAT Universal
 
-Website public giúp Đại sứ xanh tự tra cứu hướng dẫn và giúp người chưa tham gia tìm hiểu chương trình. Source dùng Docusaurus 3, nội dung nghiệp vụ viết bằng Markdown/MDX.
+Website public để Đại sứ xanh, Nhà lắp đặt và Khách hàng cuối tự tìm hướng dẫn chính thức. Website dùng Docusaurus 3; nội dung bài viết được lưu bằng Markdown/MDX và xuất bản qua GitHub Pages.
 
-## Trạng thái phát hành
+## Cấu trúc nội dung
 
-Bản hiện tại là pre-launch. CTA đăng ký và link hỗ trợ tự ẩn hoặc chuyển về hướng dẫn nội bộ khi chưa có URL chính thức. Không publish production trước khi đủ ba điều kiện:
+Mỗi nhóm người dùng có một khu vực và menu trái riêng:
 
-1. Có ít nhất một bài nghiệp vụ được content owner và approver duyệt.
-2. Có URL đăng ký Đại sứ xanh chính thức.
-3. Có kênh hỗ trợ chính thức dành cho Đại sứ xanh.
+```text
+docs/
+├── dai-su-xanh/       # Hướng dẫn riêng cho Đại sứ xanh
+├── nha-lap-dat/       # Hướng dẫn riêng cho Nhà lắp đặt
+├── khach-hang/        # Hướng dẫn riêng cho Khách hàng cuối
+└── ho-tro/            # Hỗ trợ chung cho mọi nhóm
+```
 
-Không tự điền URL tạm, mức hoa hồng, điều kiện quyền lợi hoặc SLA chưa được owner xác nhận.
+Khi người đọc chọn một nhóm, cột trái chỉ hiển thị bài của nhóm đó. Riêng Đại sứ xanh, menu mặc định hiển thị hai cấp: bốn nhóm lớn và các chủ đề nhỏ; khi mở một chủ đề, các bài chi tiết của riêng chủ đề đó xuất hiện ở cấp ba. Không để bài của nhóm này trong thư mục của nhóm khác.
+
+Chỉ thêm quy trình, chính sách, SLA, giá, bảo hành hoặc thông số khi có nguồn chính thức đã được content owner phê duyệt. Không tự điền URL đăng ký, hoa hồng, quyền lợi hay kênh hỗ trợ tạm.
+
+## Thêm hoặc sửa một bài
+
+1. Trên GitHub, tạo branch mới từ `main`, ví dụ `content/huong-dan-referral`.
+2. Mở đúng thư mục nhóm người đọc. Ví dụ, bài cho Đại sứ xanh nằm trong `docs/dai-su-xanh/`.
+3. Sao chép `docs/_templates/huong-dan.mdx`, đổi tên file theo nội dung không dấu và dùng dấu gạch ngang, ví dụ `cach-gioi-thieu-khach-hang.mdx`.
+4. Sửa phần đầu bài: `title`, `description`, `sidebar_position`. Số `sidebar_position` nhỏ hơn sẽ đứng trước trong menu cùng cấp.
+5. Nếu tạo nhóm chủ đề mới, tạo thư mục mới cùng file `_category_.json`; dùng `position` để xếp thứ tự nhóm đó trong cột trái.
+6. Thêm ảnh vào `static/img/`, đặt tên chữ thường không dấu/không khoảng trắng. Trong bài, chèn theo mẫu: `![Mô tả ảnh](/img/ten-anh.png)`.
+7. Commit thay đổi vào branch, sau đó mở Pull Request để kiểm tra trước khi đưa lên website.
+
+47 bài chi tiết của Đại sứ xanh hiện có cùng một **nội dung minh hoạ** để người viết thấy cách dùng tiêu đề, danh sách, hình, bảng, trích dẫn và khung video. Đây không phải nội dung nghiệp vụ đã phê duyệt. Khi có nội dung chính thức, thay phần `<SampleArticle ... />` trong đúng bài bằng nội dung đã được duyệt; không giữ nhãn “Nội dung minh hoạ” trong bài public cuối cùng.
+
+Không đưa password, OTP, token, API key, dữ liệu khách hàng hay ảnh chụp chưa che thông tin cá nhân lên GitHub public.
+
+## Quy trình duyệt Pull Request
+
+1. Người viết tạo Pull Request từ branch nội dung vào `main`.
+2. Người duyệt mở tab **Files changed**, kiểm tra câu chữ, ảnh, đường link và vị trí menu.
+3. Chờ GitHub Actions `build-and-test` đạt. Nếu báo đỏ, không merge; mở phần `Checks` để xem bài hoặc link nào lỗi.
+4. Với nội dung về chính sách, hoa hồng, quyền lợi, điều kiện hợp tác hoặc kỹ thuật, cần một người quản trị khác review trước khi merge.
+5. Sau khi merge vào `main`, GitHub Pages tự build và cập nhật website public.
 
 ## Chạy website tại máy
 
-Yêu cầu Node.js 22.
+Yêu cầu Node.js 22 hoặc mới hơn.
 
 ```bash
 npm ci
 npm run start
 ```
 
-Local search được tạo trong production build. Để kiểm tra đầy đủ:
-
-```bash
-npm run build
-npm run serve
-```
-
-## Quy trình thêm hoặc sửa bài
-
-1. Tạo branch mới từ `main`, ví dụ `content/huong-dan-referral`.
-2. Sao chép `docs/_templates/huong-dan.mdx` vào đúng category và đổi tên file theo nội dung.
-3. Viết theo một nhiệm vụ cụ thể; ưu tiên câu ngắn, từng bước và kết quả mong đợi.
-4. Mở Pull Request, điền đủ source nội bộ, content owner, approver và ngày kiểm chứng trong PR.
-5. Kiểm tra preview desktop/mobile và chờ CI `build-and-test` pass.
-6. Quản trị viên thứ hai review trước khi merge nội dung chính sách, hoa hồng, quyền lợi hoặc cấp bậc.
-
-Source nội bộ chỉ ghi trong Pull Request có giới hạn quyền truy cập; không chép đường dẫn hoặc dữ liệu nhạy cảm vào nội dung public.
-
-## Quality gate
-
-Chạy trước khi mở Pull Request:
+Trước khi mở Pull Request, chạy:
 
 ```bash
 npm run typecheck
@@ -50,32 +58,18 @@ npm run build
 npm run test:e2e
 ```
 
-CI trên GitHub chạy lại bốn bước này bằng Node.js 22 và Chromium. Bảo vệ branch `main` với Pull Request bắt buộc, tối thiểu một approval và status check `build-and-test`.
+`npm run build` kiểm tra đặc biệt quan trọng: nó báo link hỏng, trang trùng URL và lỗi MDX trước khi website public bị ảnh hưởng.
 
-Dependabot kiểm tra npm dependencies hằng tuần. Review advisory và test bản nâng cấp qua Pull Request; không dùng `npm audit fix --force` nếu chưa đánh giá breaking change.
+## Quyết định giao diện
 
-## Cấu hình release
+- [2026-08-13 — Lề trang và vị trí tên website](planning/specs/2026-08-13-antsomi-layout-and-identity.md): khung desktop căn giữa, ba cột thoáng hơn; tên đầy đủ nằm ở đầu nội dung thay vì cạnh menu.
+- [2026-08-13 — Kế hoạch triển khai lề Antsomi](planning/plans/2026-08-13-antsomi-gutters-and-header-identity.md): kiểm tra và thay đổi theme cho shell tài liệu.
+- [2026-08-14 — Kế hoạch triển khai nội dung Đại sứ xanh](planning/plans/2026-08-14-dai-su-xanh-content-architecture.md): tạo menu hai cấp, trang chủ đề, bài viết “Đang cập nhật” và chuyển hướng link cũ.
+- [2026-08-14 — Cấu trúc nội dung Đại sứ xanh](planning/specs/2026-08-14-dai-su-xanh-content-architecture-design.md): menu hai cấp, danh mục bài viết và quy ước sử dụng trạng thái “Đang cập nhật”.
+- [2026-08-17 — Sidebar DAT và bài minh hoạ](planning/specs/2026-08-17-dat-sidebar-and-sample-articles-design.md): menu ba cấp theo phong cách Antsomi, favicon DAT và mẫu trình bày an toàn cho bài chi tiết.
 
-Sau khi DAT duyệt URL, cập nhật `docusaurus.config.ts`:
+## GitHub Pages và custom domain
 
-```ts
-url: 'https://domain-huong-dan-da-duyet-cua-dat',
-customFields: {
-  registrationUrl: 'https://url-dang-ky-da-duyet-cua-dat',
-  supportUrl: 'https://kenh-ho-tro-da-duyet-cua-dat',
-},
-```
+Website hiện tại: `https://hotro.datuniversal.com`
 
-`registrationUrl` rỗng thì CTA đăng ký không render. `supportUrl` rỗng thì cuối bài dẫn về hướng dẫn hỗ trợ trong website.
-
-## GitHub Pages
-
-Website công khai tại:
-
-`https://datgroupjsc.github.io/dai-su-xanh-help-center/`
-
-Workflow `deploy-to-github-pages` tự build và deploy website mỗi khi branch `main` thay đổi. Sau deploy phải smoke test homepage, bốn quick actions, search, sidebar trái, mục lục phải, menu mobile, 404, CTA đăng ký và link hỗ trợ.
-
-## An toàn nội dung
-
-Không commit dữ liệu cá nhân, hồ sơ khách hàng, password, OTP, token hoặc API key. Không dùng ảnh chụp chứa thông tin thật nếu chưa che dữ liệu và xác nhận quyền công khai.
+GitHub Pages tự deploy khi branch `main` thay đổi. Custom domain hiện tại là `hotro.datuniversal.com`.

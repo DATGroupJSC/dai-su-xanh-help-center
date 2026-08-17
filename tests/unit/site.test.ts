@@ -1,20 +1,25 @@
 import {describe, expect, it} from 'vitest';
-import {quickActions, readSiteLinks} from '../../src/data/site';
+import {audienceHubs, readSiteLinks} from '../../src/data/site';
 
-describe('quickActions', () => {
-  it('keeps the four approved self-service paths in order', () => {
-    expect(quickActions.map((item) => item.title)).toEqual([
-      'Bắt đầu tham gia',
-      'Giới thiệu khách hàng',
-      'Theo dõi referral và hoa hồng',
-      'Cần hỗ trợ',
+describe('audienceHubs', () => {
+  it('offers the three approved public audiences in order', () => {
+    expect(audienceHubs.map((hub) => hub.title)).toEqual([
+      'Đại sứ xanh',
+      'Nhà lắp đặt',
+      'Khách hàng cuối',
     ]);
   });
 
-  it('only links to public help-center routes', () => {
-    expect(
-      quickActions.every((item) => item.to.startsWith('/huong-dan/')),
-    ).toBe(true);
+  it('links every audience to a public guide route', () => {
+    expect(audienceHubs.every((hub) => hub.to.startsWith('/huong-dan/'))).toBe(
+      true,
+    );
+  });
+
+  it('opens Đại sứ xanh at the approved welcome topic', () => {
+    expect(audienceHubs.find((hub) => hub.title === 'Đại sứ xanh')?.to).toBe(
+      '/huong-dan/dai-su-xanh/gia-nhap-he-sinh-thai/chao-mung-dai-su-xanh',
+    );
   });
 });
 
