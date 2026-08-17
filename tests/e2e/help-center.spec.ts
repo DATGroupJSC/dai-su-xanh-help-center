@@ -106,26 +106,24 @@ test('video sample uses a safe panel without an external embed', async ({
   await expect(sample.locator('iframe, video')).toHaveCount(0);
 });
 
-test('Ambassador detail articles show the approved safe content sample', async ({
+test('Writer-authored Ambassador detail articles render common Markdown content', async ({
   page,
 }) => {
   await page.goto(`${sitePath}${ambassadorWelcomeArticle}`);
 
   const article = page.locator('.theme-doc-markdown');
   await expect(
-    article.getByText('Nội dung minh hoạ', {exact: false}),
+    article.getByRole('heading', {name: 'Các loại trình bày thường dùng'}),
   ).toBeVisible();
   await expect(
-    article.getByRole('heading', {name: 'Các bước minh hoạ'}),
+    article.getByText('Nội dung rất quan trọng', {exact: false}),
   ).toBeVisible();
-  await expect(article.locator('blockquote')).toContainText(
-    'nội dung chính thức',
-  );
+  await expect(article.locator('blockquote').first()).toContainText('Lưu ý');
   await expect(
-    article.locator('img[src$="sample-guide-illustration.svg"]'),
+    article.locator('img[alt="Mô tả ngắn về hình"]'),
   ).toBeVisible();
-  await expect(article.locator('.ambassador-sample-video')).toContainText(
-    'Video mẫu',
+  await expect(article.locator('iframe[title="Video hướng dẫn"]')).toHaveCount(
+    1,
   );
   await expect(article.locator('table')).toBeVisible();
 });
