@@ -6,6 +6,35 @@ const ambassadorStart =
 const ambassadorWelcomeArticle =
   '/huong-dan/dai-su-xanh/gia-nhap-he-sinh-thai/chao-mung-dai-su-xanh/khai-niem-va-gia-tri-nen-tang';
 
+test('DAT corporate footer exposes public contact information and the supplied favicon', async ({
+  page,
+  isMobile,
+}) => {
+  await page.goto(`${sitePath}/`);
+
+  const footer = page.locator('footer.dat-corporate-footer');
+  await expect(footer).toBeVisible();
+  await expect(
+    footer.getByText('Công ty Cổ phần Tập đoàn DAT (DAT Group)'),
+  ).toBeVisible();
+  await expect(footer.getByText('Trụ sở chính - TP.HCM')).toBeVisible();
+  await expect(footer.getByText('Chi nhánh Hà Nội')).toBeVisible();
+  await expect(footer.getByText('Chi nhánh Cần Thơ')).toBeVisible();
+  await expect(footer).toContainText(
+    '© DAT Group | Established 2006 | All Rights Reserved.',
+  );
+  await expect(page.locator('link[rel="icon"]')).toHaveAttribute(
+    'href',
+    /favicon\.DujayeFC\.png/,
+  );
+
+  if (isMobile) {
+    expect(
+      await page.locator('html').evaluate((node) => node.scrollWidth === node.clientWidth),
+    ).toBe(true);
+  }
+});
+
 test('homepage routes users to the three DAT Universal audiences', async ({
   page,
 }) => {
