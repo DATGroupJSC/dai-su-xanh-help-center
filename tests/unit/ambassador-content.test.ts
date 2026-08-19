@@ -179,7 +179,17 @@ describe('Đại sứ xanh content navigation', () => {
 
     expect(source).toContain('## Bước 1: Truy cập DAT Universal');
     expect(source).toContain('## Bước 6: Chia sẻ lên Facebook/Zalo');
-    expect(source).toContain('Sau khi kiểm tra đầy đủ → Chọn “Đăng bài”.');
+    expect(source).toContain('**datuniversal.com** → Chọn tab **“Đại sứ Xanh”**.');
+    expect(source).toContain(
+      'Sau khi kiểm tra đầy đủ → Chọn **“Đăng bài”**.',
+    );
+    expect(source).not.toContain('## HƯỚNG DẪN LẤY HÌNH ẢNH/VIDEO');
+    expect(source).toContain(
+      '![Mở tab Đại sứ Xanh trên DAT Universal](/img/ambassador/huong-dan-lay-hinh-anh/buoc-1-dai-su-xanh.png)',
+    );
+    expect(source).toContain(
+      '![Tạo bài đăng Facebook với hình ảnh hoặc video](/img/ambassador/huong-dan-lay-hinh-anh/buoc-6-tao-bai-facebook.png)',
+    );
     expect(source).toContain(
       'Đây là thông tin giúp hệ thống xác định và ghi nhận khách hàng được giới thiệu từ bạn.',
     );
