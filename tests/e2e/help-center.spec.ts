@@ -77,6 +77,38 @@ test('each audience has a safe public starting page', async ({page}) => {
   }
 });
 
+test('published Ambassador articles render their approved media', async ({page}) => {
+  await page.goto(
+    `${sitePath}/huong-dan/dai-su-xanh/gia-nhap-he-sinh-thai/chao-mung-dai-su-xanh/tao-tai-khoan`,
+  );
+  await expect(page.getByRole('heading', {name: 'Tạo tài khoản'})).toBeVisible();
+  await expect(
+    page.locator('article img[alt*="Đại sứ Xanh"], article img[alt="Chọn nút Đăng nhập"], article img[alt*="mã OTP"], article img[alt*="Giao diện quản lý"]'),
+  ).toHaveCount(4);
+
+  await page.goto(
+    `${sitePath}/huong-dan/dai-su-xanh/kien-thuc-giai-phap/tai-lieu-giai-phap/brochure`,
+  );
+  await expect(
+    page.getByRole('link', {name: 'Tải Brochure PDF'}),
+    ).toHaveAttribute(
+    'href',
+    /\/assets\/files\/brochure-dau-tu-dien-mat-troi-[a-f0-9]+\.pdf$/,
+  );
+  await expect(
+    page.locator('article img[alt^="Trang "][alt*="Brochure đầu tư điện mặt trời cùng DAT Universal"]'),
+  ).toHaveCount(5);
+
+  await page.goto(
+    `${sitePath}/huong-dan/dai-su-xanh/kien-thuc-giai-phap/du-an-thuc-te/video-thuc-te`,
+  );
+  await expect(page.locator('article iframe')).toHaveCount(2);
+  await expect(page.locator('article iframe').first()).toHaveAttribute(
+    'src',
+    'https://www.youtube-nocookie.com/embed/MOSC146Oja0',
+  );
+});
+
 test('former Đại sứ xanh article URL redirects to its replacement article', async ({
   page,
 }) => {

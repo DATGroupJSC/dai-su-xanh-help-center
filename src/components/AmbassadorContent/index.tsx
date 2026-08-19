@@ -25,7 +25,7 @@ export function AmbassadorTopicCards({topicId}: {topicId: string}) {
   return (
     <section className="ambassador-topic-cards" aria-label="Bài viết trong chủ đề">
       <p className="ambassador-topic-cards__intro">
-        Chọn bài viết bạn cần. Nội dung chi tiết đang được DAT Universal cập nhật.
+        Chọn bài viết bạn cần. Trạng thái của từng bài viết được hiển thị ngay trên thẻ.
       </p>
       <div className="ambassador-topic-cards__grid">
         {topic.articles.map((article) => (
@@ -38,7 +38,9 @@ export function AmbassadorTopicCards({topicId}: {topicId: string}) {
               {kindLabels[article.kind]}
             </span>
             <h2>{article.title}</h2>
-            <span className="ambassador-topic-card__status">Đang cập nhật</span>
+            <span className="ambassador-topic-card__status">
+              {article.status === 'published' ? 'Đã xuất bản' : 'Đang cập nhật'}
+            </span>
           </Link>
         ))}
       </div>

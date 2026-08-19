@@ -13,15 +13,14 @@ type AmbassadorSidebarItem = {
 };
 
 describe('Đại sứ xanh content navigation', () => {
-  it('keeps forty-seven source-safe article placeholders in update state', () => {
+  it('keeps source-safe article metadata and marks published articles accurately', () => {
     const articles = ambassadorGuideGroups.flatMap((group) =>
       group.topics.flatMap((topic) => topic.articles),
     );
 
-    expect(articles).toHaveLength(47);
-    expect(articles.every((article) => article.status === 'updating')).toBe(
-      true,
-    );
+    expect(articles).toHaveLength(48);
+    expect(articles.filter((article) => article.status === 'published')).toHaveLength(6);
+    expect(articles.every((article) => article.status === 'updating' || article.status === 'published')).toBe(true);
     expect(JSON.stringify(articles)).not.toMatch(/https?:\/\//);
   });
 
@@ -40,7 +39,7 @@ describe('Đại sứ xanh content navigation', () => {
       true,
     );
     expect(topics).toHaveLength(16);
-    expect(articles).toHaveLength(47);
+    expect(articles).toHaveLength(48);
     expect(articles.every((article) => article.type === 'doc')).toBe(true);
     expect(
       topics.find((topic) => topic.label === 'Chào mừng Đại sứ xanh')?.items,
@@ -72,7 +71,7 @@ describe('Đại sứ xanh content navigation', () => {
       files.map((file) => readFile(file, 'utf8')),
     );
 
-    expect(files).toHaveLength(47);
+    expect(files).toHaveLength(48);
     expect(
       sourceFiles.every(
         (source) =>
