@@ -6,7 +6,7 @@ keywords: [đại sứ xanh, giải pháp]
 
 import {ConfiguredArticleHelp} from '@site/src/components/ArticleHelp';
 
-## Điện mặt trời hòa lưới bám tải (On-Grid) là gì?
+## Điện mặt trời hòa lưới bám tải (On-Grid) là gì? Nguyên lý và cách vận hành
 
 Điện mặt trời hòa lưới bám tải là giải pháp sử dụng điện mặt trời để đáp ứng trực tiếp nhu cầu điện tại công trình, đồng thời kết hợp với điện lưới khi nguồn điện mặt trời không đáp ứng đủ phụ tải.
 
@@ -14,29 +14,56 @@ Với cơ chế **Zero-Export**, hệ thống kiểm soát công suất phát đ
 
 ## Cấu hình điện mặt trời hòa lưới bám tải
 
+Hệ thống điện mặt trời hòa lưới bám tải được kết nối với hệ thống điện của công trình và hoạt động đồng bộ với điện lưới.
+
+Khi có ánh sáng mặt trời, hệ thống tạo ra điện để ưu tiên cấp cho các thiết bị đang hoạt động. Nếu nguồn điện mặt trời không đủ đáp ứng nhu cầu, điện lưới sẽ tự động bổ sung phần còn thiếu.
+
 Một cấu hình điển hình gồm:
 
 - Chuỗi pin năng lượng mặt trời: tạo ra điện một chiều (DC).
-- Inverter hòa lưới: chuyển đổi điện DC thành điện xoay chiều (AC) để cấp cho phụ tải.
-- CT Zero-Export: hỗ trợ đo lường tại điểm đấu nối để kiểm soát công suất phát.
-- Logger: hỗ trợ thu thập dữ liệu và giám sát hoạt động hệ thống.
+- Inverter hòa lưới: chuyển đổi điện DC từ giàn pin thành điện xoay chiều (AC) để cấp cho phụ tải và hoạt động đồng bộ với lưới điện.
+- CT Zero-Export: hỗ trợ đo lường tại điểm đấu nối để hệ thống kiểm soát công suất phát.
+- Logger: hỗ trợ thu thập dữ liệu và giám sát hoạt động của hệ thống.
 
 ![Sơ đồ hệ thống điện mặt trời hòa lưới bám tải](/img/ambassador/he-thong-hoa-luoi.png)
 
 Tùy thiết kế, hệ thống còn có tủ điện, thiết bị đóng cắt và bảo vệ, chống sét, dây dẫn, tiếp địa cùng các hạng mục liên quan.
 
-## Hệ thống hoạt động như thế nào?
+## Hệ thống hòa lưới bám tải hoạt động như thế nào?
 
 **Ánh sáng mặt trời → Tấm pin NLMT → Inverter hòa lưới → Phụ tải**
 
-- Khi điện mặt trời đáp ứng nhu cầu: điện mặt trời được ưu tiên cấp cho thiết bị đang hoạt động.
-- Khi điện mặt trời không đủ: điện lưới tự động bổ sung phần còn thiếu.
-- Khi điện mặt trời tạo ra nhiều hơn nhu cầu: Zero-Export giới hạn công suất phát để không đẩy điện dư lên lưới.
+- Khi điện mặt trời đáp ứng nhu cầu của phụ tải: điện mặt trời được ưu tiên sử dụng để cấp cho các thiết bị đang hoạt động.
+- Khi điện mặt trời không đủ: điện lưới tự động bổ sung phần còn thiếu để đảm bảo phụ tải tiếp tục được cấp điện.
+- Khi khả năng phát điện mặt trời lớn hơn nhu cầu của phụ tải: hệ thống Zero-Export giới hạn công suất phát để không đẩy điện dư lên lưới.
 
-## Những yếu tố cần xem xét
+Nhờ đó, nguồn điện mặt trời được tận dụng trực tiếp tại công trình, góp phần giảm lượng điện cần lấy từ lưới trong thời gian hệ thống phát điện.
 
-Công suất hệ thống cần được tính toán theo nhu cầu sử dụng điện thực tế, đặc biệt là mức sử dụng vào ban ngày, công suất phụ tải, nguồn điện 1 pha/3 pha, điều kiện đấu nối và diện tích, hướng, độ nghiêng của mái.
+## Zero-Export có vai trò gì?
+
+Zero-Export là cơ chế giúp kiểm soát công suất của hệ thống điện mặt trời theo nhu cầu tiêu thụ thực tế tại công trình, nhằm không phát điện dư lên lưới.
+
+CT được bố trí tại điểm đấu nối để hỗ trợ đo lường dòng điện. Dựa trên thông tin này, hệ thống điều chỉnh công suất phát phù hợp với mức tiêu thụ của phụ tải.
+
+Khi nhu cầu sử dụng điện giảm xuống thấp hơn khả năng phát của giàn pin, hệ thống sẽ giới hạn công suất điện mặt trời thay vì phát phần dư lên lưới.
+
+## Những yếu tố cần xem xét khi lựa chọn hệ thống hòa lưới
+
+ Công suất hệ thống cần được tính toán dựa trên nhu cầu sử dụng điện thực tế, không nên chỉ dựa vào diện tích mái có thể lắp đặt tấm pin.
+
+Một số yếu tố quan trọng cần xem xét gồm:
+
+- Mức điện năng tiêu thụ, đặc biệt là lượng điện sử dụng vào ban ngày.
+- Công suất trung bình và công suất đỉnh của phụ tải.
+- Sự thay đổi của phụ tải trong ngày.
+- Nguồn điện 1 pha hay 3 pha.
+- Mức độ cân bằng tải giữa các pha đối với hệ thống điện 3 pha.
+- Điện áp và vị trí đấu nối.
+- Vị trí lắp đặt inverter, CT và các thiết bị liên quan.
+- Diện tích, hướng, độ nghiêng và điều kiện thực tế của mái.
 
 > Khảo sát và tính toán đúng ngay từ đầu giúp lựa chọn công suất giàn pin và inverter phù hợp, nâng cao khả năng tận dụng nguồn điện mặt trời tại công trình.
+
+Điện mặt trời hòa lưới bám tải tập trung vào việc tận dụng nguồn điện mặt trời để đáp ứng nhu cầu sử dụng trực tiếp tại công trình, qua đó giảm lượng điện cần lấy từ lưới trong thời gian hệ thống phát điện. Để tối ưu hiệu quả, công suất hệ thống cần được lựa chọn dựa trên đặc điểm tiêu thụ điện, mức sử dụng điện ban ngày và điều kiện thực tế của từng công trình.
 
 <ConfiguredArticleHelp />
