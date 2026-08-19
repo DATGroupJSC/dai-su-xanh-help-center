@@ -163,6 +163,14 @@ describe('Đại sứ xanh content navigation', () => {
     expect(sourceFiles.some((source) => source.includes('<UpdatingArticle'))).toBe(
       false,
     );
+
+    sourceFiles.forEach((source) => {
+      const titleMatch = source.match(/^title:\s*["']?(.+?)["']?\r?$/m);
+      const title = titleMatch?.[1];
+      expect(title).toBeTruthy();
+      const escapedTitle = title!.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      expect(source).not.toMatch(new RegExp(`^#\\s+${escapedTitle}\\s*$`, 'm'));
+    });
   });
 
   it('keeps the full supplied steps in the image and video guide', async () => {
@@ -193,5 +201,45 @@ describe('Đại sứ xanh content navigation', () => {
     expect(source).toContain(
       'Đây là thông tin giúp hệ thống xác định và ghi nhận khách hàng được giới thiệu từ bạn.',
     );
+  });
+
+  it('preserves Word guide emphasis and approved local screenshots', async () => {
+    const guides = [
+      {
+        path: 'gia-nhap-he-sinh-thai/chia-se-bai-viet-va-noi-dung/cach-chia-se-len-facebook-zalo.mdx',
+        emphasis: '**datuniversal.com** → Chọn tab **“Đại sứ Xanh”**.',
+        image: '/img/ambassador/cach-chia-se-len-facebook-zalo/buoc-1-truy-cap-dat-universal.png',
+      },
+      {
+        path: 'gia-nhap-he-sinh-thai/chia-se-bai-viet-va-noi-dung/cach-lay-link-ca-nhan.mdx',
+        emphasis: '**datuniversal.com** → Chọn tab **“Đại sứ Xanh”**.',
+        image: '/img/ambassador/cach-lay-link-ca-nhan/buoc-1-truy-cap-dat-universal.png',
+      },
+      {
+        path: 'gia-nhap-he-sinh-thai/tim-kiem-va-theo-doi-khach-hang/theo-doi-trang-thai.mdx',
+        emphasis: 'Đại sứ Xanh có thể theo dõi khách hàng đã giới thiệu theo **2 cách** sau:',
+        image: '/img/ambassador/theo-doi-trang-thai/buoc-1-truy-cap-dat-universal.png',
+      },
+      {
+        path: 'gia-nhap-he-sinh-thai/tim-kiem-va-theo-doi-khach-hang/quan-ly-khach-hang.mdx',
+        emphasis: 'Tại giao diện quản lý → Chọn **“Trang Đại sứ”** → Chọn **“Thống kê”**.',
+        image: '/img/ambassador/quan-ly-khach-hang/buoc-1-truy-cap-dat-universal.png',
+      },
+      {
+        path: 'gia-nhap-he-sinh-thai/tim-kiem-va-theo-doi-khach-hang/meo-tim-khach-hang.mdx',
+        emphasis: '**Mẹo:** Mỗi ngày hãy thử tìm **3–5 người** có khả năng phù hợp.',
+      },
+    ];
+
+    const sources = await Promise.all(
+      guides.map(({path}) => readFile(resolve('docs', 'dai-su-xanh', path), 'utf8')),
+    );
+
+    guides.forEach((guide, index) => {
+      expect(sources[index]).toContain(guide.emphasis);
+      if (guide.image) {
+        expect(sources[index]).toContain(`](${guide.image})`);
+      }
+    });
   });
 });
