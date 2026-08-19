@@ -4,7 +4,7 @@ export type AmbassadorArticle = {
   id: string;
   title: string;
   kind: AmbassadorArticleKind;
-  status: 'updating';
+  status: 'updating' | 'published';
 };
 
 export type AmbassadorTopic = {
@@ -21,6 +21,7 @@ export type AmbassadorGroup = {
 };
 
 const updating = 'updating' as const;
+const published = 'published' as const;
 
 export const ambassadorGuideGroups: readonly AmbassadorGroup[] = [
   {
@@ -33,6 +34,7 @@ export const ambassadorGuideGroups: readonly AmbassadorGroup[] = [
         title: 'Chào mừng Đại sứ xanh',
         articles: [
           {id: 'khai-niem-va-gia-tri-nen-tang', title: 'Khái niệm & giá trị nền tảng', kind: 'guide', status: updating},
+          {id: 'tao-tai-khoan', title: 'Tạo tài khoản', kind: 'guide', status: published},
           {id: 'gioi-thieu-nen-tang', title: 'Giới thiệu nền tảng', kind: 'video', status: updating},
           {id: 'quyen-loi', title: 'Quyền lợi', kind: 'guide', status: updating},
           {id: 'chinh-sach', title: 'Chính sách', kind: 'guide', status: updating},
@@ -54,7 +56,7 @@ export const ambassadorGuideGroups: readonly AmbassadorGroup[] = [
         groupId: 'gia-nhap-he-sinh-thai',
         title: 'Tìm kiếm & theo dõi khách hàng',
         articles: [
-          {id: 'tao-khach-hang', title: 'Tạo khách hàng', kind: 'guide', status: updating},
+          {id: 'tao-khach-hang', title: 'Tạo khách hàng', kind: 'guide', status: published},
           {id: 'theo-doi-trang-thai', title: 'Theo dõi trạng thái', kind: 'guide', status: updating},
           {id: 'quan-ly-khach-hang', title: 'Quản lý khách hàng', kind: 'guide', status: updating},
           {id: 'meo-tim-khach-hang', title: 'Mẹo tìm khách hàng', kind: 'guide', status: updating},
@@ -93,7 +95,7 @@ export const ambassadorGuideGroups: readonly AmbassadorGroup[] = [
         title: 'Tài liệu giải pháp',
         articles: [
           {id: 'catalogue', title: 'Catalogue', kind: 'document', status: updating},
-          {id: 'brochure', title: 'Brochure', kind: 'document', status: updating},
+          {id: 'brochure', title: 'Brochure', kind: 'document', status: published},
         ],
       },
       {
@@ -101,8 +103,8 @@ export const ambassadorGuideGroups: readonly AmbassadorGroup[] = [
         groupId: 'kien-thuc-giai-phap',
         title: 'Dự án thực tế',
         articles: [
-          {id: 'cong-trinh-tieu-bieu', title: 'Công trình tiêu biểu', kind: 'guide', status: updating},
-          {id: 'video-thuc-te', title: 'Video thực tế', kind: 'video', status: updating},
+          {id: 'cong-trinh-tieu-bieu', title: 'Công trình tiêu biểu', kind: 'guide', status: published},
+          {id: 'video-thuc-te', title: 'Video thực tế', kind: 'video', status: published},
         ],
       },
     ],
@@ -117,7 +119,7 @@ export const ambassadorGuideGroups: readonly AmbassadorGroup[] = [
         groupId: 'trung-tam-ho-tro',
         title: 'Hướng dẫn quản lý tài khoản',
         articles: [
-          {id: 'thay-doi-thong-tin-tai-khoan', title: 'Thay đổi thông tin tài khoản', kind: 'guide', status: updating},
+          {id: 'thay-doi-thong-tin-tai-khoan', title: 'Thay đổi thông tin tài khoản', kind: 'guide', status: published},
           {id: 'cach-rut-hoa-hong', title: 'Cách rút hoa hồng', kind: 'guide', status: updating},
         ],
       },
