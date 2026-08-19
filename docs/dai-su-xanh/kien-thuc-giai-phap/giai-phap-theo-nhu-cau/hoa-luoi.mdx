@@ -5,8 +5,38 @@ keywords: [đại sứ xanh, giải pháp]
 ---
 
 import {ConfiguredArticleHelp} from '@site/src/components/ArticleHelp';
-import {SampleArticle} from '@site/src/components/AmbassadorContent';
 
-<SampleArticle kind="guide" />
+## Điện mặt trời hòa lưới bám tải (On-Grid) là gì?
+
+Điện mặt trời hòa lưới bám tải là giải pháp sử dụng điện mặt trời để đáp ứng trực tiếp nhu cầu điện tại công trình, đồng thời kết hợp với điện lưới khi nguồn điện mặt trời không đáp ứng đủ phụ tải.
+
+Với cơ chế **Zero-Export**, hệ thống kiểm soát công suất phát để điện mặt trời được ưu tiên sử dụng tại chỗ và không phát phần điện dư lên lưới.
+
+## Cấu hình điện mặt trời hòa lưới bám tải
+
+Một cấu hình điển hình gồm:
+
+- Chuỗi pin năng lượng mặt trời: tạo ra điện một chiều (DC).
+- Inverter hòa lưới: chuyển đổi điện DC thành điện xoay chiều (AC) để cấp cho phụ tải.
+- CT Zero-Export: hỗ trợ đo lường tại điểm đấu nối để kiểm soát công suất phát.
+- Logger: hỗ trợ thu thập dữ liệu và giám sát hoạt động hệ thống.
+
+![Sơ đồ hệ thống điện mặt trời hòa lưới bám tải](/img/ambassador/he-thong-hoa-luoi.png)
+
+Tùy thiết kế, hệ thống còn có tủ điện, thiết bị đóng cắt và bảo vệ, chống sét, dây dẫn, tiếp địa cùng các hạng mục liên quan.
+
+## Hệ thống hoạt động như thế nào?
+
+**Ánh sáng mặt trời → Tấm pin NLMT → Inverter hòa lưới → Phụ tải**
+
+- Khi điện mặt trời đáp ứng nhu cầu: điện mặt trời được ưu tiên cấp cho thiết bị đang hoạt động.
+- Khi điện mặt trời không đủ: điện lưới tự động bổ sung phần còn thiếu.
+- Khi điện mặt trời tạo ra nhiều hơn nhu cầu: Zero-Export giới hạn công suất phát để không đẩy điện dư lên lưới.
+
+## Những yếu tố cần xem xét
+
+Công suất hệ thống cần được tính toán theo nhu cầu sử dụng điện thực tế, đặc biệt là mức sử dụng vào ban ngày, công suất phụ tải, nguồn điện 1 pha/3 pha, điều kiện đấu nối và diện tích, hướng, độ nghiêng của mái.
+
+> Khảo sát và tính toán đúng ngay từ đầu giúp lựa chọn công suất giàn pin và inverter phù hợp, nâng cao khả năng tận dụng nguồn điện mặt trời tại công trình.
 
 <ConfiguredArticleHelp />

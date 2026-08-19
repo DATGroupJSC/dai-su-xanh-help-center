@@ -116,4 +116,52 @@ describe('Đại sứ xanh content navigation', () => {
       access(resolve('static', 'img', 'cau-tao-he-thong-dien-mat-troi.png')),
     ).resolves.toBeUndefined();
   });
+
+  it('replaces every spreadsheet-sourced Ambassador placeholder with authored content', async () => {
+    const sourceArticlePaths = [
+      'gia-nhap-he-sinh-thai/chao-mung-dai-su-xanh/khai-niem-va-gia-tri-nen-tang.mdx',
+      'gia-nhap-he-sinh-thai/chia-se-bai-viet-va-noi-dung/cach-lay-hinh-anh-video.mdx',
+      'gia-nhap-he-sinh-thai/chia-se-bai-viet-va-noi-dung/cach-chia-se-len-facebook-zalo.mdx',
+      'gia-nhap-he-sinh-thai/chia-se-bai-viet-va-noi-dung/cach-lay-link-ca-nhan.mdx',
+      'gia-nhap-he-sinh-thai/tim-kiem-va-theo-doi-khach-hang/tao-khach-hang.mdx',
+      'gia-nhap-he-sinh-thai/tim-kiem-va-theo-doi-khach-hang/theo-doi-trang-thai.mdx',
+      'gia-nhap-he-sinh-thai/tim-kiem-va-theo-doi-khach-hang/quan-ly-khach-hang.mdx',
+      'gia-nhap-he-sinh-thai/tim-kiem-va-theo-doi-khach-hang/meo-tim-khach-hang.mdx',
+      'kien-thuc-giai-phap/tong-quan-giai-phap/cau-tao-dien-mat-troi.mdx',
+      'kien-thuc-giai-phap/tong-quan-giai-phap/nguyen-ly-hoat-dong.mdx',
+      'kien-thuc-giai-phap/tong-quan-giai-phap/loi-ich.mdx',
+      'kien-thuc-giai-phap/tong-quan-giai-phap/thuat-ngu-co-ban.mdx',
+      'kien-thuc-giai-phap/giai-phap-theo-nhu-cau/hoa-luoi.mdx',
+      'kien-thuc-giai-phap/giai-phap-theo-nhu-cau/hybrid.mdx',
+      'trung-tam-ho-tro/cau-hoi-thuong-gap/index.mdx',
+      'trung-tam-ho-tro/huong-dan-quan-ly-tai-khoan/thay-doi-thong-tin-tai-khoan.mdx',
+      'quy-uoc-hop-tac/quy-che-dai-su-xanh/dieu-kien-tham-gia.mdx',
+      'quy-uoc-hop-tac/quy-che-dai-su-xanh/vai-tro-dai-su.mdx',
+      'quy-uoc-hop-tac/quy-che-dai-su-xanh/quy-tac-hoat-dong.mdx',
+    ];
+    const sourceFiles = await Promise.all(
+      sourceArticlePaths.map((path) =>
+        readFile(resolve('docs', 'dai-su-xanh', path), 'utf8'),
+      ),
+    );
+
+    expect(sourceFiles).toHaveLength(19);
+    expect(sourceFiles.every((source) => source.includes('<ConfiguredArticleHelp />'))).toBe(
+      true,
+    );
+    expect(
+      sourceFiles.every((source) =>
+        /import \{ConfiguredArticleHelp\} from '@site\/src\/components\/ArticleHelp';\r?\n\r?\n/.test(
+          source,
+        ),
+      ),
+    ).toBe(true);
+    expect(sourceFiles.every((source) => /##\s+\S/.test(source))).toBe(true);
+    expect(sourceFiles.some((source) => source.includes('<SampleArticle kind='))).toBe(
+      false,
+    );
+    expect(sourceFiles.some((source) => source.includes('<UpdatingArticle'))).toBe(
+      false,
+    );
+  });
 });
