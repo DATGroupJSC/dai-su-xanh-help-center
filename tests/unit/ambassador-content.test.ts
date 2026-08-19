@@ -164,4 +164,24 @@ describe('Đại sứ xanh content navigation', () => {
       false,
     );
   });
+
+  it('keeps the full supplied steps in the image and video guide', async () => {
+    const source = await readFile(
+      resolve(
+        'docs',
+        'dai-su-xanh',
+        'gia-nhap-he-sinh-thai',
+        'chia-se-bai-viet-va-noi-dung',
+        'cach-lay-hinh-anh-video.mdx',
+      ),
+      'utf8',
+    );
+
+    expect(source).toContain('## Bước 1: Truy cập DAT Universal');
+    expect(source).toContain('## Bước 6: Chia sẻ lên Facebook/Zalo');
+    expect(source).toContain('Sau khi kiểm tra đầy đủ → Chọn “Đăng bài”.');
+    expect(source).toContain(
+      'Đây là thông tin giúp hệ thống xác định và ghi nhận khách hàng được giới thiệu từ bạn.',
+    );
+  });
 });
