@@ -149,6 +149,13 @@ describe('Đại sứ xanh content navigation', () => {
     expect(sourceFiles.every((source) => source.includes('<ConfiguredArticleHelp />'))).toBe(
       true,
     );
+    expect(
+      sourceFiles.every((source) =>
+        /import \{ConfiguredArticleHelp\} from '@site\/src\/components\/ArticleHelp';\r?\n\r?\n/.test(
+          source,
+        ),
+      ),
+    ).toBe(true);
     expect(sourceFiles.every((source) => /##\s+\S/.test(source))).toBe(true);
     expect(sourceFiles.some((source) => source.includes('<SampleArticle kind='))).toBe(
       false,
