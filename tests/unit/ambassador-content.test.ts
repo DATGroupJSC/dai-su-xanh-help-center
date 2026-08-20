@@ -184,16 +184,13 @@ describe('Đại sứ xanh content navigation', () => {
       'utf8',
     );
 
-    expect(source).toContain('## Bước 1: Truy cập DAT Universal');
-    expect(source).toContain('## Bước 6: Chia sẻ lên Facebook/Zalo');
-    expect(source).toContain('**datuniversal.com** → Chọn tab **“Đại sứ Xanh”**.');
+    expect(source).toContain('## Bước 1: Đăng nhập vào hệ thống');
+    expect(source).toContain('## Bước 5: Chia sẻ lên Facebook/Zalo');
+    expect(source).toContain('[hướng dẫn tạo tài khoản và đăng nhập](');
     expect(source).toContain(
       'Sau khi kiểm tra đầy đủ → Chọn **“Đăng bài”**.',
     );
     expect(source).not.toContain('## HƯỚNG DẪN LẤY HÌNH ẢNH/VIDEO');
-    expect(source).toContain(
-      '![Mở tab Đại sứ Xanh trên DAT Universal](/img/ambassador/huong-dan-lay-hinh-anh/buoc-1-dai-su-xanh.png)',
-    );
     expect(source).toContain(
       '![Tạo bài đăng Facebook với hình ảnh hoặc video](/img/ambassador/huong-dan-lay-hinh-anh/buoc-6-tao-bai-facebook.png)',
     );
@@ -206,23 +203,23 @@ describe('Đại sứ xanh content navigation', () => {
     const guides = [
       {
         path: 'gia-nhap-he-sinh-thai/chia-se-bai-viet-va-noi-dung/cach-chia-se-len-facebook-zalo.mdx',
-        emphasis: '**datuniversal.com** → Chọn tab **“Đại sứ Xanh”**.',
-        image: '/img/ambassador/cach-chia-se-len-facebook-zalo/buoc-1-truy-cap-dat-universal.png',
+        emphasis: '[hướng dẫn tạo tài khoản và đăng nhập](',
+        image: '/img/ambassador/cach-chia-se-len-facebook-zalo/buoc-3-kho-bai-viet.png',
       },
       {
         path: 'gia-nhap-he-sinh-thai/chia-se-bai-viet-va-noi-dung/cach-lay-link-ca-nhan.mdx',
-        emphasis: '**datuniversal.com** → Chọn tab **“Đại sứ Xanh”**.',
-        image: '/img/ambassador/cach-lay-link-ca-nhan/buoc-1-truy-cap-dat-universal.png',
+        emphasis: '[hướng dẫn tạo tài khoản và đăng nhập](',
+        image: '/img/ambassador/cach-lay-link-ca-nhan/buoc-3-lay-link-dai-su.png',
       },
       {
         path: 'gia-nhap-he-sinh-thai/tim-kiem-va-theo-doi-khach-hang/theo-doi-trang-thai.mdx',
         emphasis: 'Đại sứ Xanh có thể theo dõi khách hàng đã giới thiệu theo **2 cách** sau:',
-        image: '/img/ambassador/theo-doi-trang-thai/buoc-1-truy-cap-dat-universal.png',
+        image: '/img/ambassador/theo-doi-trang-thai/cach-1-buoc-3-danh-sach-khao-sat.png',
       },
       {
         path: 'gia-nhap-he-sinh-thai/tim-kiem-va-theo-doi-khach-hang/quan-ly-khach-hang.mdx',
         emphasis: 'Tại giao diện quản lý → Chọn **“Trang Đại sứ”** → Chọn **“Thống kê”**.',
-        image: '/img/ambassador/quan-ly-khach-hang/buoc-1-truy-cap-dat-universal.png',
+        image: '/img/ambassador/quan-ly-khach-hang/buoc-3-truy-cap-thong-ke.png',
       },
       {
         path: 'gia-nhap-he-sinh-thai/tim-kiem-va-theo-doi-khach-hang/meo-tim-khach-hang.mdx',
@@ -239,6 +236,30 @@ describe('Đại sứ xanh content navigation', () => {
       if (guide.image) {
         expect(sources[index]).toContain(`](${guide.image})`);
       }
+    });
+  });
+
+  it('keeps repeated login instructions compact and linked to the account guide', async () => {
+    const guides = [
+      'gia-nhap-he-sinh-thai/tim-kiem-va-theo-doi-khach-hang/tao-khach-hang.mdx',
+      'gia-nhap-he-sinh-thai/tim-kiem-va-theo-doi-khach-hang/theo-doi-trang-thai.mdx',
+      'gia-nhap-he-sinh-thai/tim-kiem-va-theo-doi-khach-hang/quan-ly-khach-hang.mdx',
+      'gia-nhap-he-sinh-thai/chia-se-bai-viet-va-noi-dung/cach-lay-hinh-anh-video.mdx',
+      'gia-nhap-he-sinh-thai/chia-se-bai-viet-va-noi-dung/cach-chia-se-len-facebook-zalo.mdx',
+      'gia-nhap-he-sinh-thai/chia-se-bai-viet-va-noi-dung/cach-lay-link-ca-nhan.mdx',
+      'trung-tam-ho-tro/huong-dan-quan-ly-tai-khoan/thay-doi-thong-tin-tai-khoan.mdx',
+    ];
+    const sources = await Promise.all(
+      guides.map((path) => readFile(resolve('docs', 'dai-su-xanh', path), 'utf8')),
+    );
+
+    sources.forEach((source) => {
+      expect(source).toContain('## Bước 1: Đăng nhập vào hệ thống');
+      expect(source).toContain(
+        '[hướng dẫn tạo tài khoản và đăng nhập](/huong-dan/dai-su-xanh/gia-nhap-he-sinh-thai/chao-mung-dai-su-xanh/tao-tai-khoan)',
+      );
+      expect(source).not.toContain('Nhập **mã OTP** được gửi');
+      expect(source).not.toMatch(/buoc-(0[1-3]|[12]-)/);
     });
   });
 });
