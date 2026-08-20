@@ -110,6 +110,7 @@ test('published Ambassador articles render their approved media', async ({page})
 });
 
 test('topic cards use compact six-column layout without helper text or status labels', async ({page}) => {
+  await page.setViewportSize({width: 1920, height: 900});
   await page.goto(`${sitePath}${ambassadorStart}`);
   const cards = page.locator('.ambassador-topic-card');
   await expect(cards).toHaveCount(6);
@@ -117,6 +118,8 @@ test('topic cards use compact six-column layout without helper text or status la
   await expect(page.getByRole('heading', {name: 'Chọn nội dung cần xem'})).toHaveCount(0);
   await expect(cards.first().locator('.ambassador-topic-card__kind')).toHaveCount(0);
   await expect(cards.locator('.ambassador-topic-card__status')).toHaveCount(0);
+  const markdownBox = await page.locator('.theme-doc-markdown').boundingBox();
+  expect(markdownBox?.width ?? 0).toBeGreaterThanOrEqual(1200);
   const columns = await cards.evaluateAll((items) => {
     const rows = new Map<number, number>();
     for (const item of items) {

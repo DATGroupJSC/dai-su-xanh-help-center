@@ -397,6 +397,12 @@ body {
   line-height: 1.75;
 }
 
+@media (min-width: 997px) {
+  .theme-doc-markdown:has(.ambassador-topic-cards) {
+    max-width: none;
+  }
+}
+
 .theme-doc-markdown > h1:first-child {
   color: var(--dat-text);
   font-size: clamp(2.5rem, 4vw, 3.25rem);
