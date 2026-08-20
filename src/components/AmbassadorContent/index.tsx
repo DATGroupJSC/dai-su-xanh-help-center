@@ -25,9 +25,6 @@ export function AmbassadorTopicCards({topicId}: {topicId: string}) {
             to={ambassadorArticlePath(topic, article)}
           >
             <h2>{article.title}</h2>
-            <span className="ambassador-topic-card__status">
-              {article.status === 'published' ? 'Đã xuất bản' : 'Coming soon'}
-            </span>
           </Link>
         ))}
       </div>
