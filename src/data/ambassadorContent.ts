@@ -33,7 +33,7 @@ export const ambassadorGuideGroups: readonly AmbassadorGroup[] = [
         groupId: 'gia-nhap-he-sinh-thai',
         title: 'Chào mừng Đại sứ xanh',
         articles: [
-          {id: 'khai-niem-va-gia-tri-nen-tang', title: 'Khái niệm & giá trị nền tảng', kind: 'guide', status: updating},
+          {id: 'khai-niem-va-gia-tri-nen-tang', title: 'Khái niệm & giá trị nền tảng', kind: 'guide', status: published},
           {id: 'tao-tai-khoan', title: 'Tạo tài khoản', kind: 'guide', status: published},
           {id: 'gioi-thieu-nen-tang', title: 'Giới thiệu nền tảng', kind: 'video', status: updating},
           {id: 'quyen-loi', title: 'Quyền lợi', kind: 'guide', status: updating},
@@ -47,8 +47,8 @@ export const ambassadorGuideGroups: readonly AmbassadorGroup[] = [
         title: 'Chia sẻ bài viết & nội dung',
         articles: [
           {id: 'cach-lay-hinh-anh-video', title: 'Cách lấy hình ảnh/video', kind: 'guide', status: updating},
-          {id: 'cach-chia-se-len-facebook-zalo', title: 'Cách chia sẻ lên Facebook/Zalo', kind: 'guide', status: updating},
-          {id: 'cach-lay-link-ca-nhan', title: 'Cách lấy link cá nhân', kind: 'guide', status: updating},
+          {id: 'cach-chia-se-len-facebook-zalo', title: 'Cách chia sẻ lên Facebook/Zalo', kind: 'guide', status: published},
+          {id: 'cach-lay-link-ca-nhan', title: 'Cách lấy link cá nhân', kind: 'guide', status: published},
         ],
       },
       {
@@ -57,9 +57,9 @@ export const ambassadorGuideGroups: readonly AmbassadorGroup[] = [
         title: 'Tìm kiếm & theo dõi khách hàng',
         articles: [
           {id: 'tao-khach-hang', title: 'Tạo khách hàng', kind: 'guide', status: published},
-          {id: 'theo-doi-trang-thai', title: 'Theo dõi trạng thái', kind: 'guide', status: updating},
-          {id: 'quan-ly-khach-hang', title: 'Quản lý khách hàng', kind: 'guide', status: updating},
-          {id: 'meo-tim-khach-hang', title: 'Mẹo tìm khách hàng', kind: 'guide', status: updating},
+          {id: 'theo-doi-trang-thai', title: 'Theo dõi trạng thái', kind: 'guide', status: published},
+          {id: 'quan-ly-khach-hang', title: 'Quản lý khách hàng', kind: 'guide', status: published},
+          {id: 'meo-tim-khach-hang', title: 'Mẹo tìm khách hàng', kind: 'guide', status: published},
         ],
       },
     ],
@@ -73,10 +73,10 @@ export const ambassadorGuideGroups: readonly AmbassadorGroup[] = [
         groupId: 'kien-thuc-giai-phap',
         title: 'Tổng quan giải pháp',
         articles: [
-          {id: 'cau-tao-dien-mat-troi', title: 'Cấu tạo điện mặt trời', kind: 'guide', status: updating},
-          {id: 'nguyen-ly-hoat-dong', title: 'Nguyên lý hoạt động', kind: 'guide', status: updating},
-          {id: 'loi-ich', title: 'Lợi ích', kind: 'guide', status: updating},
-          {id: 'thuat-ngu-co-ban', title: 'Thuật ngữ cơ bản', kind: 'guide', status: updating},
+          {id: 'cau-tao-dien-mat-troi', title: 'Cấu tạo điện mặt trời', kind: 'guide', status: published},
+          {id: 'nguyen-ly-hoat-dong', title: 'Nguyên lý hoạt động', kind: 'guide', status: published},
+          {id: 'loi-ich', title: 'Lợi ích', kind: 'guide', status: published},
+          {id: 'thuat-ngu-co-ban', title: 'Thuật ngữ cơ bản', kind: 'guide', status: published},
         ],
       },
       {
@@ -84,8 +84,8 @@ export const ambassadorGuideGroups: readonly AmbassadorGroup[] = [
         groupId: 'kien-thuc-giai-phap',
         title: 'Giải pháp theo nhu cầu',
         articles: [
-          {id: 'hoa-luoi', title: 'Hòa lưới', kind: 'guide', status: updating},
-          {id: 'hybrid', title: 'Hybrid', kind: 'guide', status: updating},
+          {id: 'hoa-luoi', title: 'Hòa lưới', kind: 'guide', status: published},
+          {id: 'hybrid', title: 'Hybrid', kind: 'guide', status: published},
           {id: 'luu-tru', title: 'Lưu trữ', kind: 'guide', status: updating},
         ],
       },
@@ -167,9 +167,9 @@ export const ambassadorGuideGroups: readonly AmbassadorGroup[] = [
         groupId: 'quy-uoc-hop-tac',
         title: 'Quy chế Đại sứ xanh',
         articles: [
-          {id: 'dieu-kien-tham-gia', title: 'Điều kiện tham gia', kind: 'guide', status: updating},
-          {id: 'vai-tro-dai-su', title: 'Vai trò đại sứ', kind: 'guide', status: updating},
-          {id: 'quy-tac-hoat-dong', title: 'Quy tắc hoạt động', kind: 'guide', status: updating},
+          {id: 'dieu-kien-tham-gia', title: 'Điều kiện tham gia', kind: 'guide', status: published},
+          {id: 'vai-tro-dai-su', title: 'Vai trò đại sứ', kind: 'guide', status: published},
+          {id: 'quy-tac-hoat-dong', title: 'Quy tắc hoạt động', kind: 'guide', status: published},
         ],
       },
       {
