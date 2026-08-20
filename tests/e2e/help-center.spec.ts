@@ -126,18 +126,19 @@ test('former Đại sứ xanh article URL redirects to its replacement article',
   ).toBeVisible();
 });
 
-test('video sample uses a safe panel without an external embed', async ({
+test('unpublished Ambassador articles show a Coming soon state without a sample', async ({
   page,
 }) => {
   await page.goto(
     `${sitePath}${ambassadorStart}/gioi-thieu-nen-tang`,
   );
 
-  const sample = page.locator('.ambassador-sample-article');
-  await expect(sample.locator('.ambassador-sample-video')).toContainText(
-    'Video mẫu',
+  const article = page.locator('article');
+  await expect(article.getByRole('heading', {name: 'Coming soon'})).toBeVisible();
+  await expect(article).toContainText(
+    'DAT Universal đang cập nhật nội dung chính thức cho mục này.',
   );
-  await expect(sample.locator('iframe, video')).toHaveCount(0);
+  await expect(article.locator('.ambassador-sample-article, iframe, video')).toHaveCount(0);
 });
 
 test('Writer-authored Ambassador detail articles render their published Markdown content', async ({
