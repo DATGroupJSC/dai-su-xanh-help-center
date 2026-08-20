@@ -109,6 +109,25 @@ test('published Ambassador articles render their approved media', async ({page})
   );
 });
 
+test('topic cards use compact four-column layout without helper labels', async ({page}) => {
+  await page.goto(`${sitePath}${ambassadorStart}`);
+  const cards = page.locator('.ambassador-topic-card');
+  await expect(cards).toHaveCount(6);
+  await expect(page.locator('.ambassador-topic-cards__intro')).toHaveCount(0);
+  await expect(cards.first().locator('.ambassador-topic-card__kind')).toHaveCount(0);
+  await expect(cards.nth(0)).toContainText('Đã xuất bản');
+  await expect(cards.nth(2)).toContainText('Coming soon');
+  const columns = await cards.evaluateAll((items) => {
+    const rows = new Map<number, number>();
+    for (const item of items) {
+      const top = Math.round(item.getBoundingClientRect().top);
+      rows.set(top, (rows.get(top) ?? 0) + 1);
+    }
+    return Math.max(...rows.values());
+  });
+  expect(columns).toBe(4);
+});
+
 test('former Đại sứ xanh article URL redirects to its replacement article', async ({
   page,
 }) => {

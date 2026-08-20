@@ -19,7 +19,7 @@ describe('Đại sứ xanh content navigation', () => {
     );
 
     expect(articles).toHaveLength(48);
-    expect(articles.filter((article) => article.status === 'published')).toHaveLength(6);
+    expect(articles.filter((article) => article.status === 'published')).toHaveLength(21);
     expect(articles.every((article) => article.status === 'updating' || article.status === 'published')).toBe(true);
     expect(JSON.stringify(articles)).not.toMatch(/https?:\/\//);
   });
